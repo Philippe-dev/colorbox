@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <title>Colorbox configuration</title>
+  </head>
+  <body>
+  	<p>Based on <a href="http://colorpowered.com/colorbox/">Colorbox</a>, a light-weight customizable lightbox plugin for jQuery.</p>
+    <h4>Activation</h4>
+	<p>Check to activate Colorbox for current blog. When inserting an image into a post, do not forget to choose <em>"as a link to original image"</em> option</p>
+	<h4>Theme</h4>
+	<p>Choose Colorbox theme. You may then personalize your theme by following instructions for personal files in advanced configuration.</p>
+	<h4>Zoom icon</h4>
+	<p>Colorbox can display a zoom icon on thumbnails. Choose its position, right or left, it will be displayed over the thumbnail when hovering it with the mouse. The icon may also be displayed permanently.</p>
+    <h4>Personnal files</h4>
+    <h5>Included themes</h5>
+    <p>Colorbox ships with 6 themes to choose its modal window's appearance. You may modify any of them by adding your personnal stylesheet and images.</p>
+    <p><em>Lightbox Classic theme is special : it is designed to look exactly like the former Lightbox plugin by Olivier Meunier, and has no view counter and no slideshow commands</em>.</p>
+    <h5>Modifying themes</h5>
+    <p>Principle</p>
+    <p>Colorbox modal window can be entirely styled using CSS, and its navigation images modified.</p>
+    <p>Colorbox allows to define for each theme a personnal stylesheet, stored in your public or your theme folder, and whose rules will overwrite existing theme rules.</p>
+    <p>Here is how to do it:</p>
+    <p>Create a personnal Colorbox theme directory</p>
+    <p>You can store your pesonnal files in:</p>
+    <ul>
+      <li>your public media folder</li>
+      <li>you blog's theme folder</li>
+    </ul>
+    <p>At the root of the chosen location, first create the necessary sub-directories to get the following hierarchy :</p>
+    <pre>colorbox/themes/x/</pre>
+    <p>where
+      <em>x</em>
+      is the number of the theme you wish to modify. In this directory you will store all your modifications on the theme. Repeat this operation and change each time
+      <em>x</em>
+      for the corresponding number if you wish to modify several themes.</p>
+    <p>Create your stylesheet</p>
+    <p>Add now in directory
+      <em>x</em>
+      a stylesheet named
+      <em>colorbox_user.css</em>
+      with
+      <strong>only</strong>
+      the rules you want to apply
+      <strong>instead of</strong>
+      theme rules, i.e.</p>
+    <pre>#cboxOverlay{background-color:red;}</pre>
+    <p>if you only wish to change modal window background color.</p>
+    <p>Add images</p>
+    <p>If you wish to modify modal window navigation graphics, place your images in the personnal directory, and refer to them in <em>colorbox_user.css</em>.</p>
+    <h4>Selectors</h4>
+    <p>By default, Colorbox is activated only for images within posts.</p>
+    <p>If you wish to activate it for supplementary blocks, type here the list of selectors, comma separated, corresponding to these blocks.</p>
+    <p>For example if you wish to activate Colorbox for blocks
+      <em>#sidebar</em>
+      and
+      <em>#pictures</em>, type:</p>
+    <pre>#sidebar,#pictures</pre>
+    <p>in the field. Please note that images contained in the blocks will be considered as being in separate groups for images counters and slideshows.</p>
+    <p>If you leave this field empty, only post images will be displayed by Colorbox.</p>
+    <h4>Effects</h4>
+    <table>
+      <tr>
+        <th class="key">Option</th>
+        <th class="default">Default</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>Transition type</td>
+        <td>"elastic"</td>
+        <td>The transition type. Can be set to "elastic", "fade", or "none".</td>
+      </tr>
+      <tr>
+        <td>Transition speed</td>
+        <td>350</td>
+        <td>Sets the speed of the fade and elastic transitions, in milliseconds.</td>
+      </tr>
+      <tr>
+        <td>Opacity</td>
+        <td>0.85</td>
+        <td>The overlay opacity level. Range: 0 to 1.</td>
+      </tr>
+      <tr >
+        <td>Auto open Colorbox</td>
+        <td>false</td>
+        <td>If true, the lightbox will automatically open with no input from the visitor.</td>
+      </tr>
+      <tr>
+        <td>Enable preloading for photo group</td>
+        <td>true</td>
+        <td>Allows for preloading of 'Next' and 'Previous' content in a shared relation group (same values for the 'rel' attribute), after the current content has finished loading.  Set to 'false' to disable.</td>
+      </tr>
+      <tr>
+        <td>Enable close by clicking on overlay</td>
+        <td>true</td>
+        <td>If true, enables closing Colorbox by clicking on the background overlay.</td>
+      </tr>
+      <tr>
+        <td>Enable slideshow</td>
+        <td>false</td>
+        <td>If true, adds an automatic slideshow to a content group of images.</td>
+      </tr>
+      <tr>
+        <td>Auto start slideshow</td>
+        <td>true</td>
+        <td>If true, the slideshow will automatically start to play.</td>
+      </tr>
+      <tr>
+        <td>Slideshow speed</td>
+        <td>2500</td>
+        <td>Sets the speed of the slideshow, in milliseconds.</td>
+      </tr>
+      <tr>
+        <td>Slideshow start display text</td>
+        <td>"start slideshow"</td>
+        <td>Text for the slideshow start button.</td>
+      </tr>
+      <tr>
+        <td>Slideshow stop display text</td>
+        <td>"stop slideshow"</td>
+        <td>Text for the slideshow stop button</td>
+      </tr>
+    </table>
+    <h4>Modal window</h4>
+    <table>
+      <tr>
+        <th class="key">Key</th>
+        <th class="default">Default</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>Images legends</td>
+        <td>Image alt attribute</td>
+        <td>Allows to choose legend that will be displayed : image alternative text, link title or none.</td>
+      </tr>
+	  <tr>
+        <td>Default title</td>
+        <td>false</td>
+        <td>This can be used as an anchor title alternative for Colorbox.</td>
+      </tr>
+      <tr>
+        <td>Current text</td>
+        <td>"{current} of {total}"</td>
+        <td>Text format for the content group / gallery count.  {current} and {total} are detected and replaced with actual numbers while Colorbox runs.</td>
+      </tr>
+      <tr>
+        <td>Previous text</td>
+        <td>"previous"</td>
+        <td>Text for the previous button in a shared relation group (same values for 'rel' attribute).</td>
+      </tr>
+      <tr>
+        <td>Next text</td>
+        <td>"next"</td>
+        <td>Text for the next button in a shared relation group (same values for 'rel' attribute).</td>
+      </tr>
+      <tr>
+        <td>Close text</td>
+        <td>"close"</td>
+        <td>Text for the close button.  The 'Esc' key will also close Colorbox.</td>
+      </tr>
+      <tr>
+        <td>Loop on slideshow images</td>
+        <td>true</td>
+        <td>If 'true' Colorbox will loop on images (clicking on last image takes you to the first).</td>
+      </tr>
+      <tr>
+        <td>Display content in an iframe</td>
+        <td>false</td>
+        <td>If 'true' specifies that content should be displayed in an iFrame.</td>
+      </tr>
+    </table>
+    <h4>Dimensions</h4>
+    <table>
+      <tr>
+        <th class="key">Key</th>
+        <th class="default">Default</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>Fixed width</td>
+        <td>false</td>
+        <td>Set a fixed total width. This includes borders and buttons. Example: "100%", "500px", or 500</td>
+      </tr>
+      <tr>
+        <td>Fixed height</td>
+        <td>false</td>
+        <td>Set a fixed total height. This includes borders and buttons. Example: "100%", "500px", or 500</td>
+      </tr>
+      <tr>
+        <td>Fixed inner width</td>
+        <td>false</td>
+        <td>This is an alternative to 'width' used to set a fixed inner width. This excludes borders and buttons. Example: "50%", "500px", or 500</td>
+      </tr>
+      <tr>
+        <td>Fixed inner height</td>
+        <td>false</td>
+        <td>This is an alternative to 'height' used to set a fixed inner height. This excludes borders and buttons. Example: "50%", "500px", or 500</td>
+      </tr>
+      <tr>
+        <td>Scale photos</td>
+        <td>true</td>
+        <td>If 'true' and if maxWidth, maxHeight, innerWidth, innerHeight, width, or height have been defined, Colorbox will scale photos to fit within the those values.</td>
+      </tr>
+      <tr>
+        <td>Show overflowing content</td>
+        <td>false</td>
+        <td>If 'false' Colorbox will show scrollbars for overflowing content.  This could be used on conjunction with the resize method (see below) for a smoother transition if you are appending content to an already open instance of Colorbox.</td>
+      </tr>
+      <tr>
+        <td>Initial width</td>
+        <td>300</td>
+        <td>Set the initial width, prior to any content being loaded.</td>
+      </tr>
+      <tr>
+        <td>Initial height</td>
+        <td>100</td>
+        <td>Set the initial height, prior to any content being loaded.</td>
+      </tr>
+      <tr>
+        <td>Max width</td>
+        <td>false</td>
+        <td>Set a maximum width for loaded content. Example: "100%", 500, "500px"</td>
+      </tr>
+      <tr>
+        <td>Max height</td>
+        <td>false</td>
+        <td>Set a maximum height for loaded content. Example: "100%", 500, "500px"</td>
+      </tr>
+    </table>
+    <h4>Javascript</h4>
+    <table>
+      <tr>
+        <th class="key">Option</th>
+        <th class="default">Defaut</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>Callback name for onOpen event</td>
+        <td>false</td>
+        <td>Callback that fires right before Colorbox begins to open.</td>
+      </tr>
+      <tr>
+        <td>Callback name for onLoad event</td>
+        <td>false</td>
+        <td>Callback that fires right before attempting to load the target content.</td>
+      </tr>
+      <tr>
+        <td>Callback name for onComplete event</td>
+        <td>false</td>
+        <td>Callback that fires right after loaded content is displayed.</td>
+      </tr>
+      <tr>
+        <td>Callback name for onCleanup event</td>
+        <td>false</td>
+        <td>Callback that fires at the start of the close process.</td>
+      </tr>
+      <tr>
+        <td>Callback name for onClosed event</td>
+        <td>false</td>
+        <td>Callback that fires once Colorbox is closed.</td>
+      </tr>
+    </table>
+    
+    <h4>Goodie</h4>
+    <p>Colorbox display more than images, here are some instructions to start playing with:</p>
+    <h5>html content</h5>
+    <p>Create a file named
+      <em>test.html</em>
+      containing the html code you want Colorbox to display, for example</p>
+    <pre>&lt;p&gt;Test&lt;/p&gt;
+      &lt;p&gt;&lt;img src="/public/test.jpg" alt="" /&gt;&lt;/p&gt;</pre>
+    <p>Send this file and the image to your public folder.</p>
+    <p>Type this (wiki syntax) in your post:</p>
+    <pre>///html
+      &lt;script type="text/javascript"&gt;
+      $(document).ready(function(){
+      $(".html").colorbox();
+      });
+      &lt;/script&gt;
+      
+      &lt;p&gt;&lt;a class="html" href="/public/test.html" title="My pretty html"&gt;html&lt;/a&gt;&lt;/p&gt;
+      ///</pre>
+    <p>When you click on the link,
+      <em>test.html</em>
+      is displayed by Colorbox.</p>
+    <h5>Other content</h5>
+    <p>On the same idea, if
+      <em>test.html</em>
+      contains a video player code within its
+      <em>object</em>
+      tags, the video will be dispalyed in Colorbox.</p>
+    <p>Possibilities offered by this system are numerous and interesting...</p>
+  </body>
+</html>

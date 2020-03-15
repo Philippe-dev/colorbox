@@ -1,0 +1,305 @@
+# Language: Français
+# Module: colorbox - 3.1
+# Date: 2016-05-15 08:27:11
+# Translated with translater 2013.05.11
+
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: colorbox 3.1\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2016-05-15T08:27:11+00:00\n"
+"Last-Translator: Philippe\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: _install.php:50
+msgid "Start slideshow"
+msgstr "Marche"
+
+#: _install.php:51
+msgid "Stop slideshow"
+msgstr "Arrêt"
+
+#: _install.php:52
+msgid "{current} of {total}"
+msgstr "{current} sur {total}"
+
+#: _install.php:53
+msgid "previous"
+msgstr "prec."
+
+#: _install.php:54
+msgid "next"
+msgstr "suiv."
+
+#: index.php:21
+msgid "Lightbox plugin is enabled. Please disable it before using Colorbox."
+msgstr "Le plugin Lightbox est activé. Désactivez-le pour utiliser Colorbox."
+
+#: index.php:159
+msgid "Modal window configuration successfully saved"
+msgstr "Configuration de la fenêtre modale effectuée avec succès"
+
+#: index.php:160
+msgid "Zoom icon configuration successfully saved"
+msgstr "Configuration de l'icône de zoom effectuée avec succès"
+
+#: index.php:161
+msgid "Advanced configuration successfully saved"
+msgstr "Configuration avancée effectuée avec succès"
+
+#: index.php:181
+msgid "Modal Window"
+msgstr "Fenêtre modale"
+
+#: index.php:186
+msgid "Enable Colorbox on this blog"
+msgstr "Activer Colorbox pour ce blog"
+
+#: index.php:188
+msgid "Theme"
+msgstr "Thème"
+
+#: index.php:192
+msgid "Choose your theme for Colorbox:"
+msgstr "Choisissez le thème pour Colorbox :"
+
+#: index.php:201
+msgid "All themes may be customized, see <em>Personal files</em> help section."
+msgstr "Tous les thèmes peuvent être personnalisés, voir la section <em>Fichiers personnels</em> de l'aide."
+
+#: index.php:211
+msgid "Zoom Icon"
+msgstr "Icône de zoom"
+
+#: index.php:214
+msgid "Behavior"
+msgstr "Comportement"
+
+#: index.php:217
+msgid "Enable zoom icon on hovered thumbnails"
+msgstr "Afficher l'icône de zoom au survol des vignettes"
+
+#: index.php:220
+msgid "Always show zoom icon on thumbnails"
+msgstr "Toujours afficher l'icône de zoom sur les vignettes"
+
+#: index.php:225
+msgid "on the left"
+msgstr "à gauche"
+
+#: index.php:228
+msgid "on the right"
+msgstr "à droite"
+
+#: index.php:238
+msgid "Elastic"
+msgstr "Élastique"
+
+#: index.php:239
+msgid "Fade"
+msgstr "Fondu enchaîné"
+
+#: index.php:240
+msgid "No transition"
+msgstr "Pas de transition"
+
+#: index.php:244
+msgid "Image alt attribute"
+msgstr "Attribut alt de l'image"
+
+#: index.php:245
+msgid "Link title attribute"
+msgstr "Attribut title du lien"
+
+#: index.php:246
+msgid "No legend"
+msgstr "Pas de légende"
+
+#: index.php:251
+msgid "Advanced configuration"
+msgstr "Configuration avancée"
+
+#: index.php:253
+msgid "Personnal files"
+msgstr "Fichiers personnels"
+
+#: index.php:254
+msgid "Store personnal CSS and image files in:"
+msgstr "Stocker les images et CSS personnelles dans :"
+
+#: index.php:257
+msgid "public folder"
+msgstr "le gestionnaire de médias"
+
+#: index.php:260
+msgid "theme folder"
+msgstr "le thème du blog"
+
+#: index.php:263
+msgid "Selectors"
+msgstr "Sélecteurs"
+
+#: index.php:264
+msgid "Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):"
+msgstr "Appliquer Colorbox aux blocs supplémentaires suivants (ex : #sidebar,#pictures) :"
+
+#: index.php:267
+msgid "Leave blank to default: (.post)"
+msgstr "Laisser vide pour utiliser la valeur par défaut (.post)"
+
+#: index.php:269
+msgid "Effects"
+msgstr "Effets"
+
+#: index.php:271
+msgid "Transition type"
+msgstr "Type de transition"
+
+#: index.php:274
+msgid "Transition speed"
+msgstr "Vitesse de transition"
+
+#: index.php:277
+msgid "Opacity"
+msgstr "Opacité"
+
+#: index.php:282
+msgid "Auto open Colorbox"
+msgstr "Ouverture automatique"
+
+#: index.php:285
+msgid "Enable preloading for photo group"
+msgstr "Pré-chargement des images"
+
+#: index.php:288
+msgid "Enable close by clicking on overlay"
+msgstr "Fermeture sur clic dans le cadre"
+
+#: index.php:292
+msgid "Enable slideshow"
+msgstr "Activer le diaporama"
+
+#: index.php:295
+msgid "Auto start slideshow"
+msgstr "Démarrage automatique du diaporama"
+
+#: index.php:296
+msgid "Slideshow speed"
+msgstr "Vitesse du diaporama"
+
+#: index.php:299
+msgid "Slideshow start display text"
+msgstr "Démarrer (texte)"
+
+#: index.php:302
+msgid "Slideshow stop display text"
+msgstr "Arrêter (texte)"
+
+#: index.php:307
+msgid "Modal window"
+msgstr "Fenêtre modale"
+
+#: index.php:310
+msgid "Images legend"
+msgstr "Légendes des images"
+
+#: index.php:313
+msgid "Default legend"
+msgstr "Légende par défaut"
+
+#: index.php:318
+msgid "Loop on slideshow images"
+msgstr "Afficher les images en boucle"
+
+#: index.php:321
+msgid "Display content in  an iframe"
+msgstr "Afficher le contenu dans une iframe"
+
+#: index.php:324
+msgid "Current text"
+msgstr "Courant (texte)"
+
+#: index.php:327
+msgid "Previous text"
+msgstr "Précédent (texte)"
+
+#: index.php:330
+msgid "Next text"
+msgstr "Suivant (texte)"
+
+#: index.php:333
+msgid "Close text"
+msgstr "Fermer (texte)"
+
+#: index.php:338
+msgid "Dimensions"
+msgstr "Dimensions"
+
+#: index.php:340
+msgid "Fixed width"
+msgstr "Largeur fixe"
+
+#: index.php:343
+msgid "Fixed height"
+msgstr "Hauteur fixe"
+
+#: index.php:346
+msgid "Fixed inner width"
+msgstr "Largeur interne fixe"
+
+#: index.php:349
+msgid "Fixed inner height"
+msgstr "Hauteur interne fixe"
+
+#: index.php:354
+msgid "Scale photos"
+msgstr "Mettre à l'échelle"
+
+#: index.php:357
+msgid "Show overflowing content"
+msgstr "Afficher les barres de défilement"
+
+#: index.php:359
+msgid "Initial width"
+msgstr "Largeur initiale"
+
+#: index.php:362
+msgid "Initial height"
+msgstr "Hauteur initiale"
+
+#: index.php:365
+msgid "Max width"
+msgstr "Largeur maximale"
+
+#: index.php:368
+msgid "Max height"
+msgstr "Hauteur maximale"
+
+#: index.php:373
+msgid "Javascript"
+msgstr "Javascript"
+
+msgid "A lightweight customizable lightbox"
+msgstr "Une lightbox légère et configurable"
+
+msgid "Icon position"
+msgstr "Position de l'icône"
+
+msgid "Callback name for onOpen event"
+msgstr "Fonction callback pour onOpen"
+
+msgid "Callback name for onLoad event"
+msgstr "Fonction callback pour onLoad"
+
+msgid "Callback name for onComplete event"
+msgstr "Fonction callback pour onComplete"
+
+msgid "Callback name for onCleanup event"
+msgstr "Fonction callback pour onCleanup"
+
+msgid "Callback name for onClosed event"
+msgstr "Fonction callback pour onClosed"
+

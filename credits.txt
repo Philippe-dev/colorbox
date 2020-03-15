@@ -1,0 +1,5 @@
+/*!
+	Colorbox 1.5.14
+	license: MIT
+	http://www.jacklmoore.com/colorbox
+*/

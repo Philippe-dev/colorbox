@@ -1,0 +1,296 @@
+<html>
+  <head>
+    <title>Configuration de Colorbox</title>
+  </head>
+  <body>
+    <p>Basé sur <a href="http://colorpowered.com/colorbox/">Colorbox</a>, une lightbox légère et personnalisable pour jQuery.</p>
+   <h4>Activation</h4>
+   <p>Cocher cette case pour activer Colorbox pour le blog courant. Lors de l'insertion d'une image dans un billet, n'oubliez pas de choisir l'option <em>En tant que lien vers l'image originale"</em></p>
+   <h4>Thème</h4>
+   <p>Choisissez le thème qui vous convient, puis modifiez-le éventuellement en suivant les indications de la section fichiers personnels dans la configuration avancée.</p>
+   <h4>Paramètres de l'icône de zoom</h4>
+   <p>Colorbox peut afficher une icône sur les vignettes des images à agrandir. Choisissez sa position, à droite ou à gauche, elle s'affichera au survol de la vignette par la souris. Vous pouvez aussi afficher cette icône en permanence.</p>    
+    <h4>Fichiers personnels</h4>
+    <h5>Thèmes</h5>
+    <p>Colorbox propose 6 thèmes pour choisir l'apparence de la fenêtre modale. Vous pouvez modifier chacun d'eux à votre guise en y ajoutant une nouvelle feuille de style.</p>
+    <p>
+      <em>Note : le thème Lightbox Classic est particulier : il est conçu pour avoir le même aspect visuel que l'ancien plugin d'Olivier Meunier, et le compteur de vues ainsi que le diaporama sont masqués</em>
+      .</p>
+    <h5>Modification des thèmes</h5>
+    <p>Principe</p>
+    <p>La fenêtre modale de Colorbox peut être entièrement stylée en CSS, et les images modifiées.</p>
+    <p>Colorbox permet de définir une feuille de style personnalisée, stockée dans votre répertoire de médias ou dans le répertoire de votre thème, et dont les règles écraseront les règles de même nom du thème utilisé.</p>
+    <p>Voici comment procéder :</p>
+    <p>Créer un répertoire de thème personnel</p>
+    <p>Vous pouvez choisir de stocker vos fichiers personnels :</p>
+    <ul>
+      <li>dans le gestionnaire de médias</li>
+      <li>dans le thème du blog</li>
+    </ul>
+    <p>Commencez par créer, à la racine de l'emplacement choisi, les sous-répertoires nécessaires pour obtenir l'arborescence suivante :</p>
+    <pre>colorbox/themes/x/</pre>
+    <p>où
+      <em>x</em>
+      est le numéro du thème que vous souhaitez modifier. C'est dans ce répertoire que vous stockerez toutes vos modifications sur le thème. Répétez l'opération en remplaçant à chaque fois
+      <em>x</em>
+      par le numéro voulu si vous devez modifier plusieurs thèmes.</p>
+    <p>Créer votre feuille de style</p>
+    <p>Ajoutez maintenant dans le répertoire
+      <em>x</em>
+      une feuille de style nommée
+      <em>colorbox_user.css</em>
+      avec
+      <strong>seulement</strong>
+      les règles que vous voulez voir appliquer
+      <strong>à la place</strong>
+      de celles du thème, par exemple</p>
+    <pre>#cboxOverlay{background-color:red;}</pre>
+    <p>si vous ne souhaitez changer que la couleur de fond de la fenêtre modale</p>
+    <p>Modifications des images</p>
+    <p>Si vous voulez modifier les boutons de navigation de la fenêtre modale, placez dans le répertoire du thème personnel les images nécessaires, et faites référence à ces images dans
+      <em>colorbox_user.css</em>
+      .</p>
+    <h4>Sélecteurs</h4>
+    <p>Par défaut Colorbox est activé seulement pour les images contenues dans les billets.</p>
+    <p>Si vous voulez activer Colorbox pour les images contenues dans d'autres blocs, entrez dans cette case les sélecteurs, séparés par des virgules, correspondants aux blocs supplémentaires.</p>
+    <p>Si par exemple vous souhaitez que les blocs
+      <em>#sidebar</em>
+      et
+      <em>#pictures</em>
+      soient pris en compte, entrez</p>
+    <pre>#sidebar,#pictures</pre>
+    <p>dans le champ. Notez que les images des blocs choisis seront considérées comme faisant partie de groupes distincts pour les compteurs de vues et les diaporamas.</p>
+    <p>Si vous laissez ce champ vide, seules les images de vos billets seront affectées.</p>
+    <h4>Effets</h4>
+    <table>
+      <tr>
+        <th class="key">Option</th>
+        <th class="default">Defaut</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>Type de transition</td>
+        <td>"elastic"</td>
+        <td>Le type de transition. Peut prendre les valeurs "élastique", "fondu enchaîné", ou "pas de transition".</td>
+      </tr>
+      <tr>
+        <td>Vitesse de transition</td>
+        <td>350</td>
+        <td>Temps des transitions élastique et fondu enchaîné, en millisecondes.</td>
+      </tr>
+      <tr>
+        <td>Opacité</td>
+        <td>0.85</td>
+        <td>Niveau d'opacité du cadre. Valeur: 0 à 1.</td>
+      </tr>
+      <tr >
+        <td>Ouverture automatique</td>
+        <td>décochée</td>
+        <td>Si la case est cochée, la fenêtre s'ouvrira sans action du visiteur à son arrivée sur la page.</td>
+      </tr>
+      <tr>
+        <td>Pré-chargement des groupes d'images</td>
+        <td>cochée</td>
+        <td>Si la case est cochée, permet le pré-chargement des images suivantes ou précédentes.</td>
+      </tr>
+      <tr>
+        <td>Fermeture sur clic dans le cadre</td>
+        <td>décochée</td>
+        <td>Si la case est cochée, permet de fermer la Colorbox en cliquant dans le cadre autour de l'image.</td>
+      </tr>
+      <tr>
+        <td>Activer le diaporama</td>
+        <td>décochée</td>
+        <td>Si la case est cochée, permet de voir toutes les images dans un diaporama.</td>
+      </tr>
+      <tr>
+        <td>Démarrage automatique du diaporama</td>
+        <td>cochée</td>
+        <td>Si la case est cochée, le diaporama commence à l'ouverture de la première image.</td>
+      </tr>
+      <tr>
+        <td>Vitesse du diaporama</td>
+        <td>2500</td>
+        <td>Vitesse du diaporama, en nombre de millisecondes entre les images.</td>
+      </tr>
+      <tr>
+        <td>Démarrer (texte)</td>
+        <td>"marche"</td>
+        <td>Texte du bouton pour démarrer le diaporama.</td>
+      </tr>
+      <tr>
+        <td>Arrêter (texte)</td>
+        <td>"arrêt"</td>
+        <td>Texte du bouton pour arrêter le diaporama.</td>
+      </tr>
+    </table>
+    <h4>Fenêtre modale</h4>
+    <table>
+      <tr>
+        <th class="key">Option</th>
+        <th class="default">Defaut</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>Légendes des images</td>
+        <td>Attribut alt de l'image</td>
+        <td>Permet de choisir la légende qui sera affichée : texte alternatif de l'image, titre du lien ou pas de légende.</td>
+      </tr>
+	  <tr>
+        <td>Légende par défaut</td>
+        <td>vide</td>
+        <td>Peut-être utilisé pour afficher toujours la même légende.</td>
+      </tr>
+      <tr>
+        <td>Courant (texte)</td>
+        <td>"{current} sur {total}"</td>
+        <td>Texte pour le séparateur du compteur d'images. Les expressions {current} et {total} sont détectées et remplacées par les nombres correspondants.</td>
+      </tr>
+      <tr>
+        <td>Précédente (texte)</td>
+        <td>"prec."</td>
+        <td>Texte pour le bouton "image précédente". La largeur du bloc devra être adaptée dans la feuille de style si le texte est plus long</td>
+      </tr>
+      <tr>
+        <td>Suivante (texte)</td>
+        <td>"suiv."</td>
+        <td>Texte pour le bouton "image suivante". La largeur du bloc devra être adaptée dans la feuille de style si le texte est plus long</td>
+      </tr>
+      <tr>
+        <td>Fermer (texte)</td>
+        <td>"fermer"</td>
+        <td>Texte pour le bouton "fermer". La largeur du bloc devra être adaptée dans la feuille de style si le texte est plus long</td>
+      </tr>
+      <tr>
+        <td>Afficher les images en boucle</td>
+        <td>cochée</td>
+        <td>Si la case est cochée, les images d'un même groupe seront affichées en boucle (le clic sur la dernière image ramène à la première).</td>
+      </tr>
+      <tr>
+        <td>Afficher le contenu dans une iframe</td>
+        <td>décochée</td>
+        <td>Si la case est cochée, le contenu sera affiché dans une iframe au lieu d'une fenêtre modale.</td>
+      </tr>
+    </table>
+    <h4>Dimensions</h4>
+    <table>
+      <tr>
+        <th class="key">Option</th>
+        <th class="default">Defaut</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>Largeur fixe</td>
+        <td>vide</td>
+        <td>Pour fixer une largeur totale fixe, bordures et boutons inclus. Exemple: "100%", "500px", ou 500</td>
+      </tr>
+      <tr>
+        <td>Hauteur fixe</td>
+        <td>vide</td>
+        <td>Pour fixer une hauteur totale fixe, bordures et boutons inclus. Exemple: "100%", "500px", ou 500</td>
+      </tr>
+      <tr>
+        <td>Largeur interne fixe</td>
+        <td>vide</td>
+        <td>Alternative à largeur fixe, bordures et boutons exclus. Exemple: "100%", "500px", ou 500</td>
+      </tr>
+      <tr>
+        <td>Hauteur interne fixe</td>
+        <td>vide</td>
+        <td>Alternative à hauteur fixe, bordures et boutons exclus. Exemple: "100%", "500px", ou 500</td>
+      </tr>
+      <tr>
+        <td>Mettre à l'échelle</td>
+        <td>cochée</td>
+        <td>Si la largeur et la hauteur, minimales ou maximales ont été définies Colorbox met les images à l'échelle pour entrer dans ces valeurs.</td>
+      </tr>
+      <tr>
+        <td>Afficher les barres de défilement</td>
+        <td>décochée</td>
+        <td>Si cette option est cochéee, Colorbox affichera les barres de défilement pour les contenus débordant de la fenêtre.</td>
+      </tr>
+      <tr>
+        <td>Largeur initiale</td>
+        <td>300</td>
+        <td>Largeur initiale de la fenêtre, avant que tout contenu soit chargé.</td>
+      </tr>
+      <tr>
+        <td>Hauteur initiale</td>
+        <td>100</td>
+        <td>Hauteur initiale de la fenêtre, avant que tout contenu soit chargé.</td>
+      </tr>
+      <tr>
+        <td>Largeur maximale</td>
+        <td>vide</td>
+        <td>Définit la largeur maximale de la fenêtre modale. Exemple: "100%", 500, "500px"</td>
+      </tr>
+      <tr>
+        <td>Hauteur maximale</td>
+        <td>vide</td>
+        <td>Définir la hauteur maximale de la fenêtre modale. Exemple: "100%", 500, "500px"</td>
+      </tr>
+    </table>
+    <h4>Javascript</h4>
+    <table>
+      <tr>
+        <th class="key">Option</th>
+        <th class="default">Defaut</th>
+        <th class="description">Description</th>
+      </tr>
+      <tr>
+        <td>onOpen</td>
+        <td>vide</td>
+        <td>Callback envoyé avant que Colorbox s'ouvre.</td>
+      </tr>
+      <tr>
+        <td>onLoad</td>
+        <td>vide</td>
+        <td>Callback envoyé avant de charger le contenu.</td>
+      </tr>
+      <tr>
+        <td>onComplete</td>
+        <td>vide</td>
+        <td>Callback envoyé une fois le contenu affiché.</td>
+      </tr>
+      <tr>
+        <td>onCleanup</td>
+        <td>vide</td>
+        <td>Callback envoyé avant de fermer la fenêtre.</td>
+      </tr>
+      <tr>
+        <td>onClosed</td>
+        <td>vide</td>
+        <td>Callback envoyé quand Colorbox est fermée.</td>
+      </tr>
+    </table>
+    <h4>Goodie</h4>
+    <p>Colorbox peut afficher autre chose que des images, voici quelques indications pour commencer à jouer avec :</p>
+    <h5>Contenu html</h5>
+    <p>Créez un fichier nommé
+      <em>test.html</em>
+      et contenant la portion de code que vous voulez afficher dans Colorbox, par exemple</p>
+    <pre>&lt;p&gt;Test&lt;/p&gt;
+      &lt;p&gt;&lt;img src="/public/test.jpg" alt="" /&gt;&lt;/p&gt;</pre>
+    <p>Envoyez ce fichier et l'image dans votre répertoire de médias.</p>
+    <p>Dans un billet (syntaxe wiki), saisissez :</p>
+    <pre>///html
+      &lt;script type="text/javascript"&gt;
+      $(document).ready(function(){
+      $(".html").colorbox();
+      });
+      &lt;/script&gt;
+      
+      &lt;p&gt;&lt;a class="html" href="/public/test.html" title="Ma jolie page"&gt;html&lt;/a&gt;&lt;/p&gt;
+      ///</pre>
+    <p>Quand vous cliquez sur le lien dans le billet, la page
+      <em>test.html</em>
+      est affichée par Colorbox.</p>
+    <h5>Autres contenus</h5>
+    <p>Sur le même principe, si votre page
+      <em>test.html</em>
+      contient le code pour un lecteur vidéo entouré de ses balises
+      <em>object</em>
+      , celui-ci s'affichera dans Colorbox.</p>
+    <p>Les possibilités offertes par ce système sont très nombreuses et intéressantes...</p>
+  </body>
+</html>

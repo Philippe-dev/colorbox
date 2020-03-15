@@ -1,0 +1,43 @@
+/* 
+    User Style:
+    Change the following styles to modify the appearance of Colorbox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+
+#cboxOverlay{background:#000;}
+#colorbox{}
+    #cboxContent{background:transparent;margin-top:20px;padding:10px;}
+        #cboxLoadedContent{background:transparent;}
+        
+        /* ADAPTATION POUR RAJOUTER LE COMPTEUR DE VUES
+		Les règles suivantes sont commentées pour obtenir l'apparence exacte de la fenêtre modale du plugin lightBox
+		Si vous souhaitez afficher le compteur de vues et les commandes du diaporama, suivez ces deux étapes
+		
+		1) décommentez les lignes ci-dessous :
+		#cboxTitle{position:absolute;bottom:0; left:10px;right:10px;margin:0 auto; padding:0 70px;line-height:150%;text-align:center;background:#fff;color:#000;}		
+		#cboxCurrent{position:absolute; bottom:-5px; right:10px;margin:0; line-height:150%;padding:0 5px 0 0;background:transparent;color:#000;}
+        #cboxSlideshow{position:absolute; bottom:-5px; left:10px;margin:0; line-height:150%;padding:0 0 0 5px;background:transparent;color:#000;}
+		
+		2) commentez les lignes ci-dessous : */
+		#cboxTitle{position:absolute;bottom:0; left:10px;right:10px;margin:0 auto; padding:0 10px;line-height:150%;text-align:center;background:#fff;color:#000;}
+		#cboxCurrent,#cboxSlideshow{position:absolute; top:-5000px;}
+		
+		/*FIN DE L'ADAPTATION */
+		
+		/* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+		
+		#cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; text-indent:-9999px; width:20px; height:20px; position:absolute; top:-20px;background: transparent;}
+
+		/* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+		
+		#cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
+	
+        #cboxPrevious{position:absolute;top:10%;left:10px; width:20%; height:80%; text-indent:-9999px;}
+        #cboxPrevious:hover{background:url(index.php?pf=colorbox/themes/3/images/prev.png) center left no-repeat;}
+        #cboxNext{position:absolute; top:10%;right:10px; width:20%; height:80%; text-indent:-9999px;}
+        #cboxNext:hover{background:url(index.php?pf=colorbox/themes/3/images/next.png) center right no-repeat;}
+        #cboxLoadingOverlay{background:#000;}
+        #cboxLoadingGraphic{background:url(index.php?pf=colorbox/themes/3/images/loading.gif) center center no-repeat;}
+        #cboxClose{position:absolute; top:-2px; right:-12px; display:block; background:transparent url(index.php?pf=colorbox/themes/3/images/close.png) top center no-repeat; width:50px; height:30px; text-indent:-9999px;}
+        #cboxClose :hover{background:transparent url(index.php?pf=colorbox/themes/3/images/close-hover.png) top center no-repeat;}
+		#cboxPhoto{background:#FFF; padding:1px;}
