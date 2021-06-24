@@ -82,7 +82,7 @@ class colorboxPublic
         $selectors = '.post'.($s->colorbox_selectors !== '' ? ','.$s->colorbox_selectors : '');
         
         echo
-        '$(window).on(\'load\',function(){'.
+        '$(function () {'."\n".
             'var count = 0; '.
             '$("'.$selectors.'").each(function() {'."\n".
                 'count++;'."\n".
@@ -126,7 +126,8 @@ class colorboxPublic
                 '{ '."\n".
                     '$(this).removeClass(\'colorbox_hovered\');'."\n".
                 '});'."\n".
-                '$("a.colorbox_zoom img").on(\'hover\', function(){'."\n".
+                '$("a.colorbox_zoom img").hover(function(){'."\n".
+                 
                 'var p = $(this);'."\n".
                 'p.addClass(\'colorbox_hovered\');'."\n".
                 'var offset = p.offset();'."\n";
