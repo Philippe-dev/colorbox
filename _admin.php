@@ -7,7 +7,6 @@
  *
  * @author Philippe aka amalgame and Tomtom
  *
- * @copyright Philippe Hénaff philippe@dissitou.org
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
 
@@ -19,24 +18,19 @@ $_menu['Blog']->addItem(
     __('Colorbox'),
     $core->adminurl->get('admin.plugin.colorbox'),
     [dcPage::getPF('colorbox/icon.svg')],
-    preg_match('/plugin.php\?p=colorbox(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->check('admin', $core->blog->id)
+    preg_match('/' . preg_quote($core->adminurl->get('admin.plugin.colorbox')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
+    $core->auth->check('usage,contentadmin', $core->blog->id)
 );
 
-$core->addBehavior('adminDashboardFavs', array('colorboxBehaviors','dashboardFavs'));
- 
-class colorboxBehaviors
-{
-    public static function dashboardFavs($core, $favs)
-    {
-        $favs['colorbox'] = new ArrayObject([
-            'colorbox',
-            __('Colorbox'),
-            'plugin.php?p=colorbox',
-            'index.php?pf=colorbox/icon.svg',
-            'index.php?pf=colorbox/icon.svg',
-            'usage,contentadmin',
-            null,
-            null]);
+$core->addBehavior(
+    'adminDashboardFavorites',
+    function ($core, $favs) {
+        $favs->register('colorbox', [
+            'title'       => __('Colorbox'),
+            'url'         => $core->adminurl->get('admin.plugin.colorbox'),
+            'small-icon'  => [dcPage::getPF('colorbox/icon.svg')],
+            'large-icon'  => [dcPage::getPF('colorbox/icon.svg')],
+            'permissions' => 'usage,contentadmin',
+        ]);
     }
-}
+);

@@ -7,7 +7,6 @@
  *
  * @author Philippe aka amalgame and Tomtom
  *
- * @copyright Philippe Hénaff philippe@dissitou.org
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
 
@@ -34,14 +33,14 @@ $s =& $core->blog->settings->colorbox;
 # Init var
 $p_url		= 'plugin.php?p='.basename(dirname(__FILE__));
 $default_tab	= isset($_GET['tab']) ? $_GET['tab'] : 'modal';
-$themes		= array(
+$themes		= [
     '1' => __("Dark Mac"),
     '2' => __("Simple White"),
     '3' => __("Lightbox Classic"),
     '4' => __("White Mac"),
     '5' => __("Thick Grey"),
     '6' => __("Vintage Lightbox"),
-);
+];
 
 # Saving configurations
 if (isset($_POST['save'])) {
@@ -64,7 +63,7 @@ if (isset($_POST['save'])) {
 
         http::redirect($p_url.'&tab=zoom&upd=2');
     } elseif ($type === 'advanced') {
-        $opts = array(
+        $opts = [
             'transition' => $_POST['transition'],
             'speed' => !empty($_POST['speed']) ? $_POST['speed'] : '350',
             'title' => $_POST['title'],
@@ -98,7 +97,7 @@ if (isset($_POST['save'])) {
             'onComplete' => $_POST['onComplete'],
             'onCleanup' => $_POST['onCleanup'],
             'onClosed' => $_POST['onClosed']
-        );
+        ];
         
         $s->put('colorbox_advanced', serialize($opts));
         $s->put('colorbox_selectors', $_POST['colorbox_selectors']);
@@ -145,20 +144,19 @@ if (isset($_POST['save'])) {
 $page_title = __('Colorbox');
 
 echo dcPage::breadcrumb(
-        array(
-            html::escapeHTML($core->blog->name) => '',
-            '<span class="page-title">'.$page_title.'</span>' => ''
-        )
+    [html::escapeHTML($core->blog->name) => '',
+    '<span class="page-title">'.$page_title.'</span>' => ''
+    ]
 );
 
 # Display messages
 
 if (isset($_GET['upd'])) {
-    $a_msg = array(
+    $a_msg = [
         __('Modal window configuration successfully saved'),
         __('Zoom icon configuration successfully saved'),
         __('Advanced configuration successfully saved')
-    );
+    ];
     
     $k = (integer) $_GET['upd']-1;
     
@@ -171,7 +169,7 @@ if (isset($_GET['upd'])) {
 $theme_choice = '';
 foreach ($themes as $k => $v) {
     $theme_choice .= '<p><label class="classic" for="colorbox_theme-'.$k.'">'.
-    form::radio(array('colorbox_theme','colorbox_theme-'.$k), $k, $s->colorbox_theme == $k).
+    form::radio(['colorbox_theme','colorbox_theme-'.$k], $k, $s->colorbox_theme == $k).
     ' '.$v.'</label></p>';
 }
 $thumb_url = 'index.php?pf=colorbox/themes/'.$s->colorbox_theme.'/images/thumbnail.jpg';
@@ -199,7 +197,7 @@ echo
         '</div>'.
         '<p class="form-note info maximal">'.__('All themes may be customized, see <em>Personal files</em> help section.').'</p>'.
     '</div>'.
-    '<p>'.form::hidden(array('type'), 'modal').'</p>'.
+    '<p>'.form::hidden(['type'], 'modal').'</p>'.
     '<p class="clear"><input type="submit" name="save" value="'.__('Save configuration').'" />'.$core->formNonce().'</p>'.
 '</form>'.
 '</div>';
@@ -220,30 +218,30 @@ echo
         '</div>'.
         '<div class="fieldset"><h3>'.__('Position').'</h3>'.
             '<p><label class="classic" for="colorbox_position-1">'.
-            form::radio(array('colorbox_position','colorbox_position-1'), true, $s->colorbox_position).
+            form::radio(['colorbox_position','colorbox_position-1'], true, $s->colorbox_position).
             __('on the left').'</label></p>'.
             '<p><label class="classic" for="colorbox_position-2">'.
-            form::radio(array('colorbox_position','colorbox_position-2'), false, !$s->colorbox_position).
+            form::radio(['colorbox_position','colorbox_position-2'], false, !$s->colorbox_position).
             __('on the right').'</label></p>'.
         '</div>'.
-        '<p>'.form::hidden(array('type'), 'zoom').'</p>'.
+        '<p>'.form::hidden(['type'], 'zoom').'</p>'.
         '<p class="clear"><input type="submit" name="save" value="'.__('Save configuration').'" />'.$core->formNonce().'</p>'.
     '</form>'.
 '</div>';
 
 # Advanced tab
 
-$effects = array(
+$effects = [
     __('Elastic') => 'elastic',
     __('Fade') => 'fade',
     __('No transition') => 'none'
-);
+];
 
-$colorbox_legend = array(
+$colorbox_legend = [
     __('Image alt attribute') => 'alt',
     __('Link title attribute') => 'title',
     __('No legend') => 'none'
-);
+];
 
 $as = unserialize($s->colorbox_advanced);
 echo
@@ -252,10 +250,10 @@ echo
         '<div class="fieldset"><h3>'.__('Personnal files').'</h3>'.
             '<p>'.__('Store personnal CSS and image files in:').'</p>'.
             '<p><label for="colorbox_user_files-1">'.
-            form::radio(array('colorbox_user_files','colorbox_user_files-1'), true, $s->colorbox_user_files).
+            form::radio(['colorbox_user_files','colorbox_user_files-1'], true, $s->colorbox_user_files).
             __('public folder').'</label></p>'.
             '<p><label for="colorbox_user_files-2">'.
-            form::radio(array('colorbox_user_files','colorbox_user_files-2'), false, !$s->colorbox_user_files).
+            form::radio(['colorbox_user_files','colorbox_user_files-2'], false, !$s->colorbox_user_files).
             __('theme folder').'</label></p>'.
             
         '</div>'.
@@ -389,7 +387,7 @@ echo
             '</label></p>'.
         '</div></div>'.
         '</div>'.
-        '<p>'.form::hidden(array('type'), 'advanced').'</p>'.
+        '<p>'.form::hidden(['type'], 'advanced').'</p>'.
         '<p class="clear"><input type="submit" name="save" value="'.__('Save configuration').'" />'.$core->formNonce().'</p>'.
     '</form>'.
 '</div>';

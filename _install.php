@@ -7,7 +7,6 @@
  *
  * @author Philippe aka amalgame and Tomtom
  *
- * @copyright Philippe Hénaff philippe@dissitou.org
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
 
@@ -27,7 +26,7 @@ if (version_compare($i_version, $m_version, '>=')) {
 $core->blog->settings->addNamespace('colorbox');
 $s =& $core->blog->settings->colorbox;
 
-$opts = array(
+$opts = [
     'transition' => 'elastic',
     'speed' => '350',
     'title' => '',
@@ -61,7 +60,7 @@ $opts = array(
     'onComplete' => '',
     'onCleanup' => '',
     'onClosed' => ''
-);
+];
 
 $s->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
 $s->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
