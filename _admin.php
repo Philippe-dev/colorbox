@@ -16,10 +16,9 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 }
 
 $_menu['Blog']->addItem(
-
     __('Colorbox'),
-    'plugin.php?p=colorbox',
-    'index.php?pf=colorbox/icon.png',
+    $core->adminurl->get('admin.plugin.colorbox'),
+    [dcPage::getPF('colorbox/icon.svg')],
     preg_match('/plugin.php\?p=colorbox(&.*)?$/', $_SERVER['REQUEST_URI']),
     $core->auth->check('admin', $core->blog->id)
 );
@@ -30,14 +29,14 @@ class colorboxBehaviors
 {
     public static function dashboardFavs($core, $favs)
     {
-        $favs['colorbox'] = new ArrayObject(array(
+        $favs['colorbox'] = new ArrayObject([
             'colorbox',
             __('Colorbox'),
             'plugin.php?p=colorbox',
-            'index.php?pf=colorbox/icon.png',
-            'index.php?pf=colorbox/icon-big.png',
+            'index.php?pf=colorbox/icon.svg',
+            'index.php?pf=colorbox/icon.svg',
             'usage,contentadmin',
             null,
-            null));
+            null]);
     }
 }
