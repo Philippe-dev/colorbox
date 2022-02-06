@@ -19,7 +19,7 @@ $this->registerModule(
     'Colorbox',									// Name
     'A lightweight customizable lightbox',		// Description
     'Philippe aka amalgame and Tomtom',			// Author
-    '3.3.1',                   					// Version
+    '3.3.2',                   					// Version
     [
         'requires' => [['core', '2.16']],   	// Dependencies
         'permissions' => 'usage,contentadmin', 	// Permissions
