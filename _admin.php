@@ -26,10 +26,10 @@ $core->addBehavior(
     'adminDashboardFavorites',
     function ($core, $favs) {
         $favs->register('colorbox', [
-            'title'       => __('Colorbox'),
-            'url'         => $core->adminurl->get('admin.plugin.colorbox'),
-            'small-icon'  => [dcPage::getPF('colorbox/icon.svg')],
-            'large-icon'  => [dcPage::getPF('colorbox/icon.svg')],
+            'title' => __('Colorbox'),
+            'url' => $core->adminurl->get('admin.plugin.colorbox'),
+            'small-icon' => [dcPage::getPF('colorbox/icon.svg')],
+            'large-icon' => [dcPage::getPF('colorbox/icon.svg')],
             'permissions' => 'usage,contentadmin',
         ]);
     }

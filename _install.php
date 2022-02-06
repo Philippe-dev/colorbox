@@ -13,18 +13,18 @@
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
- 
+
 $m_version = $core->plugins->moduleInfo('colorbox', 'version');
- 
+
 $i_version = $core->getVersion('colorbox');
- 
+
 if (version_compare($i_version, $m_version, '>=')) {
     return;
 }
 
-# Settings
+// Settings
 $core->blog->settings->addNamespace('colorbox');
-$s =& $core->blog->settings->colorbox;
+$s = &$core->blog->settings->colorbox;
 
 $opts = [
     'transition' => 'elastic',

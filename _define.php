@@ -16,14 +16,14 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    "Colorbox",									// Name
-    "A lightweight customizable lightbox",		// Description
-    "Philippe aka amalgame and Tomtom",			// Author
+    'Colorbox',									// Name
+    'A lightweight customizable lightbox',		// Description
+    'Philippe aka amalgame and Tomtom',			// Author
     '3.3.1',                   					// Version
     [
-        'requires'    => [['core', '2.16']],   	// Dependencies
+        'requires' => [['core', '2.16']],   	// Dependencies
         'permissions' => 'usage,contentadmin', 	// Permissions
-        'type'        => 'plugin',             	// Type
-        'priority'    => 2000                 	// Priority
+        'type' => 'plugin',             	    // Type
+        'priority' => 2000                 	    // Priority
     ]
 );
