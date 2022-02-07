@@ -112,7 +112,7 @@ if (isset($_POST['save'])) {
 <html>
 <head>
 	<title><?php echo(__('Colorbox')); ?></title>
-	<script type="text/javascript">
+	<script>
 	$(document).ready(function() {
 		$("input[type=radio][name=colorbox_theme]").click(function() {
 			var p = $(this).attr('value');
