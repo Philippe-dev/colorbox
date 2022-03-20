@@ -17,7 +17,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 $_menu['Blog']->addItem(
     __('Colorbox'),
     $core->adminurl->get('admin.plugin.colorbox'),
-    [dcPage::getPF('colorbox/icon.svg')],
+    [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
     preg_match('/' . preg_quote($core->adminurl->get('admin.plugin.colorbox')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
     $core->auth->check('usage,contentadmin', $core->blog->id)
 );
@@ -28,8 +28,8 @@ $core->addBehavior(
         $favs->register('colorbox', [
             'title' => __('Colorbox'),
             'url' => $core->adminurl->get('admin.plugin.colorbox'),
-            'small-icon' => [dcPage::getPF('colorbox/icon.svg')],
-            'large-icon' => [dcPage::getPF('colorbox/icon.svg')],
+            'small-icon' => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
+            'large-icon' => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
             'permissions' => 'usage,contentadmin',
         ]);
     }
