@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -44,8 +44,8 @@
      id="namedview861"
      showgrid="false"
      inkscape:zoom="10.11377"
-     inkscape:cx="38.114923"
-     inkscape:cy="32.723881"
+     inkscape:cx="16.065776"
+     inkscape:cy="32.526131"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -75,29 +75,30 @@
   </g>
   <g
      id="g2366"
-     transform="matrix(1.2192801,0,0,1.2194227,-7.9078541,-6.5692535)">
+     transform="matrix(1.2192801,0,0,1.2194227,-7.9078541,-6.5692535)"
+     style="stroke:#c5c5c5;stroke-opacity:0.54444444">
     <ellipse
        ry="4.2394061"
        rx="3.9597449"
        cy="11.605932"
        cx="54.673729"
        id="path2341"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.6397655;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#c5c5c5;stroke-width:2.6397655;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.54444444;paint-order:stroke fill markers" />
     <text
        transform="scale(1.1071795,0.90319592)"
        id="text2361"
        y="15.825396"
        x="46.182377"
-       style="font-style:normal;font-weight:normal;font-size:10.88199329px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.27204984"
+       style="font-style:normal;font-weight:normal;font-size:10.88199329px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#c5c5c5;stroke-width:0.27204984;stroke-opacity:0.54444444"
        xml:space="preserve"><tspan
-         style="fill:#ffffff;fill-opacity:1;stroke-width:0.27204984"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:0.27204984;stroke:#c5c5c5;stroke-opacity:0.54444444"
          y="15.825396"
          x="46.182377"
          id="tspan2359"
          sodipodi:role="line">x</tspan></text>
   </g>
   <path
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.54444442;stroke-miterlimit:2;stroke-dasharray:none"
+     style="fill:none;stroke:#c5c5c5;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.54444444;stroke-miterlimit:2;stroke-dasharray:none"
      d="m 1.4955484,40.152892 v 24.35525 H 26.330176"
      id="path2368"
      inkscape:connector-curvature="0" />
