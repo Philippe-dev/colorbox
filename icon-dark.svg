@@ -5,6 +5,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    clip-rule="evenodd"
@@ -29,7 +30,29 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs863" />
+     id="defs863">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient835">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop831" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop833" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient835"
+       id="linearGradient837"
+       x1="49.386183"
+       y1="8.3955659"
+       x2="56.754091"
+       y2="8.3955659"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -43,15 +66,15 @@
      inkscape:window-height="1025"
      id="namedview861"
      showgrid="false"
-     inkscape:zoom="10.11377"
-     inkscape:cx="16.065776"
-     inkscape:cy="32.526131"
+     inkscape:zoom="12.469697"
+     inkscape:cx="33"
+     inkscape:cy="33"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg859" />
   <rect
-     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#fcfcfc;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.51764709;paint-order:stroke fill markers"
+     style="opacity:1;fill:none;fill-opacity:1;stroke:#fcfcfc;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.51764709;paint-order:stroke fill markers"
      id="rect889"
      width="52.005829"
      height="50.306782"
@@ -73,30 +96,25 @@
        inkscape:connector-curvature="0"
        style="fill:#88c200;fill-rule:nonzero;stroke:#88c200;stroke-width:1" />
   </g>
-  <g
-     id="g2366"
-     transform="matrix(1.2192801,0,0,1.2194227,-7.9078541,-6.5692535)"
-     style="stroke:#c5c5c5;stroke-opacity:0.54444444">
-    <ellipse
-       ry="4.2394061"
-       rx="3.9597449"
-       cy="11.605932"
-       cx="54.673729"
-       id="path2341"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#c5c5c5;stroke-width:2.6397655;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.54444444;paint-order:stroke fill markers" />
-    <text
-       transform="scale(1.1071795,0.90319592)"
-       id="text2361"
-       y="15.825396"
-       x="46.182377"
-       style="font-style:normal;font-weight:normal;font-size:10.88199329px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#c5c5c5;stroke-width:0.27204984;stroke-opacity:0.54444444"
-       xml:space="preserve"><tspan
-         style="fill:#ffffff;fill-opacity:1;stroke-width:0.27204984;stroke:#c5c5c5;stroke-opacity:0.54444444"
-         y="15.825396"
-         x="46.182377"
-         id="tspan2359"
-         sodipodi:role="line">x</tspan></text>
-  </g>
+  <ellipse
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#fafafa;stroke-width:3.21880174;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     id="path2341"
+     cx="58.754734"
+     cy="7.5832839"
+     rx="4.8280382"
+     ry="5.1696281" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:13.26897335px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#c5c5c5;stroke-width:0.33172435;stroke-opacity:0;"
+     x="49.169785"
+     y="12.023801"
+     id="text2361"
+     transform="scale(1.1071147,0.90324874)"><tspan
+       sodipodi:role="line"
+       id="tspan2359"
+       x="49.169785"
+       y="12.023801"
+       style="fill:#000000;fill-opacity:1;stroke:#c5c5c5;stroke-width:0.33172435;stroke-opacity:0;">x</tspan></text>
   <path
      style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.54444444;stroke-miterlimit:2;stroke-dasharray:none"
      d="m 1.4955484,40.152892 v 24.35525 H 26.330176"
