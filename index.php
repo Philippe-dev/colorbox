@@ -14,21 +14,21 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-if (!$core->auth->check('admin', $core->blog->id)) {
+if (!dcCore::app()->auth->check('admin', dcCore::app()->blog->id)) {
     return;
 }
 
 //Lightbox enabled test
 
-if ($core->plugins->moduleExists('lightbox')) {
-    if ($core->blog->settings->lightbox->lightbox_enabled) {
-        $core->error->add(__('Lightbox plugin is enabled. Please disable it before using Colorbox.'));
+if (dcCore::app()->plugins->moduleExists('lightbox')) {
+    if (dcCore::app()->blog->settings->lightbox->lightbox_enabled) {
+        dcCore::app()->error->add(__('Lightbox plugin is enabled. Please disable it before using Colorbox.'));
         return;
     }
 }
 
 //Settings
-$s = &$core->blog->settings->colorbox;
+$s = dcCore::app()->blog->settings->colorbox;
 
 // Init var
 $p_url = 'plugin.php?p=' . basename(dirname(__FILE__));
@@ -46,7 +46,7 @@ $themes = [
 if (isset($_POST['save'])) {
     $type = $_POST['type'];
 
-    $core->blog->triggerBlog();
+    dcCore::app()->blog->triggerBlog();
 
     if ($type === 'modal') {
         $s->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
@@ -144,7 +144,7 @@ if (isset($_POST['save'])) {
 $page_title = __('Colorbox');
 
 echo dcPage::breadcrumb(
-    [html::escapeHTML($core->blog->name) => '',
+    [html::escapeHTML(dcCore::app()->blog->name) => '',
         '<span class="page-title">' . $page_title . '</span>' => ''
     ]
 );
@@ -198,7 +198,7 @@ echo
         '<p class="form-note info maximal">' . __('All themes may be customized, see <em>Personal files</em> help section.') . '</p>' .
     '</div>' .
     '<p>' . form::hidden(['type'], 'modal') . '</p>' .
-    '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . $core->formNonce() . '</p>' .
+    '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
 '</form>' .
 '</div>';
 
@@ -225,7 +225,7 @@ echo
             __('on the right') . '</label></p>' .
         '</div>' .
         '<p>' . form::hidden(['type'], 'zoom') . '</p>' .
-        '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . $core->formNonce() . '</p>' .
+        '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
     '</form>' .
 '</div>';
 
@@ -388,7 +388,7 @@ echo
         '</div></div>' .
         '</div>' .
         '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
-        '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . $core->formNonce() . '</p>' .
+        '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
     '</form>' .
 '</div>';
 

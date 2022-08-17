@@ -14,17 +14,17 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$m_version = $core->plugins->moduleInfo('colorbox', 'version');
+$m_version = dcCore::app()->plugins->moduleInfo('colorbox', 'version');
 
-$i_version = $core->getVersion('colorbox');
+$i_version = dcCore::app()->getVersion('colorbox');
 
 if (version_compare($i_version, $m_version, '>=')) {
     return;
 }
 
 // Settings
-$core->blog->settings->addNamespace('colorbox');
-$s = &$core->blog->settings->colorbox;
+dcCore::app()->blog->settings->addNamespace('colorbox');
+$s = dcCore::app()->blog->settings->colorbox;
 
 $opts = [
     'transition' => 'elastic',
@@ -72,6 +72,6 @@ $s->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
 $s->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
 $s->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
 
-$core->setVersion('colorbox', $m_version);
+dcCore::app()->setVersion('colorbox', $m_version);
 
 return true;
