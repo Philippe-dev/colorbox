@@ -10,9 +10,9 @@
 #
 # -- END LICENSE BLOCK ------------------------------------
 
-if (!isset($__resources['help']['colorbox']))
+if (!isset(dcCore::app()->resources['help']['colorbox']))
 {
-	$__resources['help']['colorbox'] = dirname(__FILE__).'/help/advanced_help.html';
+	dcCore::app()->resources['help']['colorbox'] = dirname(__FILE__).'/help/advanced_help.html';
 }
 
 ?>

@@ -129,7 +129,7 @@ if (isset($_POST['save'])) {
     dcPage::jsConfirmClose('modal-form') .
     dcPage::jsConfirmClose('zoom-form') .
     dcPage::jsConfirmClose('advanced-form')
-    ; ?>
+; ?>
 	<style type="text/css">
 	
 	#thumbnail { border: 1px solid #ccc; }
@@ -158,7 +158,7 @@ if (isset($_GET['upd'])) {
         __('Advanced configuration successfully saved')
     ];
 
-    $k = (integer) $_GET['upd'] - 1;
+    $k = (int) $_GET['upd'] - 1;
 
     if (array_key_exists($k, $a_msg)) {
         dcPage::success($a_msg[$k]);

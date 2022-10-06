@@ -14,7 +14,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$_menu['Blog']->addItem(
+dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
     __('Colorbox'),
     dcCore::app()->adminurl->get('admin.plugin.colorbox'),
     [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
