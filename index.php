@@ -31,7 +31,7 @@ if (dcCore::app()->plugins->moduleExists('lightbox')) {
 $s = dcCore::app()->blog->settings->colorbox;
 
 // Init var
-$p_url = 'plugin.php?p=' . basename(dirname(__FILE__));
+
 $default_tab = isset($_GET['tab']) ? $_GET['tab'] : 'modal';
 $themes = [
     '1' => __('Dark Mac'),
@@ -55,13 +55,13 @@ if (isset($_POST['save'])) {
             $s->put('colorbox_theme', $_POST['colorbox_theme']);
         }
 
-        http::redirect($p_url . '&upd=1');
+        http::redirect(dcCore::app()->admin->getPageURL() . '&upd=1');
     } elseif ($type === 'zoom') {
         $s->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
         $s->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
         $s->put('colorbox_position', !empty($_POST['colorbox_position']));
 
-        http::redirect($p_url . '&tab=zoom&upd=2');
+        http::redirect(dcCore::app()->admin->getPageURL() . '&tab=zoom&upd=2');
     } elseif ($type === 'advanced') {
         $opts = [
             'transition' => $_POST['transition'],
@@ -103,7 +103,7 @@ if (isset($_POST['save'])) {
         $s->put('colorbox_selectors', $_POST['colorbox_selectors']);
         $s->put('colorbox_user_files', $_POST['colorbox_user_files']);
         $s->put('colorbox_legend', $_POST['colorbox_legend']);
-        http::redirect($p_url . '&tab=advanced&upd=3');
+        http::redirect(dcCore::app()->admin->getPageURL() . '&tab=advanced&upd=3');
     }
 }
 
@@ -176,7 +176,7 @@ $thumb_url = 'index.php?pf=colorbox/themes/' . $s->colorbox_theme . '/images/thu
 
 echo
 '<div class="multi-part" id="modal" title="' . __('Modal Window') . '">' .
-    '<form action="' . $p_url . '" method="post" id="modal-form">' .
+    '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="modal-form">' .
     '<div class="fieldset"><h3>' . __('Activation') . '</h3>' .
         '<p><label class="classic" for="colorbox_enabled">' .
         form::checkbox('colorbox_enabled', '1', $s->colorbox_enabled) .
@@ -206,7 +206,7 @@ echo
 
 echo
 '<div class="multi-part" id="zoom" title="' . __('Zoom Icon') . '">' .
-    '<form action="' . $p_url . '" method="post"  id="zoom-form">' .
+    '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post"  id="zoom-form">' .
 
         '<div class="fieldset"><h3>' . __('Behavior') . '</h3>' .
             '<p><label class="classic" for="colorbox_zoom_icon">' .
@@ -246,7 +246,7 @@ $colorbox_legend = [
 $as = unserialize($s->colorbox_advanced);
 echo
 '<div class="multi-part" id="advanced" title="' . __('Advanced configuration') . '">' .
-    '<form action="' . $p_url . '" method="post"  id="advanced-form">' .
+    '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post"  id="advanced-form">' .
         '<div class="fieldset"><h3>' . __('Personnal files') . '</h3>' .
             '<p>' . __('Store personnal CSS and image files in:') . '</p>' .
             '<p><label for="colorbox_user_files-1">' .
