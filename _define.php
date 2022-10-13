@@ -16,14 +16,13 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Colorbox',									// Name
-    'A lightweight customizable lightbox',		// Description
-    'Philippe aka amalgame and Tomtom',			// Author
-    '3.5',                   					// Version
+    'Colorbox',
+    'A lightweight customizable lightbox',
+    'Philippe aka amalgame and Tomtom',
+    '3.5',
     [
-        'requires' => [['core', '2.23']],   	// Dependencies
-        'permissions' => 'usage,contentadmin', 	// Permissions
-        'type' => 'plugin',             	    // Type
-        'priority' => 2000                 	    // Priority
+        'requires' => [['core', '2.23']],
+        'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
+        'priority' => 2000
     ]
 );

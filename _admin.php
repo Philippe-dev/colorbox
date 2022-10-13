@@ -19,7 +19,7 @@ dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
     dcCore::app()->adminurl->get('admin.plugin.colorbox'),
     [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
     preg_match('/' . preg_quote(dcCore::app()->adminurl->get('admin.plugin.colorbox')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
-    dcCore::app()->auth->check('usage,contentadmin', dcCore::app()->blog->id)
+    dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]), dcCore::app()->blog->id)
 );
 
 dcCore::app()->addBehavior(
@@ -30,7 +30,7 @@ dcCore::app()->addBehavior(
             'url' => dcCore::app()->adminurl->get('admin.plugin.colorbox'),
             'small-icon' => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
             'large-icon' => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
-            'permissions' => 'usage,contentadmin',
+            'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
         ]);
     }
 );
