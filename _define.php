@@ -21,7 +21,7 @@ $this->registerModule(
     'Philippe aka amalgame and Tomtom',
     '3.5',
     [
-        'requires' => [['core', '2.23']],
+        'requires' => [['core', '2.24']],
         'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
         'priority' => 2000
     ]
