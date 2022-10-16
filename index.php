@@ -9,7 +9,6 @@
  *
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
-
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
@@ -23,6 +22,7 @@ if (!dcCore::app()->auth->check('admin', dcCore::app()->blog->id)) {
 if (dcCore::app()->plugins->moduleExists('lightbox')) {
     if (dcCore::app()->blog->settings->lightbox->lightbox_enabled) {
         dcCore::app()->error->add(__('Lightbox plugin is enabled. Please disable it before using Colorbox.'));
+
         return;
     }
 }
@@ -32,8 +32,8 @@ $s = dcCore::app()->blog->settings->colorbox;
 
 // Init var
 
-$default_tab = isset($_GET['tab']) ? $_GET['tab'] : 'modal';
-$themes = [
+$default_tab = $_GET['tab'] ?? 'modal';
+$themes      = [
     '1' => __('Dark Mac'),
     '2' => __('Simple White'),
     '3' => __('Lightbox Classic'),
@@ -64,39 +64,39 @@ if (isset($_POST['save'])) {
         http::redirect(dcCore::app()->admin->getPageURL() . '&tab=zoom&upd=2');
     } elseif ($type === 'advanced') {
         $opts = [
-            'transition' => $_POST['transition'],
-            'speed' => !empty($_POST['speed']) ? $_POST['speed'] : '350',
-            'title' => $_POST['title'],
-            'width' => $_POST['width'],
-            'height' => $_POST['height'],
-            'innerWidth' => $_POST['innerWidth'],
-            'innerHeight' => $_POST['innerHeight'],
-            'initialWidth' => !empty($_POST['initialWidth']) ? $_POST['initialWidth'] : '300',
-            'initialHeight' => !empty($_POST['initialHeight']) ? $_POST['initialHeight'] : '100',
-            'maxWidth' => $_POST['maxWidth'],
-            'maxHeight' => $_POST['maxHeight'],
-            'scalePhotos' => !empty($_POST['scalePhotos']),
-            'scrolling' => !empty($_POST['scrolling']),
-            'iframe' => !empty($_POST['iframe']),
-            'opacity' => !empty($_POST['opacity']) ? $_POST['opacity'] : '0.85',
-            'open' => !empty($_POST['open']),
-            'preloading' => !empty($_POST['preloading']),
-            'overlayClose' => !empty($_POST['overlayClose']),
-            'loop' => !empty($_POST['loop']),
-            'slideshow' => !empty($_POST['slideshow']),
+            'transition'     => $_POST['transition'],
+            'speed'          => !empty($_POST['speed']) ? $_POST['speed'] : '350',
+            'title'          => $_POST['title'],
+            'width'          => $_POST['width'],
+            'height'         => $_POST['height'],
+            'innerWidth'     => $_POST['innerWidth'],
+            'innerHeight'    => $_POST['innerHeight'],
+            'initialWidth'   => !empty($_POST['initialWidth']) ? $_POST['initialWidth'] : '300',
+            'initialHeight'  => !empty($_POST['initialHeight']) ? $_POST['initialHeight'] : '100',
+            'maxWidth'       => $_POST['maxWidth'],
+            'maxHeight'      => $_POST['maxHeight'],
+            'scalePhotos'    => !empty($_POST['scalePhotos']),
+            'scrolling'      => !empty($_POST['scrolling']),
+            'iframe'         => !empty($_POST['iframe']),
+            'opacity'        => !empty($_POST['opacity']) ? $_POST['opacity'] : '0.85',
+            'open'           => !empty($_POST['open']),
+            'preloading'     => !empty($_POST['preloading']),
+            'overlayClose'   => !empty($_POST['overlayClose']),
+            'loop'           => !empty($_POST['loop']),
+            'slideshow'      => !empty($_POST['slideshow']),
             'slideshowSpeed' => !empty($_POST['slideshowSpeed']) ? $_POST['slideshowSpeed'] : '2500',
-            'slideshowAuto' => !empty($_POST['slideshowAuto']),
+            'slideshowAuto'  => !empty($_POST['slideshowAuto']),
             'slideshowStart' => $_POST['slideshowStart'],
-            'slideshowStop' => $_POST['slideshowStop'],
-            'current' => $_POST['current'],
-            'previous' => $_POST['previous'],
-            'next' => $_POST['next'],
-            'close' => $_POST['close'],
-            'onOpen' => $_POST['onOpen'],
-            'onLoad' => $_POST['onLoad'],
-            'onComplete' => $_POST['onComplete'],
-            'onCleanup' => $_POST['onCleanup'],
-            'onClosed' => $_POST['onClosed']
+            'slideshowStop'  => $_POST['slideshowStop'],
+            'current'        => $_POST['current'],
+            'previous'       => $_POST['previous'],
+            'next'           => $_POST['next'],
+            'close'          => $_POST['close'],
+            'onOpen'         => $_POST['onOpen'],
+            'onLoad'         => $_POST['onLoad'],
+            'onComplete'     => $_POST['onComplete'],
+            'onCleanup'      => $_POST['onCleanup'],
+            'onClosed'       => $_POST['onClosed'],
         ];
 
         $s->put('colorbox_advanced', serialize($opts));
@@ -144,8 +144,8 @@ if (isset($_POST['save'])) {
 $page_title = __('Colorbox');
 
 echo dcPage::breadcrumb(
-    [html::escapeHTML(dcCore::app()->blog->name) => '',
-        '<span class="page-title">' . $page_title . '</span>' => ''
+    [html::escapeHTML(dcCore::app()->blog->name)              => '',
+        '<span class="page-title">' . $page_title . '</span>' => '',
     ]
 );
 
@@ -155,7 +155,7 @@ if (isset($_GET['upd'])) {
     $a_msg = [
         __('Modal window configuration successfully saved'),
         __('Zoom icon configuration successfully saved'),
-        __('Advanced configuration successfully saved')
+        __('Advanced configuration successfully saved'),
     ];
 
     $k = (int) $_GET['upd'] - 1;
@@ -232,15 +232,15 @@ echo
 // Advanced tab
 
 $effects = [
-    __('Elastic') => 'elastic',
-    __('Fade') => 'fade',
-    __('No transition') => 'none'
+    __('Elastic')       => 'elastic',
+    __('Fade')          => 'fade',
+    __('No transition') => 'none',
 ];
 
 $colorbox_legend = [
-    __('Image alt attribute') => 'alt',
+    __('Image alt attribute')  => 'alt',
     __('Link title attribute') => 'title',
-    __('No legend') => 'none'
+    __('No legend')            => 'none',
 ];
 
 $as = unserialize($s->colorbox_advanced);

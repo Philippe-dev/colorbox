@@ -9,7 +9,6 @@
  *
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
-
 if (!defined('DC_RC_PATH')) {
     return;
 }
@@ -36,10 +35,10 @@ class colorboxPublic
         '<link rel="stylesheet" type="text/css" href="' . $url . '/themes/' . $s->colorbox_theme . '/colorbox_theme.css" />' . "\n";
 
         if ($s->colorbox_user_files) {
-            $public_path = dcCore::app()->blog->public_path;
-            $public_url = dcCore::app()->blog->settings->system->public_url;
+            $public_path        = dcCore::app()->blog->public_path;
+            $public_url         = dcCore::app()->blog->settings->system->public_url;
             $colorbox_user_path = $public_path . '/colorbox/themes/';
-            $colorbox_user_url = $public_url . '/colorbox/themes/';
+            $colorbox_user_url  = $public_url . '/colorbox/themes/';
 
             if (file_exists($colorbox_user_path . $s->colorbox_theme . '/colorbox_user.css')) {
                 echo
@@ -48,9 +47,9 @@ class colorboxPublic
         } else {
             $theme_path = path::fullFromRoot(dcCore::app()->blog->settings->system->themes_path . '/' . dcCore::app()->blog->settings->system->theme, DC_ROOT);
             ;
-            $theme_url = dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme;
+            $theme_url          = dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme;
             $colorbox_user_path = $theme_path . '/colorbox/themes/' . $s->colorbox_theme . '/colorbox_user.css';
-            $colorbox_user_url = $theme_url . '/colorbox/themes/' . $s->colorbox_theme . '/colorbox_user.css';
+            $colorbox_user_url  = $theme_url . '/colorbox/themes/' . $s->colorbox_theme . '/colorbox_user.css';
             if (file_exists($colorbox_user_path)) {
                 echo
                 '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . '" />' . "\n";
@@ -70,8 +69,8 @@ class colorboxPublic
 
         $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . basename(dirname(__FILE__));
 
-        $icon_name = 'zoom.png';
-        $icon_width = '16';
+        $icon_name   = 'zoom.png';
+        $icon_width  = '16';
         $icon_height = '16';
 
         echo

@@ -9,7 +9,6 @@
  *
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
-
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
@@ -26,10 +25,10 @@ dcCore::app()->addBehavior(
     'adminDashboardFavorites',
     function ($core, $favs) {
         $favs->register('colorbox', [
-            'title' => __('Colorbox'),
-            'url' => dcCore::app()->adminurl->get('admin.plugin.colorbox'),
-            'small-icon' => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
-            'large-icon' => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
+            'title'       => __('Colorbox'),
+            'url'         => dcCore::app()->adminurl->get('admin.plugin.colorbox'),
+            'small-icon'  => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
+            'large-icon'  => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
             'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
         ]);
     }
