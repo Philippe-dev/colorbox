@@ -18,7 +18,7 @@ dcCore::app()->addBehavior('publicFooterContent', ['colorboxPublic', 'publicFoot
 
 class colorboxPublic
 {
-    public static function publicHeadContent($core)
+    public static function publicHeadContent()
     {
         // Settings
 
