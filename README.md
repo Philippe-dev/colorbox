@@ -1,4 +1,4 @@
-# colorbox
+# Colorbox
 A lightweight customizable jQuery lightbox plugin for Dotclear
 
 Ce plugin permet de configurer l'aspect de la fenêtre modale dans laquelle sont agrandies les images de vos billets. Il est basé sur le script Colorbox de Jack Moore, sous licence MIT.
