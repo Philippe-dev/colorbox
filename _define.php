@@ -18,13 +18,12 @@ $this->registerModule(
     'Colorbox',
     'A lightweight customizable lightbox',
     'Philippe aka amalgame and Tomtom',
-    '3.5.1',
+    '3.6',
     [
         'requires'    => [['core', '2.24']],
         'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
         'type'       => 'plugin',
         'support'    => 'https://forum.dotclear.org/viewtopic.php?id=41900',
         'details'    => 'https://plugins.dotaddict.org/dc2/details/colorbox',
-        'repository' => 'https://github.com/Philippe-dev/colorbox/blob/master/dcstore.xml',
     ]
 );
