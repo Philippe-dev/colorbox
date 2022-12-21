@@ -18,7 +18,6 @@ if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->module
 }
 
 try {
-    // Settings
     dcCore::app()->blog->settings->addNamespace('colorbox');
     $s = dcCore::app()->blog->settings->colorbox;
 
