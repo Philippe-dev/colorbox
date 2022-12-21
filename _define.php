@@ -25,6 +25,6 @@ $this->registerModule(
         'type'       => 'plugin',
         'support'    => 'https://forum.dotclear.org/viewtopic.php?id=41900',
         'details'    => 'https://plugins.dotaddict.org/dc2/details/colorbox',
-        'repository' => 'https://github.com/Philippe-dev/colorbox/master/dcstore.xml',
+        'repository' => 'https://github.com/Philippe-dev/colorbox/blob/master/dcstore.xml',
     ]
 );
