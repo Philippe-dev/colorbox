@@ -1,4 +1,3 @@
-
 <?php
 /**
  * @brief Colorbox, a plugin for Dotclear 2
