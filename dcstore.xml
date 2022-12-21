@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<modules xmlns:da="http://dotaddict.org/da/">
+  <module id="colorbox">
+    <name>Colorbox</name>
+    <version>3.5.1</version>
+    <author>Philippe aka amalgame and Tomtom</author>
+    <desc>A lightweight customizable lightbox</desc>
+    <file>https://github.com/Philippe-dev/colorbox/releases/download/3.5.1/plugin-colorbox-3.5.1.zip</file>
+    <da:dcmin>2.24</da:dcmin>
+    <da:details>https://plugins.dotaddict.org/dc2/details/colorbox</da:details>
+    <da:support>https://github.com/Philippe-dev/colorbox</da:support>
+  </module>
+</modules>
