@@ -45,7 +45,7 @@ class colorboxPublic
                 '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . $s->colorbox_theme . '/colorbox_user.css" />' . "\n";
             }
         } else {
-            $theme_path = path::fullFromRoot(dcCore::app()->blog->settings->system->themes_path . '/' . dcCore::app()->blog->settings->system->theme, DC_ROOT);
+            $theme_path         = path::fullFromRoot(dcCore::app()->blog->settings->system->themes_path . '/' . dcCore::app()->blog->settings->system->theme, DC_ROOT);
             $theme_url          = dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme;
             $colorbox_user_path = $theme_path . '/colorbox/themes/' . $s->colorbox_theme . '/colorbox_user.css';
             $colorbox_user_url  = $theme_url . '/colorbox/themes/' . $s->colorbox_theme . '/colorbox_user.css';
