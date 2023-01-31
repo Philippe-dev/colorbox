@@ -285,6 +285,9 @@ msgstr "Javascript"
 msgid "A lightweight customizable lightbox"
 msgstr "Une lightbox légère et configurable"
 
+msgid "Behaviour"
+msgstr "Comportement"
+
 msgid "Icon position"
 msgstr "Position de l'icône"
 

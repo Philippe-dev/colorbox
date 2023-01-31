@@ -208,7 +208,7 @@ echo
 '<div class="multi-part" id="zoom" title="' . __('Zoom Icon') . '">' .
     '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post"  id="zoom-form">' .
 
-        '<div class="fieldset"><h3>' . __('Behavior') . '</h3>' .
+        '<div class="fieldset"><h3>' . __('Behaviour') . '</h3>' .
             '<p><label class="classic" for="colorbox_zoom_icon">' .
             form::checkbox('colorbox_zoom_icon', '1', $s->colorbox_zoom_icon) .
             __('Enable zoom icon on hovered thumbnails') . '</label></p>' .
@@ -216,7 +216,7 @@ echo
             form::checkbox('colorbox_zoom_icon_permanent', '1', $s->colorbox_zoom_icon_permanent) .
             __('Always show zoom icon on thumbnails') . '</label></p>' .
         '</div>' .
-        '<div class="fieldset"><h3>' . __('Position') . '</h3>' .
+        '<div class="fieldset"><h3>' . __('Icon position') . '</h3>' .
             '<p><label class="classic" for="colorbox_position-1">' .
             form::radio(['colorbox_position', 'colorbox_position-1'], true, $s->colorbox_position) .
             __('on the left') . '</label></p>' .
