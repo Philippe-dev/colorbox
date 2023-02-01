@@ -22,8 +22,8 @@ $this->registerModule(
     [
         'requires'    => [['core', '2.24']],
         'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
-        'type'       => 'plugin',
-        'support'    => 'https://forum.dotclear.org/viewtopic.php?id=41900',
-        'details'    => 'https://plugins.dotaddict.org/dc2/details/colorbox',
+        'type'        => 'plugin',
+        'support'     => 'https://forum.dotclear.org/viewtopic.php?id=41900',
+        'details'     => 'https://plugins.dotaddict.org/dc2/details/colorbox',
     ]
 );
