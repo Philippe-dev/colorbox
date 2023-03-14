@@ -9,12 +9,14 @@
  *
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
+
 declare(strict_types=1);
 
 namespace Dotclear\Plugin\Colorbox;
 
 use dcCore;
 use dcNsProcess;
+use html;
 
 class Frontend extends dcNsProcess
 {
