@@ -20,7 +20,7 @@ $this->registerModule(
     'Philippe aka amalgame and Tomtom',
     '4.0',
     [
-        'requires'    => [['core', '2.24']],
+        'requires'    => [['core', '2.25']],
         'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
         'type'        => 'plugin',
         'support'     => 'https://forum.dotclear.org/viewtopic.php?id=41900',
