@@ -9,15 +9,34 @@
  *
  * @copyright GPL-2.0 [https://www.gnu.org/licenses/gpl-2.0.html]
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
+declare(strict_types=1);
 
-dcCore::app()->addBehavior('publicHeadContent', ['colorboxPublic', 'publicHeadContent']);
-dcCore::app()->addBehavior('publicFooterContent', ['colorboxPublic', 'publicFooterContent']);
+namespace Dotclear\Plugin\Colorbox;
 
-class colorboxPublic
+use dcCore;
+use dcNsProcess;
+
+class Frontend extends dcNsProcess
 {
+    public static function init(): bool
+    {
+        self::$init = defined('DC_RC_PATH');
+
+        return self::$init;
+    }
+
+    public static function process(): bool
+    {
+        if (!self::$init) {
+            return false;
+        }
+
+        dcCore::app()->addBehavior('publicHeadContent', [self::class, 'publicHeadContent']);
+        dcCore::app()->addBehavior('publicFooterContent', [self::class, 'publicFooterContent']);
+
+        return true;
+    }
+
     public static function publicHeadContent()
     {
         // Settings
@@ -28,7 +47,7 @@ class colorboxPublic
             return;
         }
 
-        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . basename(dirname(__FILE__));
+        $url = dcCore::app()->blog->getQmarkURL() . 'pf=colorbox';
 
         echo
         '<link rel="stylesheet" type="text/css" href="' . $url . '/css/colorbox_common.css" />' . "\n" .
@@ -66,7 +85,7 @@ class colorboxPublic
             return;
         }
 
-        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . basename(dirname(__FILE__));
+        $url = dcCore::app()->blog->getQmarkURL() . 'pf=colorbox';
 
         $icon_name   = 'zoom.png';
         $icon_width  = '16';
