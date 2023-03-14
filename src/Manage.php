@@ -13,46 +13,36 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\Colorbox;
 
-use dcAuth;
+/* dotclear ns */
 use dcCore;
-use dcNsProcess;
 use dcPage;
-use initPages;
-use html;
+use dcThemes;
+use dcNsProcess;
+
+/* clearbricks ns */
+use files;
+use http;
+use path;
+
+/* php ns */
+use Exception;
 
 class Manage extends dcNsProcess
 {
+    private static $plugins_path = '';
+    private static $themes_path  = '';
+
     public static function init(): bool
     {
         if (defined('DC_CONTEXT_ADMIN')) {
-            dcPage::check(dcCore::app()->auth->makePermissions([
-                initPages::PERMISSION_PAGES,
-                dcAuth::PERMISSION_CONTENT_ADMIN,
-            ]));
+            dcPage::checkSuper();
+
+            # Paths
+            $e                  = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
+            $p                  = array_pop($e);
+            self::$plugins_path = (string) path::real($p);
+            self::$themes_path  = dcCore::app()->blog->themes_path;
         }
-
-        if (dcCore::app()->plugins->moduleExists('lightbox')) {
-            if (dcCore::app()->blog->settings->lightbox->lightbox_enabled) {
-                dcCore::app()->error->add(__('Lightbox plugin is enabled. Please disable it before using Colorbox.'));
-
-                return false;
-            }
-        }
-
-        //Settings
-        $s = dcCore::app()->blog->settings->colorbox;
-
-        // Init var
-
-        $default_tab = $_GET['tab'] ?? 'modal';
-        $themes      = [
-            '1' => __('Dark Mac'),
-            '2' => __('Simple White'),
-            '3' => __('Lightbox Classic'),
-            '4' => __('White Mac'),
-            '5' => __('Thick Grey'),
-            '6' => __('Vintage Lightbox'),
-        ];
 
         return self::$init;
     }
@@ -63,90 +53,313 @@ class Manage extends dcNsProcess
             return false;
         }
 
-        if (isset($_POST['save'])) {
-            $type = $_POST['type'];
+        /*# Queries
+        $action = $_POST['action'] ?? '';
+        $type   = isset($_POST['type']) && in_array($_POST['type'], ['plugins', 'themes', 'repository']) ? $_POST['type'] : '';
 
-            dcCore::app()->blog->triggerBlog();
+        # Settings
+        $s   = dcCore::app()->blog->settings->get(My::id());
+        $dir = Utils::getRepositoryDir($s->get('pack_repository'));
 
-            if ($type === 'modal') {
-                $s->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
+        # Modules
+        if (!(dcCore::app()->themes instanceof dcThemes)) {
+            dcCore::app()->themes = new dcThemes();
+            dcCore::app()->themes->loadModules(dcCore::app()->blog->themes_path, null);
+        }
+        $themes  = dcCore::app()->themes;
+        $plugins = dcCore::app()->plugins;
 
-                if (isset($_POST['colorbox_theme'])) {
-                    $s->put('colorbox_theme', $_POST['colorbox_theme']);
+        # Rights
+        $is_writable = Utils::is_writable(
+            $dir,
+            $s->get('pack_filename')
+        );
+        $is_editable = !empty($type)
+            && !empty($_POST['modules'])
+            && is_array($_POST['modules']);
+
+        # Actions
+        try {
+            # Download
+            if (isset($_REQUEST['package']) && empty($type)) {
+                $modules = [];
+                if ($type == 'plugins') {
+                    $modules = Core::getPackages(self::$plugins_path);
+                } elseif ($type == 'themes') {
+                    $modules = Core::getPackages(self::$themes_path);
+                } else {
+                    $modules = array_merge(
+                        Core::getPackages(dirname($dir . '/' . $s->get('pack_filename'))),
+                        Core::getPackages(dirname($dir . '/' . $s->get('secondpack_filename')))
+                    );
                 }
 
-                http::redirect(dcCore::app()->admin->getPageURL() . '&upd=1');
-            } elseif ($type === 'zoom') {
-                $s->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
-                $s->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
-                $s->put('colorbox_position', !empty($_POST['colorbox_position']));
+                foreach ($modules as $f) {
+                    if (preg_match('/' . preg_quote($_REQUEST['package']) . '$/', $f['root'])
+                        && is_file($f['root']) && is_readable($f['root'])
+                    ) {
+                        # --BEHAVIOR-- packmanBeforeDownloadPackage
+                        dcCore::app()->callBehavior('packmanBeforeDownloadPackage', $f, $type);
 
-                http::redirect(dcCore::app()->admin->getPageURL() . '&tab=zoom&upd=2');
-            } elseif ($type === 'advanced') {
-                $opts = [
-                    'transition'     => $_POST['transition'],
-                    'speed'          => !empty($_POST['speed']) ? $_POST['speed'] : '350',
-                    'title'          => $_POST['title'],
-                    'width'          => $_POST['width'],
-                    'height'         => $_POST['height'],
-                    'innerWidth'     => $_POST['innerWidth'],
-                    'innerHeight'    => $_POST['innerHeight'],
-                    'initialWidth'   => !empty($_POST['initialWidth']) ? $_POST['initialWidth'] : '300',
-                    'initialHeight'  => !empty($_POST['initialHeight']) ? $_POST['initialHeight'] : '100',
-                    'maxWidth'       => $_POST['maxWidth'],
-                    'maxHeight'      => $_POST['maxHeight'],
-                    'scalePhotos'    => !empty($_POST['scalePhotos']),
-                    'scrolling'      => !empty($_POST['scrolling']),
-                    'iframe'         => !empty($_POST['iframe']),
-                    'opacity'        => !empty($_POST['opacity']) ? $_POST['opacity'] : '0.85',
-                    'open'           => !empty($_POST['open']),
-                    'preloading'     => !empty($_POST['preloading']),
-                    'overlayClose'   => !empty($_POST['overlayClose']),
-                    'loop'           => !empty($_POST['loop']),
-                    'slideshow'      => !empty($_POST['slideshow']),
-                    'slideshowSpeed' => !empty($_POST['slideshowSpeed']) ? $_POST['slideshowSpeed'] : '2500',
-                    'slideshowAuto'  => !empty($_POST['slideshowAuto']),
-                    'slideshowStart' => $_POST['slideshowStart'],
-                    'slideshowStop'  => $_POST['slideshowStop'],
-                    'current'        => $_POST['current'],
-                    'previous'       => $_POST['previous'],
-                    'next'           => $_POST['next'],
-                    'close'          => $_POST['close'],
-                    'onOpen'         => $_POST['onOpen'],
-                    'onLoad'         => $_POST['onLoad'],
-                    'onComplete'     => $_POST['onComplete'],
-                    'onCleanup'      => $_POST['onCleanup'],
-                    'onClosed'       => $_POST['onClosed'],
-                ];
+                        header('Content-Type: application/zip');
+                        header('Content-Length: ' . filesize($f['root']));
+                        header('Content-Disposition: attachment; filename="' . basename($f['root']) . '"');
+                        readfile($f['root']);
 
-                $s->put('colorbox_advanced', serialize($opts));
-                $s->put('colorbox_selectors', $_POST['colorbox_selectors']);
-                $s->put('colorbox_user_files', $_POST['colorbox_user_files']);
-                $s->put('colorbox_legend', $_POST['colorbox_legend']);
-                http::redirect(dcCore::app()->admin->getPageURL() . '&tab=advanced&upd=3');
+                        # --BEHAVIOR-- packmanAfterDownloadPackage
+                        dcCore::app()->callBehavior('packmanAfterDownloadPackage', $f, $type);
+
+                        exit;
+                    }
+                }
+
+                # Not found
+                header('Content-Type: text/plain');
+                http::head(404, 'Not Found');
+                exit;
+            } elseif (!empty($action) && !$is_editable) {
+                dcPage::addErrorNotice(
+                    __('No modules selected.')
+                );
+
+                if (!empty($_POST['redir'])) {
+                    http::redirect($_POST['redir']);
+                } else {
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [], '#packman-' . $type);
+                }
+
+            # Pack
+            } elseif ($action == 'packup') {
+                foreach ($_POST['modules'] as $root => $id) {
+                    if (!Utils::moduleExists($type, $id)) {
+                        throw new Exception('No such module');
+                    }
+
+                    $module         = Utils::getModules($type, $id);
+                    $module['id']   = $id;
+                    $module['type'] = $type == 'themes' ? 'theme' : 'plugin';
+
+                    $files = [
+                        (string) $s->get('pack_filename'),
+                        (string) $s->get('secondpack_filename'),
+                    ];
+                    $nocomment  = (bool) $s->get('pack_nocomment');
+                    $fixnewline = (bool) $s->get('pack_fixnewline');
+                    $overwrite  = (bool) $s->get('pack_overwrite');
+                    $exclude    = explode(',', (string) $s->get('pack_excludefiles'));
+
+                    # --BEHAVIOR-- packmanBeforeCreatePackage
+                    dcCore::app()->callBehavior('packmanBeforeCreatePackage', $module);
+
+                    Core::pack($module, $dir, $files, $overwrite, $exclude, $nocomment, $fixnewline);
+
+                    # --BEHAVIOR-- packmanAfterCreatePackage
+                    dcCore::app()->callBehavior('packmanAfterCreatePackage', $module);
+                }
+
+                dcPage::addSuccessNotice(
+                    __('Package successfully created.')
+                );
+
+                if (!empty($_POST['redir'])) {
+                    http::redirect($_POST['redir']);
+                } else {
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [], '#packman-' . $type);
+                }
+
+            # Delete
+            } elseif ($action == 'delete') {
+                $del_success = false;
+                foreach ($_POST['modules'] as $root => $id) {
+                    if (!file_exists($root) || !files::isDeletable($root)) {
+                        dcPage::addWarningNotice(sprintf(__('Undeletable file "%s"', $root)));
+                    } else {
+                        $del_success = true;
+                    }
+
+                    unlink($root);
+                }
+
+                if ($del_success) {
+                    dcPage::addSuccessNotice(
+                        __('Package successfully deleted.')
+                    );
+                }
+
+                if (!empty($_POST['redir'])) {
+                    http::redirect($_POST['redir']);
+                } else {
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [], '#packman-repository-' . $type);
+                }
+
+            # Install
+            } elseif ($action == 'install') {
+                foreach ($_POST['modules'] as $root => $id) {
+                    # --BEHAVIOR-- packmanBeforeInstallPackage
+                    dcCore::app()->callBehavior('packmanBeforeInstallPackage', $type, $id, $root);
+
+                    if ($type == 'plugins') {
+                        $plugins->installPackage($root, $plugins);
+                    }
+                    if ($type == 'themes') {
+                        $themes->installPackage($root, $themes);
+                    }
+
+                    # --BEHAVIOR-- packmanAfterInstallPackage
+                    dcCore::app()->callBehavior('packmanAfterInstallPackage', $type, $id, $root);
+                }
+
+                dcPage::addSuccessNotice(
+                    __('Package successfully installed.')
+                );
+
+                if (!empty($_POST['redir'])) {
+                    http::redirect($_POST['redir']);
+                } else {
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [], '#packman-repository-' . $type);
+                }
+
+            # Copy
+            } elseif (strpos($action, 'copy_to_') !== false) {
+                $dest = (string) $dir;
+                if ($action == 'copy_to_plugins') {
+                    $dest = self::$plugins_path;
+                } elseif ($action == 'copy_to_themes') {
+                    $dest = self::$themes_path;
+                }
+
+                foreach ($_POST['modules'] as $root => $id) {
+                    file_put_contents(
+                        $dest . '/' . basename($root),
+                        file_get_contents($root)
+                    );
+                }
+
+                dcPage::addSuccessNotice(
+                    __('Package successfully copied.')
+                );
+
+                if (!empty($_POST['redir'])) {
+                    http::redirect($_POST['redir']);
+                } else {
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [], '#packman-repository-' . $type);
+                }
+
+            # Move
+            } elseif (strpos($action, 'move_to_') !== false) {
+                $dest = (string) $dir;
+                if ($action == 'move_to_plugins') {
+                    $dest = self::$plugins_path;
+                } elseif ($action == 'move_to_themes') {
+                    $dest = self::$themes_path;
+                }
+
+                foreach ($_POST['modules'] as $root => $id) {
+                    file_put_contents(
+                        $dest . '/' . basename($root),
+                        file_get_contents($root)
+                    );
+                    unlink($root);
+                }
+
+                dcPage::addSuccessNotice(
+                    __('Package successfully moved.')
+                );
+
+                if (!empty($_POST['redir'])) {
+                    http::redirect($_POST['redir']);
+                } else {
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [], '#packman-repository-' . $type);
+                }
             }
+        } catch (Exception $e) {
+            dcCore::app()->error->add($e->getMessage());
         }
-
+*/
         return true;
     }
 
-    /**
-     * Renders the page.
-     */
     public static function render(): void
     {
         if (!self::$init) {
             return;
         }
 
-        echo dcPage::breadcrumb(
-            [html::escapeHTML(dcCore::app()->blog->name)              => '',
-                '<span class="page-title">' . $page_title . '</span>' => '',
-            ]
-        );
-        
-        dcPage::helpBlock('colorbox');
+        /*# Settings
+        $s   = dcCore::app()->blog->settings->get(My::id());
+        $dir = Utils::getRepositoryDir($s->get('pack_repository'));
 
+        $is_configured = Utils::is_configured(
+            $dir,
+            $s->get('pack_filename'),
+            $s->get('secondpack_filename')
+        );
+
+        # Display
+        dcPage::openModule(
+            My::name(),
+            dcPage::jsPageTabs() .
+            dcPage::jsModuleLoad(My::id() . '/js/backend.js') .
+
+            # --BEHAVIOR-- packmanAdminHeader
+            dcCore::app()->callBehavior('packmanAdminHeader')
+        );
+
+        echo
+        dcPage::breadcrumb([
+            __('Plugins') => '',
+            My::name()    => '',
+        ]) .
+        dcPage::notices();
+
+        if (dcCore::app()->error->flag() || !$is_configured) {
+            echo
+            '<div class="warning">' . __('pacKman is not well configured.') . ' ' .
+            '<a href="' . dcCore::app()->adminurl->get('admin.plugins', ['module' => My::id(), 'conf' => '1', 'redir' => dcCore::app()->adminurl->get('admin.plugin.' . My::id())]) . '">' . __('Configuration') . '</a>' .
+            '</div>';
+        } else {
+            $repo_path_modules = array_merge(
+                Core::getPackages(dirname($dir . '/' . $s->get('pack_filename'))),
+                Core::getPackages(dirname($dir . '/' . $s->get('secondpack_filename')))
+            );
+            $plugins_path_modules = Core::getPackages(self::$plugins_path);
+            $themes_path_modules  = Core::getPackages(self::$themes_path);
+
+            Utils::modules(
+                Utils::getModules('plugins'),
+                'plugins',
+                __('Installed plugins')
+            );
+
+            Utils::modules(
+                Utils::getModules('themes'),
+                'themes',
+                __('Installed themes')
+            );
+
+            Utils::repository(
+                $plugins_path_modules,
+                'plugins',
+                __('Plugins root')
+            );
+
+            Utils::repository(
+                $themes_path_modules,
+                'themes',
+                __('Themes root')
+            );
+
+            Utils::repository(
+                $repo_path_modules,
+                'repository',
+                __('Packages repository')
+            );
+        }
+*/
+        # --BEHAVIOR-- packmanAdminTabs
+        dcCore::app()->callBehavior('packmanAdminTabs');
+
+        dcPage::helpBlock('pacKman');
         dcPage::closeModule();
     }
 }
