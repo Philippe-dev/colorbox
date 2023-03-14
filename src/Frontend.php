@@ -17,6 +17,7 @@ namespace Dotclear\Plugin\Colorbox;
 use dcCore;
 use dcNsProcess;
 use html;
+use path;
 
 class Frontend extends dcNsProcess
 {
