@@ -87,6 +87,20 @@ class Manage extends dcNsProcess
             }
         }
 
+        self::$init = true;
+
+        return self::$init;
+    }
+
+    /**
+     * Processes the request(s).
+     */
+    public static function process(): bool
+    {
+        if (!self::$init) {
+            return false;
+        }
+
         $default_tab = $_GET['tab'] ?? 'modal';
 
         $themes = [
@@ -103,20 +117,6 @@ class Manage extends dcNsProcess
         dcCore::app()->admin->default_tab = $default_tab;
         dcCore::app()->admin->themes      = $themes;
         dcCore::app()->admin->s           = $s;
-
-        self::$init = true;
-
-        return self::$init;
-    }
-
-    /**
-     * Processes the request(s).
-     */
-    public static function process(): bool
-    {
-        if (!self::$init) {
-            return false;
-        }
 
         if (!empty($_POST)) {
             try {
@@ -201,11 +201,10 @@ class Manage extends dcNsProcess
             return;
         }
 
-        echo
-        '<html>' .
-        '<head>' ;
-
-        echo
+        $head = dcPage::jsPageTabs(dcCore::app()->admin->default_tab) .
+        dcPage::jsConfirmClose('modal-form') .
+        dcPage::jsConfirmClose('zoom-form') .
+        dcPage::jsConfirmClose('advanced-form') .
         '<script>' .
         '$(document).ready(function() {' .
             '$("input[type=radio][name=colorbox_theme]").click(function() {' .
@@ -218,22 +217,12 @@ class Manage extends dcNsProcess
                 '}' .
             '});' .
         '});' .
-        '</script>';
-
-        echo dcPage::jsPageTabs(dcCore::app()->admin->default_tab) .
-        dcPage::jsConfirmClose('modal-form') .
-        dcPage::jsConfirmClose('zoom-form') .
-        dcPage::jsConfirmClose('advanced-form');
-
-        echo
+        '</script>' .
         '<style type="text/css">' .
-            '#thumbnail { border: 1px solid #ccc; }' .
+            '#thumbnail { border: 1px solid #ccc; padding: 0.1em}' .
         '</style>';
 
-        echo
-        '<title>' . __('Colorbox') . '</title>' .
-        '</head>' .
-        '<body>';
+        dcPage::openModule(__('Colorbox'), $head);
 
         echo dcPage::breadcrumb(
             [
@@ -252,7 +241,7 @@ class Manage extends dcNsProcess
             $k = (int) $_GET['upd'] - 1;
 
             if (array_key_exists($k, $a_msg)) {
-                dcPage::message($a_msg[$k]);
+                dcPage::success($a_msg[$k]);
             }
         }
 
@@ -484,8 +473,6 @@ class Manage extends dcNsProcess
         '</div>';
 
         dcPage::helpBlock('colorbox');
-        echo
-        '</body>' .
-        '</html>';
+        dcPage::closeModule();
     }
 }
