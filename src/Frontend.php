@@ -17,7 +17,7 @@ namespace Dotclear\Plugin\Colorbox;
 use dcCore;
 use dcNsProcess;
 use Dotclear\Helper\Html\Html;
-use path;
+use Dotclear\Helper\File\Path;
 
 class Frontend extends dcNsProcess
 {
@@ -67,7 +67,7 @@ class Frontend extends dcNsProcess
                 '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . $s->colorbox_theme . '/colorbox_user.css" />' . "\n";
             }
         } else {
-            $theme_path         = path::fullFromRoot(dcCore::app()->blog->settings->system->themes_path . '/' . dcCore::app()->blog->settings->system->theme, DC_ROOT);
+            $theme_path         = Path::fullFromRoot(dcCore::app()->blog->settings->system->themes_path . '/' . dcCore::app()->blog->settings->system->theme, DC_ROOT);
             $theme_url          = dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme;
             $colorbox_user_path = $theme_path . '/colorbox/themes/' . $s->colorbox_theme . '/colorbox_user.css';
             $colorbox_user_url  = $theme_url . '/colorbox/themes/' . $s->colorbox_theme . '/colorbox_user.css';
