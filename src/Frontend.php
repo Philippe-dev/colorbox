@@ -16,7 +16,7 @@ namespace Dotclear\Plugin\Colorbox;
 
 use dcCore;
 use dcNsProcess;
-use html;
+use Dotclear\Helper\Html\Html;
 use path;
 
 class Frontend extends dcNsProcess
@@ -129,14 +129,14 @@ class Frontend extends dcNsProcess
                 echo 'var left = offset.left-parentleft+p.outerWidth()-' . $icon_width . ';' . "\n";
             }
 
-            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . html::escapeJS($url) . '/themes/' . $s->colorbox_theme . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
+            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . Html::escapeJS($url) . '/themes/' . $s->colorbox_theme . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
                 '}' . "\n" .
             '});' . "\n";
         }
 
         if ($s->colorbox_zoom_icon && !$s->colorbox_zoom_icon_permanent) {
             echo
-            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . html::escapeJS($url) . '/themes/' . $s->colorbox_theme . '/images/zoom.png" alt=""  />\');' . "\n" .
+            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . Html::escapeJS($url) . '/themes/' . $s->colorbox_theme . '/images/zoom.png" alt=""  />\');' . "\n" .
             '$(\'img#colorbox_magnify\').on(\'click\', function ()' . "\n" .
                 '{ ' . "\n" .
                     '$("a.colorbox_zoom img.colorbox_hovered").click(); ' . "\n" .
