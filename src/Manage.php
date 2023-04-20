@@ -19,8 +19,8 @@ use dcNsProcess;
 use dcPage;
 use Exception;
 use form;
-use html;
-use http;
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
 
 class Manage extends dcNsProcess
 {
@@ -81,7 +81,7 @@ class Manage extends dcNsProcess
                 $s->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
 
                 dcCore::app()->blog->triggerBlog();
-                http::redirect(dcCore::app()->admin->getPageURL());
+                Http::redirect(dcCore::app()->admin->getPageURL());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -131,13 +131,13 @@ class Manage extends dcNsProcess
                         dcCore::app()->admin->s->put('colorbox_theme', $_POST['colorbox_theme']);
                     }
 
-                    http::redirect(dcCore::app()->admin->getPageURL() . '&upd=1');
+                    Http::redirect(dcCore::app()->admin->getPageURL() . '&upd=1');
                 } elseif ($type === 'zoom') {
                     dcCore::app()->admin->s->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
                     dcCore::app()->admin->s->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
                     dcCore::app()->admin->s->put('colorbox_position', !empty($_POST['colorbox_position']));
 
-                    http::redirect(dcCore::app()->admin->getPageURL() . '&tab=zoom&upd=2');
+                    Http::redirect(dcCore::app()->admin->getPageURL() . '&tab=zoom&upd=2');
                 } elseif ($type === 'advanced') {
                     $opts = [
                         'transition'     => $_POST['transition'],
@@ -182,7 +182,7 @@ class Manage extends dcNsProcess
 
                     dcCore::app()->blog->triggerBlog();
 
-                    http::redirect(dcCore::app()->admin->getPageURL() . '&tab=advanced&upd=3');
+                    Http::redirect(dcCore::app()->admin->getPageURL() . '&tab=advanced&upd=3');
                 }
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
@@ -226,7 +226,7 @@ class Manage extends dcNsProcess
 
         echo dcPage::breadcrumb(
             [
-                html::escapeHTML(dcCore::app()->blog->name) => '',
+                Html::escapeHTML(dcCore::app()->blog->name) => '',
                 __('Colorbox')                              => '',
             ]
         );
