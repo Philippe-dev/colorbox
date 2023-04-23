@@ -201,35 +201,37 @@ class Manage extends dcNsProcess
             return;
         }
 
-        $head = dcPage::jsPageTabs(dcCore::app()->admin->default_tab) .
-        dcPage::jsConfirmClose('modal-form') .
-        dcPage::jsConfirmClose('zoom-form') .
-        dcPage::jsConfirmClose('advanced-form') .
-        '<script>' .
-        '$(document).ready(function() {' .
-            '$("input[type=radio][name=colorbox_theme]").click(function() {' .
-                'var p = $(this).attr("value");' .
-                '$("img#thumbnail").attr("src","index.php?pf=colorbox/themes/"+p+"/images/thumbnail.jpg");' .
+        dcPage::openModule(
+            __('Colorbox'),
+            dcPage::jsPageTabs(dcCore::app()->admin->default_tab) .
+            dcPage::jsConfirmClose('modal-form') .
+            dcPage::jsConfirmClose('zoom-form') .
+            dcPage::jsConfirmClose('advanced-form') .
+            '<script>' .
+            '$(document).ready(function() {' .
+                '$("input[type=radio][name=colorbox_theme]").click(function() {' .
+                    'var p = $(this).attr("value");' .
+                    '$("img#thumbnail").attr("src","index.php?pf=colorbox/themes/"+p+"/images/thumbnail.jpg");' .
+                '});' .
+                '$("#colorbox_zoom_icon").click(function() {' .
+                    'if (!$("#colorbox_zoom_icon").is(":checked")) {' .
+                        '$("#colorbox_zoom_icon_permanent").attr("checked", false);' .
+                    '}' .
+                '});' .
             '});' .
-            '$("#colorbox_zoom_icon").click(function() {' .
-                'if (!$("#colorbox_zoom_icon").is(":checked")) {' .
-                    '$("#colorbox_zoom_icon_permanent").attr("checked", false);' .
-                '}' .
-            '});' .
-        '});' .
-        '</script>' .
-        '<style type="text/css">' .
-            '#thumbnail { border: 1px solid #ccc; padding: 0.1em}' .
-        '</style>';
-
-        dcPage::openModule(__('Colorbox'), $head);
+            '</script>' .
+            '<style type="text/css">' .
+                '#thumbnail { border: 1px solid #ccc; padding: 0.1em}' .
+            '</style>'
+        );
 
         echo dcPage::breadcrumb(
             [
                 Html::escapeHTML(dcCore::app()->blog->name) => '',
                 __('Colorbox')                              => '',
             ]
-        );
+        ) .
+        dcPage::notices();
 
         if (isset($_GET['upd'])) {
             $a_msg = [
