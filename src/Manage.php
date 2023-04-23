@@ -32,7 +32,7 @@ class Manage extends dcNsProcess
         if (is_null(dcCore::app()->blog->settings->colorbox->colorbox_enabled)) {
             try {
                 // Add default settings values if necessary
-                $s = dcCore::app()->blog->settings->colorbox;
+                $settings = dcCore::app()->blog->settings->colorbox;
 
                 $opts = [
                     'transition'     => 'elastic',
@@ -70,15 +70,15 @@ class Manage extends dcNsProcess
                     'onClosed'       => '',
                 ];
 
-                $s->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
-                $s->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
-                $s->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
-                $s->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
-                $s->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
-                $s->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
-                $s->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
-                $s->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
-                $s->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
+                $settings->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
+                $settings->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
+                $settings->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
+                $settings->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
+                $settings->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
+                $settings->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
+                $settings->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
+                $settings->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
+                $settings->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
 
                 dcCore::app()->blog->triggerBlog();
                 Http::redirect(dcCore::app()->admin->getPageURL());
@@ -112,11 +112,10 @@ class Manage extends dcNsProcess
             '6' => __('Vintage Lightbox'),
         ];
 
-        $s = dcCore::app()->blog->settings->colorbox;
+        $settings = dcCore::app()->blog->settings->colorbox;
 
         dcCore::app()->admin->default_tab = $default_tab;
         dcCore::app()->admin->themes      = $themes;
-        dcCore::app()->admin->s           = $s;
 
         if (!empty($_POST)) {
             try {
@@ -125,17 +124,17 @@ class Manage extends dcNsProcess
                 dcCore::app()->blog->triggerBlog();
 
                 if ($type === 'modal') {
-                    dcCore::app()->admin->s->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
+                    $settings->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
 
                     if (isset($_POST['colorbox_theme'])) {
-                        dcCore::app()->admin->s->put('colorbox_theme', $_POST['colorbox_theme']);
+                        $settings->put('colorbox_theme', $_POST['colorbox_theme']);
                     }
 
                     Http::redirect(dcCore::app()->admin->getPageURL() . '&upd=1');
                 } elseif ($type === 'zoom') {
-                    dcCore::app()->admin->s->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
-                    dcCore::app()->admin->s->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
-                    dcCore::app()->admin->s->put('colorbox_position', !empty($_POST['colorbox_position']));
+                    $settings->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
+                    $settings->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
+                    $settings->put('colorbox_position', !empty($_POST['colorbox_position']));
 
                     Http::redirect(dcCore::app()->admin->getPageURL() . '&tab=zoom&upd=2');
                 } elseif ($type === 'advanced') {
@@ -175,10 +174,10 @@ class Manage extends dcNsProcess
                         'onClosed'       => $_POST['onClosed'],
                     ];
 
-                    dcCore::app()->admin->s->put('colorbox_advanced', serialize($opts));
-                    dcCore::app()->admin->s->put('colorbox_selectors', $_POST['colorbox_selectors']);
-                    dcCore::app()->admin->s->put('colorbox_user_files', $_POST['colorbox_user_files']);
-                    dcCore::app()->admin->s->put('colorbox_legend', $_POST['colorbox_legend']);
+                    $settings->put('colorbox_advanced', serialize($opts));
+                    $settings->put('colorbox_selectors', $_POST['colorbox_selectors']);
+                    $settings->put('colorbox_user_files', $_POST['colorbox_user_files']);
+                    $settings->put('colorbox_legend', $_POST['colorbox_legend']);
 
                     dcCore::app()->blog->triggerBlog();
 
@@ -200,6 +199,8 @@ class Manage extends dcNsProcess
         if (!self::$init) {
             return;
         }
+
+        $settings = dcCore::app()->blog->settings->colorbox;
 
         dcPage::openModule(
             __('Colorbox'),
@@ -251,17 +252,17 @@ class Manage extends dcNsProcess
         $theme_choice = '';
         foreach (dcCore::app()->admin->themes as $k => $v) {
             $theme_choice .= '<p><label class="classic" for="colorbox_theme-' . $k . '">' .
-            form::radio(['colorbox_theme', 'colorbox_theme-' . $k], $k, dcCore::app()->admin->s->colorbox_theme == $k) .
+            form::radio(['colorbox_theme', 'colorbox_theme-' . $k], $k, $settings->colorbox_theme == $k) .
             ' ' . $v . '</label></p>';
         }
-        $thumb_url = 'index.php?pf=colorbox/themes/' . dcCore::app()->admin->s->colorbox_theme . '/images/thumbnail.jpg';
+        $thumb_url = 'index.php?pf=colorbox/themes/' . $settings->colorbox_theme . '/images/thumbnail.jpg';
 
         echo
         '<div class="multi-part" id="modal" title="' . __('Modal Window') . '">' .
             '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="modal-form">' .
             '<div class="fieldset"><h3>' . __('Activation') . '</h3>' .
                 '<p><label class="classic" for="colorbox_enabled">' .
-                form::checkbox('colorbox_enabled', '1', dcCore::app()->admin->s->colorbox_enabled) .
+                form::checkbox('colorbox_enabled', '1', $settings->colorbox_enabled) .
                 __('Enable Colorbox on this blog') . '</label></p>' .
             '</div>' .
             '<div class="fieldset"><h3>' . __('Theme') . '</h3>' .
@@ -292,18 +293,18 @@ class Manage extends dcNsProcess
 
                 '<div class="fieldset"><h3>' . __('Behaviour') . '</h3>' .
                     '<p><label class="classic" for="colorbox_zoom_icon">' .
-                    form::checkbox('colorbox_zoom_icon', '1', dcCore::app()->admin->s->colorbox_zoom_icon) .
+                    form::checkbox('colorbox_zoom_icon', '1', $settings->colorbox_zoom_icon) .
                     __('Enable zoom icon on hovered thumbnails') . '</label></p>' .
                     '<p><label class="classic" for="colorbox_zoom_icon_permanent">' .
-                    form::checkbox('colorbox_zoom_icon_permanent', '1', dcCore::app()->admin->s->colorbox_zoom_icon_permanent) .
+                    form::checkbox('colorbox_zoom_icon_permanent', '1', $settings->colorbox_zoom_icon_permanent) .
                     __('Always show zoom icon on thumbnails') . '</label></p>' .
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Icon position') . '</h3>' .
                     '<p><label class="classic" for="colorbox_position-1">' .
-                    form::radio(['colorbox_position', 'colorbox_position-1'], true, dcCore::app()->admin->s->colorbox_position) .
+                    form::radio(['colorbox_position', 'colorbox_position-1'], true, $settings->colorbox_position) .
                     __('on the left') . '</label></p>' .
                     '<p><label class="classic" for="colorbox_position-2">' .
-                    form::radio(['colorbox_position', 'colorbox_position-2'], false, !dcCore::app()->admin->s->colorbox_position) .
+                    form::radio(['colorbox_position', 'colorbox_position-2'], false, !$settings->colorbox_position) .
                     __('on the right') . '</label></p>' .
                 '</div>' .
                 '<p>' . form::hidden(['type'], 'zoom') . '</p>' .
@@ -325,23 +326,23 @@ class Manage extends dcNsProcess
             __('No legend')            => 'none',
         ];
 
-        $as = unserialize(dcCore::app()->admin->s->colorbox_advanced);
+        $as = unserialize($settings->colorbox_advanced);
         echo
         '<div class="multi-part" id="advanced" title="' . __('Advanced configuration') . '">' .
             '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post"  id="advanced-form">' .
                 '<div class="fieldset"><h3>' . __('Personnal files') . '</h3>' .
                     '<p>' . __('Store personnal CSS and image files in:') . '</p>' .
                     '<p><label for="colorbox_user_files-1">' .
-                    form::radio(['colorbox_user_files', 'colorbox_user_files-1'], true, dcCore::app()->admin->s->colorbox_user_files) .
+                    form::radio(['colorbox_user_files', 'colorbox_user_files-1'], true, $settings->colorbox_user_files) .
                     __('public folder') . '</label></p>' .
                     '<p><label for="colorbox_user_files-2">' .
-                    form::radio(['colorbox_user_files', 'colorbox_user_files-2'], false, !dcCore::app()->admin->s->colorbox_user_files) .
+                    form::radio(['colorbox_user_files', 'colorbox_user_files-2'], false, !$settings->colorbox_user_files) .
                     __('theme folder') . '</label></p>' .
 
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Selectors') . '</h3>' .
                     '<p><label class="maximal" for="colorbox_selectors">' . __('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):') .
-                    '<br />' . form::field('colorbox_selectors', 80, 255, dcCore::app()->admin->s->colorbox_selectors) .
+                    '<br />' . form::field('colorbox_selectors', 80, 255, $settings->colorbox_selectors) .
                     '</label></p>' .
                     '<p class="info">' . __('Leave blank to default: (.post)') . '</p>' .
                 '</div>' .
@@ -387,7 +388,7 @@ class Manage extends dcNsProcess
                 '<div class="two-cols clearfix"><div class="col">' .
 
                     '<p class="field"><label for="colorbox_legend">' . __('Images legend') . '&nbsp;' .
-                    form::combo('colorbox_legend', $colorbox_legend, dcCore::app()->admin->s->colorbox_legend) .
+                    form::combo('colorbox_legend', $colorbox_legend, $settings->colorbox_legend) .
                     '</label></p>' .
                     '<p class="field"><label for="title">' . __('Default legend') . '&nbsp;' .
                     form::field('title', 30, 255, $as['title']) .

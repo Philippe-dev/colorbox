@@ -35,7 +35,7 @@ class Install extends dcNsProcess
             return false;
         }
 
-        $s = dcCore::app()->blog->settings->colorbox;
+        $settings = dcCore::app()->blog->settings->colorbox;
 
         $opts = [
             'transition'     => 'elastic',
@@ -73,15 +73,15 @@ class Install extends dcNsProcess
             'onClosed'       => '',
         ];
 
-        $s->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
-        $s->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
-        $s->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
-        $s->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
-        $s->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
-        $s->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
-        $s->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
-        $s->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
-        $s->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
+        $settings->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
+        $settings->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
+        $settings->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
+        $settings->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
+        $settings->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
+        $settings->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
+        $settings->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
+        $settings->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
+        $settings->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
 
         return true;
     }
