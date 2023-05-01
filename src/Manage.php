@@ -267,18 +267,16 @@ class Manage extends dcNsProcess
             '</div>' .
             '<div class="fieldset"><h3>' . __('Theme') . '</h3>' .
 
-                '<div class="two-cols clearfix">' .
-                    '<div class="col">' .
+                    '<div class="two-boxes odd">' .
                         '<p class="classic">' . __('Choose your theme for Colorbox:') . '</p>' .
                         $theme_choice .
 
                     '</div>' .
-                    '<div class="col">' .
+                    '<div class="two-boxes even">' .
                         '<p><img id="thumbnail" src="' . $thumb_url . '" alt="' . __('Preview') . '" title="' . __('Preview') . '" width="400" height="204" /></p>' .
                     '</div>' .
 
-                '</div>' .
-                '<p class="form-note info maximal">' . __('All themes may be customized, see <em>Personal files</em> help section.') . '</p>' .
+                '<p class="form-note info clear">' . __('All themes may be customized, see <em>Personal files</em> help section.') . '</p>' .
             '</div>' .
             '<p>' . form::hidden(['type'], 'modal') . '</p>' .
             '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
@@ -338,7 +336,6 @@ class Manage extends dcNsProcess
                     '<p><label for="colorbox_user_files-2">' .
                     form::radio(['colorbox_user_files', 'colorbox_user_files-2'], false, !$settings->colorbox_user_files) .
                     __('theme folder') . '</label></p>' .
-
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Selectors') . '</h3>' .
                     '<p><label class="maximal" for="colorbox_selectors">' . __('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):') .
@@ -347,7 +344,7 @@ class Manage extends dcNsProcess
                     '<p class="info">' . __('Leave blank to default: (.post)') . '</p>' .
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Effects') . '</h3>' .
-                '<div class="two-cols clearfix"><div class="col">' .
+                '<div class="two-boxes odd">' .
                     '<p class="field"><label for="transition">' . __('Transition type') . '&nbsp;' .
                     form::combo('transition', $effects, $as['transition']) .
                     '</label></p>' .
@@ -366,7 +363,7 @@ class Manage extends dcNsProcess
                     '<p><label for="overlayClose">' .
                     form::checkbox('overlayClose', 1, $as['overlayClose']) .
                     __('Enable close by clicking on overlay') . '</label></p>' .
-                '</div><div class="col">' .
+                '</div><div class="two-boxes even">' .
                     '<p><label for="slideshow">' .
                     form::checkbox('slideshow', 1, $as['slideshow']) .
                     __('Enable slideshow') . '</label></p>' .
@@ -382,11 +379,10 @@ class Manage extends dcNsProcess
                     '<p class="field"><label for="slideshowStop">' . __('Slideshow stop display text') . '&nbsp;' .
                     form::field('slideshowStop', 30, 255, $as['slideshowStop']) .
                     '</label></p>' .
-                '</div></div>' .
+                '</div>' .
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Modal window') . '</h3>' .
-                '<div class="two-cols clearfix"><div class="col">' .
-
+                '<div class="two-boxes odd">' .
                     '<p class="field"><label for="colorbox_legend">' . __('Images legend') . '&nbsp;' .
                     form::combo('colorbox_legend', $colorbox_legend, $settings->colorbox_legend) .
                     '</label></p>' .
@@ -400,7 +396,7 @@ class Manage extends dcNsProcess
                     form::checkbox('iframe', 1, $as['iframe']) .
                     __('Display content in  an iframe') . '</label></p>' .
 
-                '</div><div class="col">' .
+                '</div><div class="two-boxes even">' .
                     '<p class="field"><label for="current">' . __('Current text') . '&nbsp;' .
                     form::field('current', 30, 255, $as['current']) .
                     '</label></p>' .
@@ -413,10 +409,10 @@ class Manage extends dcNsProcess
                     '<p class="field"><label for="close">' . __('Close text') . '&nbsp;' .
                     form::field('close', 30, 255, $as['close']) .
                     '</label></p>' .
-                '</div></div>' .
+                '</div>' .
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Dimensions') . '</h3>' .
-                '<div class="two-cols clearfix"><div class="col">' .
+                '<div class="two-boxes odd">' .
                     '<p class="field"><label for="width">' . __('Fixed width') . '&nbsp;' .
                     form::field('width', 30, 10, $as['width']) .
                     '</label></p>' .
@@ -435,7 +431,7 @@ class Manage extends dcNsProcess
                     '<p><label class="classic" for="scrolling">' .
                     form::checkbox('scrolling', 1, $as['scrolling']) .
                     __('Show overflowing content') . '</label></p>' .
-                '</div><div class="col">' .
+                '</div><div class="two-boxes even">' .
                     '<p class="field"><label for="initialWidth">' . __('Initial width') . '&nbsp;' .
                     form::field('initialWidth', 30, 10, $as['initialWidth']) .
                     '</label></p>' .
@@ -448,10 +444,10 @@ class Manage extends dcNsProcess
                     '<p class="field"><label for="maxHeight">' . __('Max height') . '&nbsp;' .
                     form::field('maxHeight', 30, 10, $as['maxHeight']) .
                     '</label></p>' .
-                '</div></div>' .
+                '</div>' .
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Javascript') . '</h3>' .
-                '<div class="two-cols clearfix"><div class="col">' .
+                '<div class="two-boxes odd">' .
                     '<p class="field"><label for="onOpen">' . __('onOpen callback') . '&nbsp;' .
                     form::field('onOpen', 80, 255, $as['onOpen'], 'maximal') .
                     '</label></p>' .
@@ -461,14 +457,14 @@ class Manage extends dcNsProcess
                     '<p class="field"><label for="onComplete">' . __('onComplete callback') . '&nbsp;' .
                     form::field('onComplete', 80, 255, $as['onComplete'], 'maximal') .
                     '</label></p>' .
-                '</div><div class="col">' .
+                '</div><div class="two-boxes even">' .
                     '<p class="field"><label for="onCleanup">' . __('onCleanup callback') . '&nbsp;' .
                     form::field('onCleanup', 80, 255, $as['onCleanup'], 'maximal') .
                     '</label></p>' .
                     '<p class="field"><label for="onClosed">' . __('onClosed callback') . '&nbsp;' .
                     form::field('onClosed', 80, 255, $as['onClosed'], 'maximal') .
                     '</label></p>' .
-                '</div></div>' .
+                '</div>' .
                 '</div>' .
                 '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
                 '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
