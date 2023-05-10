@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\Colorbox;
+namespace Dotclear\Plugin\colorbox;
 
 use dcCore;
 use dcNsProcess;
@@ -23,14 +23,14 @@ class Frontend extends dcNsProcess
 {
     public static function init(): bool
     {
-        self::$init = defined('DC_RC_PATH');
+        static::$init = defined('DC_RC_PATH');
 
-        return self::$init;
+        return static::$init;
     }
 
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
@@ -44,13 +44,13 @@ class Frontend extends dcNsProcess
     {
         // Settings
 
-        $settings = dcCore::app()->blog->settings->colorbox;
+        $settings = dcCore::app()->blog->settings->get(My::id());
 
         if (!$settings->colorbox_enabled) {
             return;
         }
 
-        $url = dcCore::app()->blog->getQmarkURL() . 'pf=colorbox';
+        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . My::id();
 
         echo
         '<link rel="stylesheet" type="text/css" href="' . $url . '/css/colorbox_common.css" />' . "\n" .
@@ -82,13 +82,13 @@ class Frontend extends dcNsProcess
     {
         // Settings
 
-        $settings = dcCore::app()->blog->settings->colorbox;
+        $settings = dcCore::app()->blog->settings->get(My::id());
 
         if (!$settings->colorbox_enabled) {
             return;
         }
 
-        $url = dcCore::app()->blog->getQmarkURL() . 'pf=colorbox';
+        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . My::id();
 
         $icon_name   = 'zoom.png';
         $icon_width  = '16';

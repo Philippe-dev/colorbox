@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\Colorbox;
+namespace Dotclear\Plugin\colorbox;
 
 use dcCore;
 use dcNsProcess;
@@ -21,21 +21,18 @@ class Install extends dcNsProcess
 {
     public static function init(): bool
     {
-        $module = basename(dirname(__DIR__));
-        $check  = dcCore::app()->newVersion($module, dcCore::app()->plugins->moduleInfo($module, 'version'));
+        static::$init = My::checkContext(My::INSTALL);
 
-        self::$init = defined('DC_CONTEXT_ADMIN') && $check;
-
-        return self::$init;
+        return static::$init;
     }
 
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
-        $settings = dcCore::app()->blog->settings->colorbox;
+        $settings = dcCore::app()->blog->settings->get(My::id());
 
         $opts = [
             'transition'     => 'elastic',

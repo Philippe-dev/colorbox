@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\Colorbox;
+namespace Dotclear\Plugin\colorbox;
 
 use dcCore;
 use dcNsProcess;
@@ -32,7 +32,7 @@ class Manage extends dcNsProcess
         if (is_null(dcCore::app()->blog->settings->colorbox->colorbox_enabled)) {
             try {
                 // Add default settings values if necessary
-                $settings = dcCore::app()->blog->settings->colorbox;
+                $settings = dcCore::app()->blog->settings->get(My::id());
 
                 $opts = [
                     'transition'     => 'elastic',
@@ -81,15 +81,15 @@ class Manage extends dcNsProcess
                 $settings->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
 
                 dcCore::app()->blog->triggerBlog();
-                Http::redirect(dcCore::app()->admin->getPageURL());
+                Http::redirect(My::url());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
         }
 
-        self::$init = true;
+        static::$init = true;
 
-        return self::$init;
+        return static::$init;
     }
 
     /**
@@ -97,7 +97,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
@@ -112,7 +112,7 @@ class Manage extends dcNsProcess
             '6' => __('Vintage Lightbox'),
         ];
 
-        $settings = dcCore::app()->blog->settings->colorbox;
+        $settings = dcCore::app()->blog->settings->get(My::id());
 
         dcCore::app()->admin->default_tab = $default_tab;
         dcCore::app()->admin->themes      = $themes;
@@ -130,13 +130,13 @@ class Manage extends dcNsProcess
                         $settings->put('colorbox_theme', $_POST['colorbox_theme']);
                     }
 
-                    Http::redirect(dcCore::app()->admin->getPageURL() . '&upd=1');
+                    Http::redirect(My::url() . '&upd=1');
                 } elseif ($type === 'zoom') {
                     $settings->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
                     $settings->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
                     $settings->put('colorbox_position', !empty($_POST['colorbox_position']));
 
-                    Http::redirect(dcCore::app()->admin->getPageURL() . '&tab=zoom&upd=2');
+                    Http::redirect(My::url() . '&tab=zoom&upd=2');
                 } elseif ($type === 'advanced') {
                     $opts = [
                         'transition'     => $_POST['transition'],
@@ -181,7 +181,7 @@ class Manage extends dcNsProcess
 
                     dcCore::app()->blog->triggerBlog();
 
-                    Http::redirect(dcCore::app()->admin->getPageURL() . '&tab=advanced&upd=3');
+                    Http::redirect(My::url() . '&tab=advanced&upd=3');
                 }
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
@@ -196,14 +196,14 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return;
         }
 
-        $settings = dcCore::app()->blog->settings->colorbox;
+        $settings = dcCore::app()->blog->settings->get(My::id());
 
         dcPage::openModule(
-            __('Colorbox'),
+            My::name(),
             dcPage::jsPageTabs(dcCore::app()->admin->default_tab) .
             dcPage::jsConfirmClose('modal-form') .
             dcPage::jsConfirmClose('zoom-form') .
@@ -229,7 +229,7 @@ class Manage extends dcNsProcess
         echo dcPage::breadcrumb(
             [
                 Html::escapeHTML(dcCore::app()->blog->name) => '',
-                __('Colorbox')                              => '',
+                My::name()                                  => '',
             ]
         ) .
         dcPage::notices();
@@ -259,7 +259,7 @@ class Manage extends dcNsProcess
 
         echo
         '<div class="multi-part" id="modal" title="' . __('Modal Window') . '">' .
-            '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="modal-form">' .
+            '<form action="' . My::url() . '" method="post" id="modal-form">' .
             '<div class="fieldset"><h3>' . __('Activation') . '</h3>' .
                 '<p><label class="classic" for="colorbox_enabled">' .
                 form::checkbox('colorbox_enabled', '1', $settings->colorbox_enabled) .
@@ -287,7 +287,7 @@ class Manage extends dcNsProcess
 
         echo
         '<div class="multi-part" id="zoom" title="' . __('Zoom Icon') . '">' .
-            '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post"  id="zoom-form">' .
+            '<form action="' . My::url() . '" method="post"  id="zoom-form">' .
 
                 '<div class="fieldset"><h3>' . __('Behaviour') . '</h3>' .
                     '<p><label class="classic" for="colorbox_zoom_icon">' .
@@ -327,7 +327,7 @@ class Manage extends dcNsProcess
         $as = unserialize($settings->colorbox_advanced);
         echo
         '<div class="multi-part" id="advanced" title="' . __('Advanced configuration') . '">' .
-            '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post"  id="advanced-form">' .
+            '<form action="' . My::url() . '" method="post"  id="advanced-form">' .
                 '<div class="fieldset"><h3>' . __('Personnal files') . '</h3>' .
                     '<p>' . __('Store personnal CSS and image files in:') . '</p>' .
                     '<p><label for="colorbox_user_files-1">' .

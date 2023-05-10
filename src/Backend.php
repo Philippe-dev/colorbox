@@ -12,10 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\Colorbox;
+namespace Dotclear\Plugin\colorbox;
 
 use dcAdmin;
-use dcAuth;
 use dcCore;
 use dcFavorites;
 use dcPage;
@@ -25,33 +24,33 @@ class Backend extends dcNsProcess
 {
     public static function init(): bool
     {
-        self::$init = defined('DC_CONTEXT_ADMIN');
+        static::$init = My::checkContext(My::BACKEND);
 
-        return self::$init;
+        return static::$init;
     }
 
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
         dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
-            __('Colorbox'),
-            dcCore::app()->adminurl->get('admin.plugin.colorbox'),
-            [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
-            preg_match('/' . preg_quote(dcCore::app()->adminurl->get('admin.plugin.colorbox')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
-            dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]), dcCore::app()->blog->id)
+            My::name(),
+            dcCore::app()->adminurl->get('admin.plugin.' . My::id()),
+            [dcPage::getPF(My::id() . '/icon.svg'), dcPage::getPF(My::id() . '/icon-dark.svg')],
+            preg_match('/' . preg_quote(dcCore::app()->adminurl->get('admin.plugin.' . My::id())) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
+            My::checkContext(My::BACKEND),
         );
 
         /* Register favorite */
         dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $favs) {
-            $favs->register('colorbox', [
-                'title'       => __('Colorbox'),
-                'url'         => dcCore::app()->adminurl->get('admin.plugin.colorbox'),
-                'small-icon'  => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
-                'large-icon'  => [dcPage::getPF('colorbox/icon.svg'), dcPage::getPF('colorbox/icon-dark.svg')],
-                'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
+            $favs->register(My::id(), [
+                'title'       => My::name(),
+                'url'         => dcCore::app()->adminurl->get('admin.plugin.' . My::id()),
+                'small-icon'  => [dcPage::getPF(My::id() . '/icon.svg'), dcPage::getPF(My::id() . '/icon-dark.svg')],
+                'large-icon'  => [dcPage::getPF(My::id() . '/icon.svg'), dcPage::getPF(My::id() . '/icon-dark.svg')],
+                'permissions' => My::checkContext(My::BACKEND),
             ]);
         });
 
