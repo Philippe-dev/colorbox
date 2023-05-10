@@ -29,65 +29,7 @@ class Manage extends dcNsProcess
      */
     public static function init(): bool
     {
-        if (is_null(dcCore::app()->blog->settings->colorbox->colorbox_enabled)) {
-            try {
-                // Add default settings values if necessary
-                $settings = dcCore::app()->blog->settings->get(My::id());
-
-                $opts = [
-                    'transition'     => 'elastic',
-                    'speed'          => '350',
-                    'title'          => '',
-                    'width'          => '',
-                    'height'         => '',
-                    'innerWidth'     => '',
-                    'innerHeight'    => '',
-                    'initialWidth'   => '300',
-                    'initialHeight'  => '100',
-                    'maxWidth'       => '',
-                    'maxHeight'      => '',
-                    'scalePhotos'    => true,
-                    'scrolling'      => true,
-                    'iframe'         => false,
-                    'opacity'        => '0.85',
-                    'open'           => false,
-                    'preloading'     => true,
-                    'overlayClose'   => true,
-                    'loop'           => true,
-                    'slideshow'      => false,
-                    'slideshowSpeed' => '2500',
-                    'slideshowAuto'  => false,
-                    'slideshowStart' => __('Start slideshow'),
-                    'slideshowStop'  => __('Stop slideshow'),
-                    'current'        => __('{current} of {total}'),
-                    'previous'       => __('previous'),
-                    'next'           => __('next'),
-                    'close'          => __('close'),
-                    'onOpen'         => '',
-                    'onLoad'         => '',
-                    'onComplete'     => '',
-                    'onCleanup'      => '',
-                    'onClosed'       => '',
-                ];
-
-                $settings->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
-                $settings->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
-                $settings->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
-                $settings->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
-                $settings->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
-                $settings->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
-                $settings->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
-                $settings->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
-                $settings->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
-
-                dcCore::app()->blog->triggerBlog();
-                Http::redirect(My::url());
-            } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
-            }
-        }
-
-        static::$init = true;
+        static::$init = My::checkContext(My::MANAGE);
 
         return static::$init;
     }
