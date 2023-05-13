@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    clip-rule="evenodd"
    fill-rule="evenodd"
    stroke-linejoin="round"
@@ -15,7 +8,14 @@
    version="1.1"
    id="svg859"
    sodipodi:docname="icon.svg"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata
      id="metadata865">
     <rdf:RDF>
@@ -40,16 +40,17 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1025"
+     inkscape:window-height="1012"
      id="namedview861"
      showgrid="false"
      inkscape:zoom="10.11377"
-     inkscape:cx="8.9005031"
-     inkscape:cy="32.921631"
+     inkscape:cx="8.9976339"
+     inkscape:cy="32.925408"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg859" />
+     inkscape:current-layer="svg859"
+     inkscape:pagecheckerboard="0" />
   <rect
      style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.51764709;paint-order:stroke fill markers"
      id="rect889"
@@ -73,29 +74,25 @@
        inkscape:connector-curvature="0"
        style="fill:#88c200;fill-rule:nonzero;stroke:#88c200;stroke-width:1" />
   </g>
-  <g
-     id="g2366"
-     transform="matrix(1.2192801,0,0,1.2194227,-7.9078541,-6.5692535)">
-    <ellipse
-       ry="4.2394061"
-       rx="3.9597449"
-       cy="11.605932"
-       cx="54.673729"
-       id="path2341"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.6397655;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
-    <text
-       transform="scale(1.1071795,0.90319592)"
-       id="text2361"
-       y="15.825396"
-       x="46.182377"
-       style="font-style:normal;font-weight:normal;font-size:10.88199329px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.27204984"
-       xml:space="preserve"><tspan
-         style="fill:#ffffff;fill-opacity:1;stroke-width:0.27204984"
-         y="15.825396"
-         x="46.182377"
-         id="tspan2359"
-         sodipodi:role="line">x</tspan></text>
-  </g>
+  <ellipse
+     ry="5.1696281"
+     rx="4.8280382"
+     cy="7.5832839"
+     cx="58.754734"
+     id="path2341"
+     style="fill:#676e78;fill-opacity:1;stroke:#676e78;stroke-width:3.21881;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+  <text
+     transform="scale(1.1071147,0.90324874)"
+     id="text2361"
+     y="12.023801"
+     x="49.169785"
+     style="font-style:normal;font-weight:normal;font-size:13.269px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.331725"
+     xml:space="preserve"><tspan
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.331725"
+       y="12.023801"
+       x="49.169785"
+       id="tspan2359"
+       sodipodi:role="line">x</tspan></text>
   <path
      style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.54444442;stroke-miterlimit:2;stroke-dasharray:none"
      d="m 1.4955484,40.152892 v 24.35525 H 26.330176"
