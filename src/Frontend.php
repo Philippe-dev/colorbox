@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\colorbox;
 
 use dcCore;
+use dcUtils;
 use dcNsProcess;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\File\Path;
@@ -50,11 +51,9 @@ class Frontend extends dcNsProcess
             return;
         }
 
-        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . My::id();
-
         echo
-        '<link rel="stylesheet" type="text/css" href="' . $url . '/css/colorbox_common.css" />' . "\n" .
-        '<link rel="stylesheet" type="text/css" href="' . $url . '/themes/' . $settings->colorbox_theme . '/colorbox_theme.css" />' . "\n";
+        dcUtils::cssModuleLoad(My::id() . '/css/colorbox_common.css') .
+        dcUtils::cssModuleLoad(My::id() . '/themes/' . $settings->colorbox_theme . '/colorbox_theme.css');
 
         if ($settings->colorbox_user_files) {
             $public_path        = dcCore::app()->blog->public_path;
@@ -88,14 +87,12 @@ class Frontend extends dcNsProcess
             return;
         }
 
-        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . My::id();
-
         $icon_name   = 'zoom.png';
         $icon_width  = '16';
         $icon_height = '16';
 
         echo
-        '<script src="' . $url . '/js/jquery.colorbox-min.js"></script>' . "\n" .
+        dcUtils::jsModuleLoad(My::id() . '/js/jquery.colorbox-min.js') .
         '<script>' . "\n" .
         "//<![CDATA[\n";
 
