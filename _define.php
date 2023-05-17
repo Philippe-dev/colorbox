@@ -18,7 +18,7 @@ $this->registerModule(
     'Colorbox',
     'A lightweight customizable lightbox',
     'Philippe aka amalgame and Tomtom',
-    '4.2',
+    '4.3',
     [
         'requires'    => [['core', '2.26']],
         'permissions' => dcCore::app()->auth->makePermissions([dcAuth::PERMISSION_CONTENT_ADMIN]),
