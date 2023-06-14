@@ -52,7 +52,7 @@ class Frontend extends dcNsProcess
         }
 
         echo
-        dcUtils::cssModuleLoad(My::id() . '/css/colorbox_common.css') .
+        My::cssLoad('colorbox_common.css') .
         dcUtils::cssModuleLoad(My::id() . '/themes/' . $settings->colorbox_theme . '/colorbox_theme.css');
 
         if ($settings->colorbox_user_files) {
@@ -92,7 +92,7 @@ class Frontend extends dcNsProcess
         $icon_height = '16';
 
         echo
-        dcUtils::jsModuleLoad(My::id() . '/js/jquery.colorbox-min.js') .
+        My::jsLoad('jquery.colorbox-min.js') .
         '<script>' . "\n" .
         "//<![CDATA[\n";
 
