@@ -72,13 +72,13 @@ class Manage extends dcNsProcess
                         $settings->put('colorbox_theme', $_POST['colorbox_theme']);
                     }
 
-                    Http::redirect(My::url() . '&upd=1');
+                    Http::redirect(My::manageUrl() . '&upd=1');
                 } elseif ($type === 'zoom') {
                     $settings->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
                     $settings->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
                     $settings->put('colorbox_position', !empty($_POST['colorbox_position']));
 
-                    Http::redirect(My::url() . '&tab=zoom&upd=2');
+                    Http::redirect(My::manageUrl() . '&tab=zoom&upd=2');
                 } elseif ($type === 'advanced') {
                     $opts = [
                         'transition'     => $_POST['transition'],
@@ -123,7 +123,7 @@ class Manage extends dcNsProcess
 
                     dcCore::app()->blog->triggerBlog();
 
-                    Http::redirect(My::url() . '&tab=advanced&upd=3');
+                    Http::redirect(My::manageUrl() . '&tab=advanced&upd=3');
                 }
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
@@ -201,7 +201,7 @@ class Manage extends dcNsProcess
 
         echo
         '<div class="multi-part" id="modal" title="' . __('Modal Window') . '">' .
-            '<form action="' . My::url() . '" method="post" id="modal-form">' .
+            '<form action="' . My::manageUrl() . '" method="post" id="modal-form">' .
             '<div class="fieldset"><h3>' . __('Activation') . '</h3>' .
                 '<p><label class="classic" for="colorbox_enabled">' .
                 form::checkbox('colorbox_enabled', '1', $settings->colorbox_enabled) .
@@ -229,7 +229,7 @@ class Manage extends dcNsProcess
 
         echo
         '<div class="multi-part" id="zoom" title="' . __('Zoom Icon') . '">' .
-            '<form action="' . My::url() . '" method="post"  id="zoom-form">' .
+            '<form action="' . My::manageUrl() . '" method="post"  id="zoom-form">' .
 
                 '<div class="fieldset"><h3>' . __('Behaviour') . '</h3>' .
                     '<p><label class="classic" for="colorbox_zoom_icon">' .
@@ -269,7 +269,7 @@ class Manage extends dcNsProcess
         $as = unserialize($settings->colorbox_advanced);
         echo
         '<div class="multi-part" id="advanced" title="' . __('Advanced configuration') . '">' .
-            '<form action="' . My::url() . '" method="post"  id="advanced-form">' .
+            '<form action="' . My::manageUrl() . '" method="post"  id="advanced-form">' .
                 '<div class="fieldset"><h3>' . __('Personnal files') . '</h3>' .
                     '<p>' . __('Store personnal CSS and image files in:') . '</p>' .
                     '<p><label for="colorbox_user_files-1">' .
