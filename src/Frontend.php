@@ -53,7 +53,7 @@ class Frontend extends dcNsProcess
 
         echo
         My::cssLoad('colorbox_common.css') .
-        dcUtils::cssModuleLoad(My::id() . '/themes/' . $settings->colorbox_theme . '/colorbox_theme.css');
+        My::cssLoad('/themes/' . $settings->colorbox_theme . '/colorbox_theme.css');
 
         if ($settings->colorbox_user_files) {
             $public_path        = dcCore::app()->blog->public_path;
