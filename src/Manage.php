@@ -71,14 +71,17 @@ class Manage extends dcNsProcess
                     if (isset($_POST['colorbox_theme'])) {
                         $settings->put('colorbox_theme', $_POST['colorbox_theme']);
                     }
+                    dcCore::app()->blog->triggerBlog();
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), ['upd' => 1]);
 
-                    Http::redirect(My::manageUrl() . '&upd=1');
                 } elseif ($type === 'zoom') {
                     $settings->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
                     $settings->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
                     $settings->put('colorbox_position', !empty($_POST['colorbox_position']));
 
-                    Http::redirect(My::manageUrl() . '&tab=zoom&upd=2');
+                    dcCore::app()->blog->triggerBlog();
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), ['tab' => 'zoom', 'upd' => 2]);
+
                 } elseif ($type === 'advanced') {
                     $opts = [
                         'transition'     => $_POST['transition'],
@@ -122,8 +125,7 @@ class Manage extends dcNsProcess
                     $settings->put('colorbox_legend', $_POST['colorbox_legend']);
 
                     dcCore::app()->blog->triggerBlog();
-
-                    Http::redirect(My::manageUrl() . '&tab=advanced&upd=3');
+                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), ['tab' => 'advanced', 'upd' => 3]);
                 }
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
