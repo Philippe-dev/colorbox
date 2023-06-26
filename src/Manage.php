@@ -72,7 +72,7 @@ class Manage extends dcNsProcess
                         $settings->put('colorbox_theme', $_POST['colorbox_theme']);
                     }
                     dcCore::app()->blog->triggerBlog();
-                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), ['upd' => 1]);
+                    My::redirect(['upd' => 1]);
 
                 } elseif ($type === 'zoom') {
                     $settings->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
@@ -80,7 +80,7 @@ class Manage extends dcNsProcess
                     $settings->put('colorbox_position', !empty($_POST['colorbox_position']));
 
                     dcCore::app()->blog->triggerBlog();
-                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), ['tab' => 'zoom', 'upd' => 2]);
+                    My::redirect(['tab' => 'zoom', 'upd' => 2]);
 
                 } elseif ($type === 'advanced') {
                     $opts = [
@@ -125,7 +125,7 @@ class Manage extends dcNsProcess
                     $settings->put('colorbox_legend', $_POST['colorbox_legend']);
 
                     dcCore::app()->blog->triggerBlog();
-                    dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), ['tab' => 'advanced', 'upd' => 3]);
+                    My::redirect(['tab' => 'advanced', 'upd' => 3]);
                 }
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
