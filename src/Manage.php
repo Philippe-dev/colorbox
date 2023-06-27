@@ -20,10 +20,10 @@ use dcPage;
 use Exception;
 use form;
 use Dotclear\Helper\Html\Html;
-use Dotclear\Helper\Network\Http;
 
 class Manage extends dcNsProcess
 {
+    protected static $init = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
@@ -73,7 +73,6 @@ class Manage extends dcNsProcess
                     }
                     dcCore::app()->blog->triggerBlog();
                     My::redirect(['upd' => 1]);
-
                 } elseif ($type === 'zoom') {
                     $settings->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
                     $settings->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
@@ -81,7 +80,6 @@ class Manage extends dcNsProcess
 
                     dcCore::app()->blog->triggerBlog();
                     My::redirect(['tab' => 'zoom', 'upd' => 2]);
-
                 } elseif ($type === 'advanced') {
                     $opts = [
                         'transition'     => $_POST['transition'],

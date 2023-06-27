@@ -15,13 +15,13 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\colorbox;
 
 use dcCore;
-use dcUtils;
 use dcNsProcess;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\File\Path;
 
 class Frontend extends dcNsProcess
 {
+    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
         static::$init = My::checkContext(My::FRONTEND);

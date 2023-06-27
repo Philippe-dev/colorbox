@@ -17,11 +17,11 @@ namespace Dotclear\Plugin\colorbox;
 use dcAdmin;
 use dcCore;
 use dcFavorites;
-use dcPage;
 use dcNsProcess;
 
 class Backend extends dcNsProcess
 {
+    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
         static::$init = My::checkContext(My::BACKEND);
