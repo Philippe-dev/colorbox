@@ -90,6 +90,7 @@ class Frontend extends dcNsProcess
         $icon_name   = 'zoom.png';
         $icon_width  = '16';
         $icon_height = '16';
+        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . My::id();
 
         echo
         dcUtils::jsModuleLoad(My::id() . '/js/jquery.colorbox-min.js') .
