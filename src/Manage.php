@@ -153,8 +153,8 @@ class Manage extends dcNsProcess
             '<script>' .
             '$(document).ready(function() {' .
                 '$("input[type=radio][name=colorbox_theme]").click(function() {' .
-                    'var p = $(this).attr("value");' .
-                    '$("img#thumbnail").attr("src","index.php?pf=colorbox/themes/"+p+"/images/thumbnail.jpg");' .
+                    'const url = `themes/${$(this).attr("value")}/images/thumbnail.jpg`;' .
+                    '$("img#thumbnail").attr("src", `' . My::fileURL('${url}') . '` );' .
                 '});' .
                 '$("#colorbox_zoom_icon").click(function() {' .
                     'if (!$("#colorbox_zoom_icon").is(":checked")) {' .
@@ -197,7 +197,8 @@ class Manage extends dcNsProcess
             form::radio(['colorbox_theme', 'colorbox_theme-' . $k], $k, $settings->colorbox_theme == $k) .
             ' ' . $v . '</label></p>';
         }
-        $thumb_url = 'index.php?pf=colorbox/themes/' . $settings->colorbox_theme . '/images/thumbnail.jpg';
+
+        $thumb_url = My::fileURL('/themes/' . $settings->colorbox_theme . '/images/thumbnail.jpg');
 
         echo
         '<div class="multi-part" id="modal" title="' . __('Modal Window') . '">' .

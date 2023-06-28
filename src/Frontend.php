@@ -83,6 +83,7 @@ class Frontend extends dcNsProcess
 
         $settings = dcCore::app()->blog->settings->get(My::id());
 
+
         if (!$settings->colorbox_enabled) {
             return;
         }
@@ -126,14 +127,14 @@ class Frontend extends dcNsProcess
                 echo 'var left = offset.left-parentleft+p.outerWidth()-' . $icon_width . ';' . "\n";
             }
 
-            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . Html::escapeJS($url) . '/themes/' . $settings->colorbox_theme . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
+            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . My::fileURL('/themes/' . $settings->colorbox_theme) . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
                 '}' . "\n" .
             '});' . "\n";
         }
 
         if ($settings->colorbox_zoom_icon && !$settings->colorbox_zoom_icon_permanent) {
             echo
-            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . Html::escapeJS($url) . '/themes/' . $settings->colorbox_theme . '/images/zoom.png" alt=""  />\');' . "\n" .
+            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . My::fileURL('/themes/' . $settings->colorbox_theme) . '/images/zoom.png" alt=""  />\');' . "\n" .
             '$(\'img#colorbox_magnify\').on(\'click\', function ()' . "\n" .
                 '{ ' . "\n" .
                     '$("a.colorbox_zoom img.colorbox_hovered").click(); ' . "\n" .
