@@ -156,11 +156,6 @@ class Manage extends dcNsProcess
                     'const url = `themes/${$(this).attr("value")}/images/thumbnail.jpg`;' .
                     '$("img#thumbnail").attr("src", `' . My::fileURL('${url}') . '` );' .
                 '});' .
-                '$("#colorbox_zoom_icon").click(function() {' .
-                    'if (!$("#colorbox_zoom_icon").is(":checked")) {' .
-                        '$("#colorbox_zoom_icon_permanent").attr("checked", false);' .
-                    '}' .
-                '});' .
             '});' .
             '</script>' .
             '<style type="text/css">' .
