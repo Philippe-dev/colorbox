@@ -17,6 +17,7 @@ namespace Dotclear\Plugin\colorbox;
 use dcCore;
 use Dotclear\Core\Process;
 use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Backend\Notices;
 use Exception;
 use form;
 use Dotclear\Helper\Html\Html;
@@ -164,7 +165,7 @@ class Manage extends Process
                 My::name()                                  => '',
             ]
         ) .
-        Page::notices();
+        Notices::getNotices();
 
         if (isset($_GET['upd'])) {
             $a_msg = [
@@ -176,7 +177,7 @@ class Manage extends Process
             $k = (int) $_GET['upd'] - 1;
 
             if (array_key_exists($k, $a_msg)) {
-                Page::success($a_msg[$k]);
+                Notices::success($a_msg[$k]);
             }
         }
 
