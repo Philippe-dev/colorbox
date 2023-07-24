@@ -14,25 +14,20 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\colorbox;
 
-use dcCore;
-use dcNsProcess;
+use Dotclear\Core\Process;
 
-class Install extends dcNsProcess
+class Install extends Process
 {
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::INSTALL);
-
-        return static::$init;
+        return self::status(My::checkContext(My::INSTALL));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
-
-        $settings = dcCore::app()->blog->settings->get(My::id());
 
         $opts = [
             'transition'     => 'elastic',
@@ -70,15 +65,15 @@ class Install extends dcNsProcess
             'onClosed'       => '',
         ];
 
-        $settings->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
-        $settings->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
-        $settings->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
-        $settings->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
-        $settings->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
-        $settings->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
-        $settings->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
-        $settings->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
-        $settings->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
+        My::settings()->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
+        My::settings()->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
+        My::settings()->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
+        My::settings()->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
+        My::settings()->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
+        My::settings()->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
+        My::settings()->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
+        My::settings()->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
+        My::settings()->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
 
         return true;
     }

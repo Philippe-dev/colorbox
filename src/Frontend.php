@@ -15,23 +15,19 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\colorbox;
 
 use dcCore;
-use dcUtils;
-use dcNsProcess;
-use Dotclear\Helper\Html\Html;
+use Dotclear\Core\Process;
 use Dotclear\Helper\File\Path;
 
-class Frontend extends dcNsProcess
+class Frontend extends Process
 {
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::FRONTEND);
-
-        return static::$init;
+        return self::status(My::checkContext(My::FRONTEND));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -43,33 +39,29 @@ class Frontend extends dcNsProcess
 
     public static function publicHeadContent()
     {
-        // Settings
-
-        $settings = dcCore::app()->blog->settings->get(My::id());
-
-        if (!$settings->colorbox_enabled) {
+        if (!My::settings()->colorbox_enabled) {
             return;
         }
 
         echo
-        dcUtils::cssModuleLoad(My::id() . '/css/colorbox_common.css') .
-        dcUtils::cssModuleLoad(My::id() . '/themes/' . $settings->colorbox_theme . '/colorbox_theme.css');
+        My::cssLoad('colorbox_common.css') .
+        My::cssLoad('/themes/' . My::settings()->colorbox_theme . '/colorbox_theme.css');
 
-        if ($settings->colorbox_user_files) {
+        if (My::settings()->colorbox_user_files) {
             $public_path        = dcCore::app()->blog->public_path;
             $public_url         = dcCore::app()->blog->settings->system->public_url;
             $colorbox_user_path = $public_path . '/colorbox/themes/';
             $colorbox_user_url  = $public_url . '/colorbox/themes/';
 
-            if (file_exists($colorbox_user_path . $settings->colorbox_theme . '/colorbox_user.css')) {
+            if (file_exists($colorbox_user_path . My::settings()->colorbox_theme . '/colorbox_user.css')) {
                 echo
-                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . $settings->colorbox_theme . '/colorbox_user.css" />' . "\n";
+                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . My::settings()->colorbox_theme . '/colorbox_user.css" />' . "\n";
             }
         } else {
             $theme_path         = Path::fullFromRoot(dcCore::app()->blog->settings->system->themes_path . '/' . dcCore::app()->blog->settings->system->theme, DC_ROOT);
             $theme_url          = dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme;
-            $colorbox_user_path = $theme_path . '/colorbox/themes/' . $settings->colorbox_theme . '/colorbox_user.css';
-            $colorbox_user_url  = $theme_url . '/colorbox/themes/' . $settings->colorbox_theme . '/colorbox_user.css';
+            $colorbox_user_path = $theme_path . '/colorbox/themes/' . My::settings()->colorbox_theme . '/colorbox_user.css';
+            $colorbox_user_url  = $theme_url . '/colorbox/themes/' . My::settings()->colorbox_theme . '/colorbox_user.css';
             if (file_exists($colorbox_user_path)) {
                 echo
                 '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . '" />' . "\n";
@@ -81,9 +73,7 @@ class Frontend extends dcNsProcess
     {
         // Settings
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
-
-        if (!$settings->colorbox_enabled) {
+        if (!My::settings()->colorbox_enabled) {
             return;
         }
 
@@ -93,11 +83,11 @@ class Frontend extends dcNsProcess
         $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . My::id();
 
         echo
-        dcUtils::jsModuleLoad(My::id() . '/js/jquery.colorbox-min.js') .
+        My::jsLoad('jquery.colorbox-min.js') .
         '<script>' . "\n" .
         "//<![CDATA[\n";
 
-        $selectors = '.post' . ($settings->colorbox_selectors !== '' ? ',' . $settings->colorbox_selectors : '');
+        $selectors = '.post' . (My::settings()->colorbox_selectors !== '' ? ',' . My::settings()->colorbox_selectors : '');
 
         echo
         '$(function () {' . "\n" .
@@ -109,7 +99,7 @@ class Frontend extends dcNsProcess
                 '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],' .
                 'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"]\').attr("rel", "colorbox-"+count);' . "\n";
 
-        if ($settings->colorbox_zoom_icon_permanent) {
+        if (My::settings()->colorbox_zoom_icon_permanent) {
             echo
             '$(this).find("a.colorbox_zoom").each(function(){' . "\n" .
                 'var p = $(this).find("img");' . "\n" .
@@ -121,20 +111,20 @@ class Frontend extends dcNsProcess
                     'var parentleft = offsetparent.left;' . "\n" .
                     'var top = offset.top-parenttop;' . "\n";
 
-            if ($settings->colorbox_position) {
+            if (My::settings()->colorbox_position) {
                 echo 'var left = offset.left-parentleft;' . "\n";
             } else {
                 echo 'var left = offset.left-parentleft+p.outerWidth()-' . $icon_width . ';' . "\n";
             }
 
-            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . Html::escapeJS($url) . '/themes/' . $settings->colorbox_theme . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
+            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . My::fileURL('/themes/' . My::settings()->colorbox_theme) . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
                 '}' . "\n" .
             '});' . "\n";
         }
 
-        if ($settings->colorbox_zoom_icon && !$settings->colorbox_zoom_icon_permanent) {
+        if (My::settings()->colorbox_zoom_icon && !My::settings()->colorbox_zoom_icon_permanent) {
             echo
-            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . Html::escapeJS($url) . '/themes/' . $settings->colorbox_theme . '/images/zoom.png" alt=""  />\');' . "\n" .
+            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . My::fileURL('/themes/' . My::settings()->colorbox_theme) . '/images/zoom.png" alt=""  />\');' . "\n" .
             '$(\'img#colorbox_magnify\').on(\'click\', function ()' . "\n" .
                 '{ ' . "\n" .
                     '$("a.colorbox_zoom img.colorbox_hovered").click(); ' . "\n" .
@@ -150,7 +140,7 @@ class Frontend extends dcNsProcess
                 'p.addClass(\'colorbox_hovered\');' . "\n" .
                 'var offset = p.offset();' . "\n";
 
-            if (!$settings->colorbox_position) {
+            if (!My::settings()->colorbox_position) {
                 echo '$(\'img#colorbox_magnify\').css({\'top\' : offset.top, \'left\' : offset.left+p.outerWidth()-' . $icon_width . '});' . "\n";
             } else {
                 echo '$(\'img#colorbox_magnify\').css({\'top\' : offset.top, \'left\' : offset.left});' . "\n";
@@ -164,13 +154,13 @@ class Frontend extends dcNsProcess
             '});' . "\n";
         }
 
-        foreach (unserialize($settings->colorbox_advanced) as $k => $v) {
+        foreach (unserialize(My::settings()->colorbox_advanced) as $k => $v) {
             if ($v === '') {
-                if ($k == 'title' && $settings->colorbox_legend == 'alt') {
+                if ($k == 'title' && My::settings()->colorbox_legend == 'alt') {
                     $opts[] = $k . ': function(){return $(this).find(\'img\').attr(\'alt\');}';
-                } elseif ($k == 'title' && $settings->colorbox_legend == 'title') {
+                } elseif ($k == 'title' && My::settings()->colorbox_legend == 'title') {
                     $opts[] = $k . ': function(){return $(this).attr(\'title\');}';
-                } elseif ($k == 'title' && $settings->colorbox_legend == 'none') {
+                } elseif ($k == 'title' && My::settings()->colorbox_legend == 'none') {
                     $opts[] = $k . ': \'\'';
                 } else {
                     $opts[] = $k . ': false';
