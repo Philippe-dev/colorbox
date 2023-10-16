@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\colorbox;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Backend\Notices;
@@ -54,14 +54,14 @@ class Manage extends Process
             '6' => __('Vintage Lightbox'),
         ];
 
-        dcCore::app()->admin->default_tab = $default_tab;
-        dcCore::app()->admin->themes      = $themes;
+        App::backend()->default_tab = $default_tab;
+        App::backend()->themes      = $themes;
 
         if (!empty($_POST)) {
             try {
                 $type = $_POST['type'];
 
-                dcCore::app()->blog->triggerBlog();
+                App::blog()->triggerBlog();
 
                 if ($type === 'modal') {
                     My::settings()->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
@@ -69,14 +69,14 @@ class Manage extends Process
                     if (isset($_POST['colorbox_theme'])) {
                         My::settings()->put('colorbox_theme', $_POST['colorbox_theme']);
                     }
-                    dcCore::app()->blog->triggerBlog();
+                    App::blog()->triggerBlog();
                     My::redirect(['upd' => 1]);
                 } elseif ($type === 'zoom') {
                     My::settings()->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
                     My::settings()->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
                     My::settings()->put('colorbox_position', !empty($_POST['colorbox_position']));
 
-                    dcCore::app()->blog->triggerBlog();
+                    App::blog()->triggerBlog();
                     My::redirect(['tab' => 'zoom', 'upd' => 2]);
                 } elseif ($type === 'advanced') {
                     $opts = [
@@ -120,11 +120,11 @@ class Manage extends Process
                     My::settings()->put('colorbox_user_files', $_POST['colorbox_user_files']);
                     My::settings()->put('colorbox_legend', $_POST['colorbox_legend']);
 
-                    dcCore::app()->blog->triggerBlog();
+                    App::blog()->triggerBlog();
                     My::redirect(['tab' => 'advanced', 'upd' => 3]);
                 }
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -142,7 +142,7 @@ class Manage extends Process
 
         Page::openModule(
             My::name(),
-            Page::jsPageTabs(dcCore::app()->admin->default_tab) .
+            Page::jsPageTabs(App::backend()->default_tab) .
             Page::jsConfirmClose('modal-form') .
             Page::jsConfirmClose('zoom-form') .
             Page::jsConfirmClose('advanced-form') .
@@ -161,8 +161,8 @@ class Manage extends Process
 
         echo Page::breadcrumb(
             [
-                Html::escapeHTML(dcCore::app()->blog->name) => '',
-                My::name()                                  => '',
+                Html::escapeHTML(App::blog()->name) => '',
+                My::name()                          => '',
             ]
         ) .
         Notices::getNotices();
@@ -183,7 +183,7 @@ class Manage extends Process
 
         // Activation and theme tab
         $theme_choice = '';
-        foreach (dcCore::app()->admin->themes as $k => $v) {
+        foreach (App::backend()->themes as $k => $v) {
             $theme_choice .= '<p><label class="classic" for="colorbox_theme-' . $k . '">' .
             form::radio(['colorbox_theme', 'colorbox_theme-' . $k], $k, My::settings()->colorbox_theme == $k) .
             ' ' . $v . '</label></p>';
@@ -213,7 +213,7 @@ class Manage extends Process
                 '<p class="form-note info clear">' . __('All themes may be customized, see <em>Personal files</em> help section.') . '</p>' .
             '</div>' .
             '<p>' . form::hidden(['type'], 'modal') . '</p>' .
-            '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
+            '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . App::nonce()->getFormNonce() . '</p>' .
         '</form>' .
         '</div>';
 
@@ -240,7 +240,7 @@ class Manage extends Process
                     __('on the right') . '</label></p>' .
                 '</div>' .
                 '<p>' . form::hidden(['type'], 'zoom') . '</p>' .
-                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
+                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . App::nonce()->getFormNonce() . '</p>' .
             '</form>' .
         '</div>';
 
@@ -401,7 +401,7 @@ class Manage extends Process
                 '</div>' .
                 '</div>' .
                 '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
-                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . dcCore::app()->formNonce() . '</p>' .
+                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . App::nonce()->getFormNonce() . '</p>' .
             '</form>' .
         '</div>';
 

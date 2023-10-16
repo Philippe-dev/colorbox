@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\colorbox;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Helper\File\Path;
 
@@ -31,8 +31,8 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->addBehavior('publicHeadContent', [self::class, 'publicHeadContent']);
-        dcCore::app()->addBehavior('publicFooterContent', [self::class, 'publicFooterContent']);
+        App::behavior()->addBehavior('publicHeadContent', [self::class, 'publicHeadContent']);
+        App::behavior()->addBehavior('publicFooterContent', [self::class, 'publicFooterContent']);
 
         return true;
     }
@@ -48,8 +48,8 @@ class Frontend extends Process
         My::cssLoad('/themes/' . My::settings()->colorbox_theme . '/colorbox_theme.css');
 
         if (My::settings()->colorbox_user_files) {
-            $public_path        = dcCore::app()->blog->public_path;
-            $public_url         = dcCore::app()->blog->settings->system->public_url;
+            $public_path        = App::blog()->public_path;
+            $public_url         = App::blog()->settings->system->public_url;
             $colorbox_user_path = $public_path . '/colorbox/themes/';
             $colorbox_user_url  = $public_url . '/colorbox/themes/';
 
@@ -58,8 +58,8 @@ class Frontend extends Process
                 '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . My::settings()->colorbox_theme . '/colorbox_user.css" />' . "\n";
             }
         } else {
-            $theme_path         = Path::fullFromRoot(dcCore::app()->blog->settings->system->themes_path . '/' . dcCore::app()->blog->settings->system->theme, DC_ROOT);
-            $theme_url          = dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme;
+            $theme_path         = Path::fullFromRoot(App::blog()->settings->system->themes_path . '/' . App::blog()->settings->system->theme, DC_ROOT);
+            $theme_url          = App::blog()->settings->system->themes_url . '/' . App::blog()->settings->system->theme;
             $colorbox_user_path = $theme_path . '/colorbox/themes/' . My::settings()->colorbox_theme . '/colorbox_user.css';
             $colorbox_user_url  = $theme_url . '/colorbox/themes/' . My::settings()->colorbox_theme . '/colorbox_user.css';
             if (file_exists($colorbox_user_path)) {
@@ -80,7 +80,7 @@ class Frontend extends Process
         $icon_name   = 'zoom.png';
         $icon_width  = '16';
         $icon_height = '16';
-        $url = dcCore::app()->blog->getQmarkURL() . 'pf=' . My::id();
+        $url         = App::blog()->getQmarkURL() . 'pf=' . My::id();
 
         echo
         My::jsLoad('jquery.colorbox-min.js') .
