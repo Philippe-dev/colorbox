@@ -61,8 +61,6 @@ class Manage extends Process
             try {
                 $type = $_POST['type'];
 
-                App::blog()->triggerBlog();
-
                 if ($type === 'modal') {
                     My::settings()->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
 
