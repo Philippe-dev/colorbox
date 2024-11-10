@@ -205,13 +205,13 @@ class Manage extends Process
 
                     '</div>' .
                     '<div class="two-boxes even">' .
-                        '<p><img id="thumbnail" src="' . $thumb_url . '" alt="' . __('Preview') . '" title="' . __('Preview') . '" width="400" height="204" /></p>' .
+                        '<p><img id="thumbnail" src="' . $thumb_url . '" alt="' . __('Preview') . '" title="' . __('Preview') . '" width="400" height="204"></p>' .
                     '</div>' .
 
                 '<p class="form-note info clear">' . __('All themes may be customized, see <em>Personal files</em> help section.') . '</p>' .
             '</div>' .
             '<p>' . form::hidden(['type'], 'modal') . '</p>' .
-            '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . App::nonce()->getFormNonce() . '</p>' .
+            '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
         '</form>' .
         '</div>';
 
@@ -238,7 +238,7 @@ class Manage extends Process
                     __('on the right') . '</label></p>' .
                 '</div>' .
                 '<p>' . form::hidden(['type'], 'zoom') . '</p>' .
-                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . App::nonce()->getFormNonce() . '</p>' .
+                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
             '</form>' .
         '</div>';
 
@@ -271,7 +271,7 @@ class Manage extends Process
                 '</div>' .
                 '<div class="fieldset"><h3>' . __('Selectors') . '</h3>' .
                     '<p><label class="maximal" for="colorbox_selectors">' . __('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):') .
-                    '<br />' . form::field('colorbox_selectors', 80, 255, My::settings()->colorbox_selectors) .
+                    '<br>' . form::field('colorbox_selectors', 80, 255, My::settings()->colorbox_selectors) .
                     '</label></p>' .
                     '<p class="info">' . __('Leave blank to default: (.post)') . '</p>' .
                 '</div>' .
@@ -399,7 +399,7 @@ class Manage extends Process
                 '</div>' .
                 '</div>' .
                 '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
-                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '" />' . App::nonce()->getFormNonce() . '</p>' .
+                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
             '</form>' .
         '</div>';
 

@@ -55,7 +55,7 @@ class Frontend extends Process
 
             if (file_exists($colorbox_user_path . My::settings()->colorbox_theme . '/colorbox_user.css')) {
                 echo
-                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . My::settings()->colorbox_theme . '/colorbox_user.css" />' . "\n";
+                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . My::settings()->colorbox_theme . '/colorbox_user.css">' . "\n";
             }
         } else {
             $theme_path         = Path::fullFromRoot(App::blog()->settings->system->themes_path . '/' . App::blog()->settings->system->theme, DC_ROOT);
@@ -64,7 +64,7 @@ class Frontend extends Process
             $colorbox_user_url  = $theme_url . '/colorbox/themes/' . My::settings()->colorbox_theme . '/colorbox_user.css';
             if (file_exists($colorbox_user_path)) {
                 echo
-                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . '" />' . "\n";
+                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . '">' . "\n";
             }
         }
     }
@@ -124,7 +124,7 @@ class Frontend extends Process
 
         if (My::settings()->colorbox_zoom_icon && !My::settings()->colorbox_zoom_icon_permanent) {
             echo
-            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . My::fileURL('/themes/' . My::settings()->colorbox_theme) . '/images/zoom.png" alt=""  />\');' . "\n" .
+            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . My::fileURL('/themes/' . My::settings()->colorbox_theme) . '/images/zoom.png" alt="">\');' . "\n" .
             '$(\'img#colorbox_magnify\').on(\'click\', function ()' . "\n" .
                 '{ ' . "\n" .
                     '$("a.colorbox_zoom img.colorbox_hovered").click(); ' . "\n" .
