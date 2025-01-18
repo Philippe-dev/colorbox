@@ -1,213 +1,289 @@
+# Language: Français
+# Module: colorbox - 5.1
+# Date: 2025-01-18 08:22:15
+# Translated with translater 2023.11.04
+
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: colorbox 4.1\n"
+"Project-Id-Version: colorbox 5.1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-15T10:14:37+00:00\n"
-"Last-Translator: Philippe Henaff\n"
+"PO-Revision-Date: 2025-01-18T08:22:15+00:00\n"
+"Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: src/Install.php:55
 msgid "Start slideshow"
 msgstr "Marche"
 
+#: src/Install.php:56
 msgid "Stop slideshow"
 msgstr "Arrêt"
 
+#: src/Install.php:57
 msgid "{current} of {total}"
 msgstr "{current} sur {total}"
 
+#: src/Install.php:58
 msgid "previous"
 msgstr "prec."
 
+#: src/Install.php:59
 msgid "next"
 msgstr "suiv."
 
+#: src/Manage.php:170
 msgid "Modal window configuration successfully saved"
 msgstr "Configuration de la fenêtre modale effectuée avec succès"
 
+#: src/Manage.php:171
 msgid "Zoom icon configuration successfully saved"
 msgstr "Configuration de l'icône de zoom effectuée avec succès"
 
+#: src/Manage.php:172
 msgid "Advanced configuration successfully saved"
 msgstr "Configuration avancée effectuée avec succès"
 
+#: src/Manage.php:193
 msgid "Modal Window"
 msgstr "Fenêtre modale"
 
+#: src/Manage.php:198
 msgid "Enable Colorbox on this blog"
 msgstr "Activer Colorbox pour ce blog"
 
+#: src/Manage.php:200
 msgid "Theme"
 msgstr "Thème"
 
+#: src/Manage.php:203
 msgid "Choose your theme for Colorbox:"
 msgstr "Choisissez le thème pour Colorbox :"
 
+#: src/Manage.php:211
 msgid "All themes may be customized, see <em>Personal files</em> help section."
 msgstr "Tous les thèmes peuvent être personnalisés, voir la section <em>Fichiers personnels</em> de l'aide."
 
+#: src/Manage.php:221
 msgid "Zoom Icon"
 msgstr "Icône de zoom"
 
+#: src/Manage.php:224
 msgid "Behaviour"
 msgstr "Comportement"
 
+#: src/Manage.php:227
 msgid "Enable zoom icon on hovered thumbnails"
 msgstr "Afficher l'icône de zoom au survol des vignettes"
 
+#: src/Manage.php:230
 msgid "Always show zoom icon on thumbnails"
 msgstr "Toujours afficher l'icône de zoom sur les vignettes"
 
+#: src/Manage.php:232
 msgid "Icon position"
 msgstr "Position de l'icône"
 
+#: src/Manage.php:235
 msgid "on the left"
 msgstr "à gauche"
 
+#: src/Manage.php:238
 msgid "on the right"
 msgstr "à droite"
 
+#: src/Manage.php:248
 msgid "Elastic"
 msgstr "Élastique"
 
+#: src/Manage.php:249
 msgid "Fade"
 msgstr "Fondu enchaîné"
 
+#: src/Manage.php:250
 msgid "No transition"
 msgstr "Pas de transition"
 
+#: src/Manage.php:254
 msgid "Image alt attribute"
 msgstr "Attribut alt de l'image"
 
+#: src/Manage.php:255
 msgid "Link title attribute"
 msgstr "Attribut title du lien"
 
+#: src/Manage.php:256
+msgid "Image description"
+msgstr "Description de l'image"
+
+#: src/Manage.php:257
 msgid "No legend"
 msgstr "Pas de légende"
 
+#: src/Manage.php:262
 msgid "Advanced configuration"
 msgstr "Configuration avancée"
 
+#: src/Manage.php:264
 msgid "Personnal files"
 msgstr "Fichiers personnels"
 
+#: src/Manage.php:265
 msgid "Store personnal CSS and image files in:"
 msgstr "Stocker les images et CSS personnelles dans :"
 
+#: src/Manage.php:268
 msgid "public folder"
 msgstr "le gestionnaire de médias"
 
+#: src/Manage.php:271
 msgid "theme folder"
 msgstr "le thème du blog"
 
+#: src/Manage.php:273
 msgid "Selectors"
 msgstr "Sélecteurs"
 
+#: src/Manage.php:274
 msgid "Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):"
 msgstr "Appliquer Colorbox aux blocs supplémentaires suivants (ex : #sidebar,#pictures) :"
 
+#: src/Manage.php:277
 msgid "Leave blank to default: (.post)"
 msgstr "Laisser vide pour utiliser la valeur par défaut (.post)"
 
+#: src/Manage.php:279
 msgid "Effects"
 msgstr "Effets"
 
+#: src/Manage.php:281
 msgid "Transition type"
 msgstr "Type de transition"
 
+#: src/Manage.php:284
 msgid "Transition speed"
 msgstr "Vitesse de transition"
 
+#: src/Manage.php:287
 msgid "Opacity"
 msgstr "Opacité"
 
+#: src/Manage.php:292
 msgid "Auto open Colorbox"
 msgstr "Ouverture automatique"
 
+#: src/Manage.php:295
 msgid "Enable preloading for photo group"
 msgstr "Pré-chargement des images"
 
+#: src/Manage.php:298
 msgid "Enable close by clicking on overlay"
 msgstr "Fermeture sur clic dans le cadre"
 
+#: src/Manage.php:302
 msgid "Enable slideshow"
 msgstr "Activer le diaporama"
 
+#: src/Manage.php:305
 msgid "Auto start slideshow"
 msgstr "Démarrage automatique du diaporama"
 
+#: src/Manage.php:306
 msgid "Slideshow speed"
 msgstr "Vitesse du diaporama"
 
+#: src/Manage.php:309
 msgid "Slideshow start display text"
 msgstr "Démarrer (texte)"
 
+#: src/Manage.php:312
 msgid "Slideshow stop display text"
 msgstr "Arrêter (texte)"
 
+#: src/Manage.php:317
 msgid "Modal window"
 msgstr "Fenêtre modale"
 
+#: src/Manage.php:319
 msgid "Images legend"
 msgstr "Légendes des images"
 
+#: src/Manage.php:322
 msgid "Default legend"
 msgstr "Légende par défaut"
 
+#: src/Manage.php:327
 msgid "Loop on slideshow images"
 msgstr "Afficher les images en boucle"
 
+#: src/Manage.php:330
 msgid "Display content in  an iframe"
 msgstr "Afficher le contenu dans une iframe"
 
+#: src/Manage.php:333
 msgid "Current text"
 msgstr "Courant (texte)"
 
+#: src/Manage.php:336
 msgid "Previous text"
 msgstr "Précédent (texte)"
 
+#: src/Manage.php:339
 msgid "Next text"
 msgstr "Suivant (texte)"
 
+#: src/Manage.php:342
 msgid "Close text"
 msgstr "Fermer (texte)"
 
+#: src/Manage.php:347
 msgid "Dimensions"
 msgstr "Dimensions"
 
+#: src/Manage.php:349
 msgid "Fixed width"
 msgstr "Largeur fixe"
 
+#: src/Manage.php:352
 msgid "Fixed height"
 msgstr "Hauteur fixe"
 
+#: src/Manage.php:355
 msgid "Fixed inner width"
 msgstr "Largeur interne fixe"
 
+#: src/Manage.php:358
 msgid "Fixed inner height"
 msgstr "Hauteur interne fixe"
 
+#: src/Manage.php:363
 msgid "Scale photos"
 msgstr "Mettre à l'échelle"
 
+#: src/Manage.php:366
 msgid "Show overflowing content"
 msgstr "Afficher les barres de défilement"
 
+#: src/Manage.php:368
 msgid "Initial width"
 msgstr "Largeur initiale"
 
+#: src/Manage.php:371
 msgid "Initial height"
 msgstr "Hauteur initiale"
 
+#: src/Manage.php:374
 msgid "Max width"
 msgstr "Largeur maximale"
 
+#: src/Manage.php:377
 msgid "Max height"
 msgstr "Hauteur maximale"
 
+#: src/Manage.php:382
 msgid "Javascript"
 msgstr "Javascript"
 

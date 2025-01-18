@@ -160,6 +160,9 @@ class Frontend extends Process
                     $opts[] = $k . ': function(){return $(this).find(\'img\').attr(\'alt\');}';
                 } elseif ($k == 'title' && My::settings()->colorbox_legend == 'title') {
                     $opts[] = $k . ': function(){return $(this).attr(\'title\');}';
+                } elseif ($k == 'title' && My::settings()->colorbox_legend == 'description') {
+                    $opts[] = $k . ': function(){if ($(this).parent().prop(\'tagName\') === \'FIGURE\')
+                    {return $(this).next(\'figcaption\').text();} else return $(this).find(\'img\').attr(\'alt\');}';
                 } elseif ($k == 'title' && My::settings()->colorbox_legend == 'none') {
                     $opts[] = $k . ': \'\'';
                 } else {

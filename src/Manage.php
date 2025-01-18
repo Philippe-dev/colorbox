@@ -253,6 +253,7 @@ class Manage extends Process
         $colorbox_legend = [
             __('Image alt attribute')  => 'alt',
             __('Link title attribute') => 'title',
+            __('Image description')    => 'description',
             __('No legend')            => 'none',
         ];
 
