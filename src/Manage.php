@@ -14,13 +14,43 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\colorbox;
 
+
 use Dotclear\App;
-use Dotclear\Core\Process;
-use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Backend\Combos;
 use Dotclear\Core\Backend\Notices;
-use Exception;
-use form;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Process;
+use Dotclear\Helper\Date;
+use Dotclear\Helper\Html\Form\Button;
+use Dotclear\Helper\Html\Form\Capture;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Fieldset;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Hidden;
+use Dotclear\Helper\Html\Form\Input;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\None;
+use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Number;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Radio;
+use Dotclear\Helper\Html\Form\Select;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Single;
+use Dotclear\Helper\Html\Form\Span;
+use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Textarea;
+use Dotclear\Helper\Html\Form\Ul;
+use Dotclear\Helper\Html\Form\Url;
 use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
+use Dotclear\Helper\Network\HttpClient;
+use Exception;
 
 class Manage extends Process
 {
@@ -178,18 +208,31 @@ class Manage extends Process
                 Notices::success($a_msg[$k]);
             }
         }
+        $data = App::backend();
 
-        // Activation and theme tab
         $theme_choice = '';
+            
+            foreach (App::backend()->themes as $key => $value) {
+                $theme_choice .= (new Para())
+                    ->items([
+                        (new Radio(['colorbox_theme', 'colorbox_theme-' . $key], My::settings()->colorbox_theme === $key))
+                            ->value($key)
+                            ->label(new Label($value, Label::IL_FT)),
+                    ])->render();
+            }
+ 
+            echo $theme_choice;
+        // Activation and theme tab
+        /*$theme_choice = '';
         foreach (App::backend()->themes as $k => $v) {
             $theme_choice .= '<p><label class="classic" for="colorbox_theme-' . $k . '">' .
             form::radio(['colorbox_theme', 'colorbox_theme-' . $k], $k, My::settings()->colorbox_theme == $k) .
             ' ' . $v . '</label></p>';
-        }
+        }*/
 
         $thumb_url = My::fileURL('/themes/' . My::settings()->colorbox_theme . '/images/thumbnail.jpg');
 
-        echo
+        /*echo
         '<div class="multi-part" id="modal" title="' . __('Modal Window') . '">' .
             '<form action="' . My::manageUrl() . '" method="post" id="modal-form">' .
             '<div class="fieldset"><h3>' . __('Activation') . '</h3>' .
@@ -402,7 +445,7 @@ class Manage extends Process
                 '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
                 '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
             '</form>' .
-        '</div>';
+        '</div>';*/
 
         Page::helpBlock('colorbox');
         Page::closeModule();
