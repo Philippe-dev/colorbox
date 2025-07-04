@@ -379,9 +379,8 @@ class Manage extends Process
                                 ->class('classic')
                                 ->items([
                                     (new Input('speed'))
-                                        ->size(10)
-                                        ->type('number')
-                                        ->maxlength(10)
+                                        ->size(30)
+                                        ->maxlength(255)
                                         ->value($as['speed'])
                                         ->label((new Label(__('Transition speed'), Label::OUTSIDE_TEXT_BEFORE))),
                                 ]),
@@ -389,10 +388,8 @@ class Manage extends Process
                                 ->class('classic')
                                 ->items([
                                     (new Input('opacity'))
-                                        ->size(10)
-                                        ->type('number')
-                                        ->step('0.1')
-                                        ->maxlength(10)
+                                        ->size(30)
+                                        ->maxlength(255)
                                         ->value($as['opacity'])
                                         ->label((new Label(__('Opacity'), Label::OUTSIDE_TEXT_BEFORE))),
                                 ]),
@@ -435,9 +432,8 @@ class Manage extends Process
                             ->class('classic')
                             ->items([
                                 (new Input('slideshowSpeed'))
-                                    ->size(10)
-                                    ->type('number')
-                                    ->maxlength(10)
+                                    ->size(30)
+                                    ->maxlength(255)
                                     ->value($as['slideshowSpeed'])
                                     ->label((new Label(__('Slideshow speed'), Label::OUTSIDE_TEXT_BEFORE))),
                             ]),
@@ -464,17 +460,237 @@ class Manage extends Process
                 (new Fieldset())
                 ->legend((new Legend(__('Modal window'))))
                 ->fields([
+                    (new Div())
+                        ->class(['two-boxes', 'odd'])
+                        ->items([
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Select('colorbox_legend'))
+                                ->items($colorbox_legend)
+                                ->default(My::settings()->colorbox_legend)
+                                ->label(new Label(__('Images legend'), Label::OUTSIDE_LABEL_BEFORE)),
+                            ]),
+                            (new Para())
+                                ->class('classic')
+                                ->items([
+                                    (new Input('title'))
+                                        ->size(30)
+                                        ->maxlength(255)
+                                        ->value($as['title'])
+                                        ->label((new Label(__('Default legend'), Label::OUTSIDE_TEXT_BEFORE))),
+                                ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Checkbox('loop', (bool) $as['loop'])),
+                                (new Label(__('Loop on slideshow images'), Label::OUTSIDE_LABEL_AFTER))->for('loop')->class('classic'),
+                            ]),
+                            (new Para())
+                                ->class('classic')
+                                ->items([
+                                    (new Checkbox('iframe', (bool) $as['iframe'])),
+                                    (new Label(__('Display content in an iframe'), Label::OUTSIDE_LABEL_AFTER))->for('iframe')->class('classic'),
+                                ]),
+                        ]),
 
+                    (new Div())
+                    ->class(['two-boxes', 'even'])
+                    ->items([
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('current'))
+                                    ->size(30)
+                                    ->maxlength(255)
+                                    ->value($as['current'])
+                                    ->label((new Label(__('Current text'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('previous'))
+                                    ->size(30)
+                                    ->maxlength(255)
+                                    ->value($as['previous'])
+                                    ->label((new Label(__('Previous text'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('next'))
+                                    ->size(30)
+                                    ->maxlength(255)
+                                    ->value($as['next'])
+                                    ->label((new Label(__('Next text'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('close'))
+                                    ->size(30)
+                                    ->maxlength(255)
+                                    ->value($as['close'])
+                                    ->label((new Label(__('Close text'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                    ]),
                 ]),
                 (new Fieldset())
                 ->legend((new Legend(__('Dimensions'))))
                 ->fields([
+                    (new Div())
+                        ->class(['two-boxes', 'odd'])
+                        ->items([
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('width'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['width'])
+                                ->label((new Label(__('Fixed width'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('height'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['height'])
+                                ->label((new Label(__('Fixed height'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('innerWidth'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['innerWidth'])
+                                ->label((new Label(__('Fixed inner width'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('innerHeight'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['innerHeight'])
+                                ->label((new Label(__('Fixed inner height'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Checkbox('scalePhotos', (bool) $as['scalePhotos'])),
+                                (new Label(__('Scale photos'), Label::OUTSIDE_LABEL_AFTER))->for('scalePhotos')->class('classic'),
+                            ]),
+                            (new Para())
+                                ->class('classic')
+                                ->items([
+                                    (new Checkbox('scrolling', (bool) $as['scrolling'])),
+                                    (new Label(__('Show overflowing content'), Label::OUTSIDE_LABEL_AFTER))->for('scrolling')->class('classic'),
+                                ]),
+                        ]),
 
+                    (new Div())
+                    ->class(['two-boxes', 'even'])
+                    ->items([
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('initialWidth'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['initialWidth'])
+                                ->label((new Label(__('Initial width'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('initialHeight'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['initialHeight'])
+                                ->label((new Label(__('Initial height'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('maxWidth'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['maxWidth'])
+                                ->label((new Label(__('Max width'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                        ->class('classic')
+                        ->items([
+                            (new Input('maxHeight'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['maxHeight'])
+                                ->label((new Label(__('Max height'), Label::OUTSIDE_TEXT_BEFORE))),
+                        ]),
+                    ]),
                 ]),
                 (new Fieldset())
                 ->legend((new Legend(__('Javascript'))))
                 ->fields([
+                    (new Div())
+                        ->class(['two-boxes', 'odd'])
+                        ->items([
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('onOpen'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['onOpen'])
+                                ->label((new Label(__('onOpen callback'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('onLoad'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['onLoad'])
+                                ->label((new Label(__('onLoad callback'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('onComplete'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['onComplete'])
+                                ->label((new Label(__('onComplete callback'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
 
+                        ]),
+
+                    (new Div())
+                    ->class(['two-boxes', 'even'])
+                    ->items([
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('onCleanup'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['onCleanup'])
+                                ->label((new Label(__('onCleanup callback'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('onClosed'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value($as['onClosed'])
+                                ->label((new Label(__('onClosed callback'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+
+                    ]),
                 ]),
 
                 (new Hidden(['type'], 'advanced')),
@@ -486,116 +702,6 @@ class Manage extends Process
 
         ])
         ->render();
-
-        /*
-
-                '</div><div class="two-boxes even">' .
-                    '<p><label for="slideshow">' .
-                    form::checkbox('slideshow', 1, $as['slideshow']) .
-                    __('Enable slideshow') . '</label></p>' .
-                    '<p><label for="slideshowAuto">' .
-                    form::checkbox('slideshowAuto', 1, $as['slideshowAuto']) .
-                    __('Auto start slideshow') . '</label></p>' .
-                    '<p class="field"><label for="slideshowSpeed">' . __('Slideshow speed') . '&nbsp;' .
-                    form::field('slideshowSpeed', 30, 10, $as['slideshowSpeed']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="slideshowStart">' . __('Slideshow start display text') . '&nbsp;' .
-                    form::field('slideshowStart', 30, 255, $as['slideshowStart']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="slideshowStop">' . __('Slideshow stop display text') . '&nbsp;' .
-                    form::field('slideshowStop', 30, 255, $as['slideshowStop']) .
-                    '</label></p>' .
-                '</div>' .
-                '</div>' .
-                '<div class="fieldset"><h3>' . __('Modal window') . '</h3>' .
-                '<div class="two-boxes odd">' .
-                    '<p class="field"><label for="colorbox_legend">' . __('Images legend') . '&nbsp;' .
-                    form::combo('colorbox_legend', $colorbox_legend, My::settings()->colorbox_legend) .
-                    '</label></p>' .
-                    '<p class="field"><label for="title">' . __('Default legend') . '&nbsp;' .
-                    form::field('title', 30, 255, $as['title']) .
-                    '</label></p>' .
-                    '<p><label for="loop">' .
-                    form::checkbox('loop', 1, $as['loop']) .
-                    __('Loop on slideshow images') . '</label></p>' .
-                    '<p><label for="iframe">' .
-                    form::checkbox('iframe', 1, $as['iframe']) .
-                    __('Display content in  an iframe') . '</label></p>' .
-
-                '</div><div class="two-boxes even">' .
-                    '<p class="field"><label for="current">' . __('Current text') . '&nbsp;' .
-                    form::field('current', 30, 255, $as['current']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="previous">' . __('Previous text') . '&nbsp;' .
-                    form::field('previous', 30, 255, $as['previous']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="next">' . __('Next text') . '&nbsp;' .
-                    form::field('next', 30, 255, $as['next']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="close">' . __('Close text') . '&nbsp;' .
-                    form::field('close', 30, 255, $as['close']) .
-                    '</label></p>' .
-                '</div>' .
-                '</div>' .
-                '<div class="fieldset"><h3>' . __('Dimensions') . '</h3>' .
-                '<div class="two-boxes odd">' .
-                    '<p class="field"><label for="width">' . __('Fixed width') . '&nbsp;' .
-                    form::field('width', 30, 10, $as['width']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="height">' . __('Fixed height') . '&nbsp;' .
-                    form::field('height', 30, 10, $as['height']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="innerWidth">' . __('Fixed inner width') . '&nbsp;' .
-                    form::field('innerWidth', 30, 10, $as['innerWidth']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="innerHeight">' . __('Fixed inner height') . '&nbsp;' .
-                    form::field('innerHeight', 30, 10, $as['innerHeight']) .
-                    '</label></p>' .
-                    '<p><label for="scalePhotos">' .
-                    form::checkbox('scalePhotos', 1, $as['scalePhotos']) .
-                    __('Scale photos') . '</label></p>' .
-                    '<p><label class="classic" for="scrolling">' .
-                    form::checkbox('scrolling', 1, $as['scrolling']) .
-                    __('Show overflowing content') . '</label></p>' .
-                '</div><div class="two-boxes even">' .
-                    '<p class="field"><label for="initialWidth">' . __('Initial width') . '&nbsp;' .
-                    form::field('initialWidth', 30, 10, $as['initialWidth']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="initialHeight">' . __('Initial height') . '&nbsp;' .
-                    form::field('initialHeight', 30, 10, $as['initialHeight']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="maxWidth">' . __('Max width') . '&nbsp;' .
-                    form::field('maxWidth', 30, 10, $as['maxWidth']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="maxHeight">' . __('Max height') . '&nbsp;' .
-                    form::field('maxHeight', 30, 10, $as['maxHeight']) .
-                    '</label></p>' .
-                '</div>' .
-                '</div>' .
-                '<div class="fieldset"><h3>' . __('Javascript') . '</h3>' .
-                '<div class="two-boxes odd">' .
-                    '<p class="field"><label for="onOpen">' . __('onOpen callback') . '&nbsp;' .
-                    form::field('onOpen', 80, 255, $as['onOpen'], 'maximal') .
-                    '</label></p>' .
-                    '<p class="field"><label for="onLoad">' . __('onLoad callback') . '&nbsp;' .
-                    form::field('onLoad', 80, 255, $as['onLoad'], 'maximal') .
-                    '</label></p>' .
-                    '<p class="field"><label for="onComplete">' . __('onComplete callback') . '&nbsp;' .
-                    form::field('onComplete', 80, 255, $as['onComplete'], 'maximal') .
-                    '</label></p>' .
-                '</div><div class="two-boxes even">' .
-                    '<p class="field"><label for="onCleanup">' . __('onCleanup callback') . '&nbsp;' .
-                    form::field('onCleanup', 80, 255, $as['onCleanup'], 'maximal') .
-                    '</label></p>' .
-                    '<p class="field"><label for="onClosed">' . __('onClosed callback') . '&nbsp;' .
-                    form::field('onClosed', 80, 255, $as['onClosed'], 'maximal') .
-                    '</label></p>' .
-                '</div>' .
-                '</div>' .
-                '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
-                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
-            '</form>' .
-        '</div>';*/
 
         Page::helpBlock('colorbox');
         Page::closeModule();

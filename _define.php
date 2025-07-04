@@ -14,9 +14,10 @@ $this->registerModule(
     'Colorbox',
     'A lightweight customizable lightbox',
     'Philippe aka amalgame and Tomtom',
-    '5.2',
+    '6.0',
     [
-        'requires'    => [['core', '2.28']],
+        'date'     => '2025-07-04T17:28:03+0200',
+        'requires'    => [['core', '2.34']],
         'permissions' => 'My',
         'type'        => 'plugin',
         'support'     => 'https://github.com/Philippe-dev/colorbox',
