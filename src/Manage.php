@@ -34,7 +34,6 @@ use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Radio;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Text;
-use Dotclear\Helper\Html\Form\Url;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
@@ -198,21 +197,17 @@ class Manage extends Process
         // Activation and theme tab
         $theme_choice = [];
         foreach (App::backend()->themes as $key => $value) {
-            
-            $theme_choice[] = 
-            (new Para())
+            $theme_choice[] = (new Para())
             ->items([
                 (new Radio(['colorbox_theme', 'colorbox_theme-' . $key], My::settings()->colorbox_theme === $key))
                     ->value($key)
                     ->label(new Label($value, Label::IL_FT)),
             ]);
-            
         }
 
         $thumb_url = My::fileURL('/themes/' . My::settings()->colorbox_theme . '/images/thumbnail.jpg');
 
-        $modal = '';
-
+        //Modal window tab
         echo
         (new Div())
             ->class('multi-part')
@@ -238,11 +233,11 @@ class Manage extends Process
                             ->class(['two-boxes', 'odd'])
                             ->items([
                                 (new Para())
-                                ->class('classic')    
+                                ->class('classic')
                                 ->items([
                                     (new Text(null, ' ' . __('Choose your theme for Colorbox:'))),
-                                    ...$theme_choice
-                                ])
+                                    ...$theme_choice,
+                                ]),
                             ]),
                             (new Div())
                             ->class(['two-boxes', 'even'])
@@ -252,25 +247,22 @@ class Manage extends Process
                                         (new Img($thumb_url))
                                             ->id('thumbnail')
                                             ->title(__('Preview'))
-                                            ->alt(__('Preview'))
-                                            
-                                    ])
+                                            ->alt(__('Preview')),
+                                    ]),
                             ]),
                             (new Note())
                                 ->class(['form-note', 'info', 'maximal'])
-                                ->text(__('All themes may be customized, see <em>Personal files</em> help section.'))
-                            ]),
+                                ->text(__('All themes may be customized, see <em>Personal files</em> help section.')),
+                        ]),
                     (new Hidden(['type'], 'modal')),
                     (new Input('save'))
                             ->type('submit')
                             ->value(__('Save configuration')),
-                            App::nonce()->formNonce(),
+                    App::nonce()->formNonce(),
                 ]),
-
             ])->render();
 
         // Zoom icon tab
-
         echo
         (new Div())
             ->class('multi-part')
@@ -281,44 +273,40 @@ class Manage extends Process
                 ->action(My::manageUrl())
                 ->method('post')
                 ->fields([
-                    
+                    (new Fieldset())
+                        ->legend((new Legend(__('Behaviour'))))
+                        ->fields([
+                            (new Para())->items([
+                                (new Checkbox('colorbox_zoom_icon', (bool) My::settings()->colorbox_zoom_icon)),
+                                (new Label(__('Enable zoom icon on hovered thumbnails'), Label::OUTSIDE_LABEL_AFTER))->for('colorbox_zoom_icon')->class('classic'),
+                            ]),
+                            (new Para())->items([
+                                (new Checkbox('colorbox_zoom_icon_permanent', (bool) My::settings()->colorbox_zoom_icon_permanent)),
+                                (new Label(__('Always show zoom icon on thumbnails'), Label::OUTSIDE_LABEL_AFTER))->for('colorbox_zoom_icon_permanent')->class('classic'),
+                            ]),
+                        ]),
+                    (new Fieldset())
+                        ->legend((new Legend(__('Icon position'))))
+                        ->fields([
+                            (new Radio(['colorbox_position', 'colorbox_position-1'], My::settings()->colorbox_position))
+                                ->value(true)
+                                ->label(new Label(__('on the left'), Label::IL_FT)),
+                            (new Radio(['colorbox_position', 'colorbox_position-2'], !My::settings()->colorbox_position))
+                                ->value(false)
+                                ->label(new Label(__('on the right'), Label::IL_FT)),
+                        ]),
                     (new Hidden(['type'], 'zoom')),
                     (new Input('save'))
                             ->type('submit')
                             ->value(__('Save configuration')),
-                            App::nonce()->formNonce(),
+                    App::nonce()->formNonce(),
                 ]),
-
             ])
         ->render();
 
-        /*echo
-        '<div class="multi-part" id="zoom" title="' . __('Zoom Icon') . '">' .
-            '<form action="' . My::manageUrl() . '" method="post"  id="zoom-form">' .
-
-                '<div class="fieldset"><h3>' . __('Behaviour') . '</h3>' .
-                    '<p><label class="classic" for="colorbox_zoom_icon">' .
-                    form::checkbox('colorbox_zoom_icon', '1', My::settings()->colorbox_zoom_icon) .
-                    __('Enable zoom icon on hovered thumbnails') . '</label></p>' .
-                    '<p><label class="classic" for="colorbox_zoom_icon_permanent">' .
-                    form::checkbox('colorbox_zoom_icon_permanent', '1', My::settings()->colorbox_zoom_icon_permanent) .
-                    __('Always show zoom icon on thumbnails') . '</label></p>' .
-                '</div>' .
-                '<div class="fieldset"><h3>' . __('Icon position') . '</h3>' .
-                    '<p><label class="classic" for="colorbox_position-1">' .
-                    form::radio(['colorbox_position', 'colorbox_position-1'], true, My::settings()->colorbox_position) .
-                    __('on the left') . '</label></p>' .
-                    '<p><label class="classic" for="colorbox_position-2">' .
-                    form::radio(['colorbox_position', 'colorbox_position-2'], false, !My::settings()->colorbox_position) .
-                    __('on the right') . '</label></p>' .
-                '</div>' .
-                '<p>' . form::hidden(['type'], 'zoom') . '</p>' .
-                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
-            '</form>' .
-        '</div>';*/
+       
 
         // Advanced tab
-
         echo
         (new Div())
         ->class('multi-part')
@@ -334,7 +322,7 @@ class Manage extends Process
                 (new Input('save'))
                         ->type('submit')
                         ->value(__('Save configuration')),
-                        App::nonce()->formNonce(),
+                App::nonce()->formNonce(),
             ]),
 
         ])
