@@ -257,12 +257,12 @@ class Manage extends Process
                                     ])
                             ]),
                             (new Note())
-                                ->class(['form-note', 'info'])
+                                ->class(['form-note', 'info', 'maximal'])
                                 ->text(__('All themes may be customized, see <em>Personal files</em> help section.'))
                         
 
                         ]),
-                    (new Hidden('type'))->class('modal'),
+                    (new Hidden(['type'], 'modal')),
                     (new Input('save'))
                             ->type('submit')
                             ->value(__('Save configuration')),
