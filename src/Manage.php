@@ -259,9 +259,7 @@ class Manage extends Process
                             (new Note())
                                 ->class(['form-note', 'info', 'maximal'])
                                 ->text(__('All themes may be customized, see <em>Personal files</em> help section.'))
-                        
-
-                        ]),
+                            ]),
                     (new Hidden(['type'], 'modal')),
                     (new Input('save'))
                             ->type('submit')
@@ -270,26 +268,6 @@ class Manage extends Process
                 ]),
 
             ])->render();
-
-        /*echo
-        
-            '<div class="fieldset"><h3>' . __('Theme') . '</h3>' .
-
-                    '<div class="two-boxes odd">' .
-                        '<p class="classic">' . __('Choose your theme for Colorbox:') . '</p>' .
-                        $theme_choice .
-
-                    '</div>' .
-                    '<div class="two-boxes even">' .
-                        '<p><img id="thumbnail" src="' . $thumb_url . '" alt="' . __('Preview') . '" title="' . __('Preview') . '" width="400" height="204"></p>' .
-                    '</div>' .
-
-                '<p class="form-note info clear">' . __('All themes may be customized, see <em>Personal files</em> help section.') . '</p>' .
-            '</div>' .
-            '<p>' . form::hidden(['type'], 'modal') . '</p>' .
-            '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
-        '</form>' .
-        '</div>';*/
 
         // Zoom icon tab
 
@@ -303,7 +281,12 @@ class Manage extends Process
                 ->action(My::manageUrl())
                 ->method('post')
                 ->fields([
-
+                    
+                    (new Hidden(['type'], 'zoom')),
+                    (new Input('save'))
+                            ->type('submit')
+                            ->value(__('Save configuration')),
+                            App::nonce()->formNonce(),
                 ]),
 
             ])
@@ -347,6 +330,11 @@ class Manage extends Process
             ->method('post')
             ->fields([
 
+                (new Hidden(['type'], 'advanced')),
+                (new Input('save'))
+                        ->type('submit')
+                        ->value(__('Save configuration')),
+                        App::nonce()->formNonce(),
             ]),
 
         ])
