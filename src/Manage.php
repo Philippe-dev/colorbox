@@ -27,8 +27,6 @@ use Dotclear\Helper\Html\Form\Img;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
-use Dotclear\Helper\Html\Form\Link;
-use Dotclear\Helper\Html\Form\None;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Radio;
@@ -304,7 +302,20 @@ class Manage extends Process
             ])
         ->render();
 
-       
+        $effects = [
+            __('Elastic')       => 'elastic',
+            __('Fade')          => 'fade',
+            __('No transition') => 'none',
+        ];
+
+        $colorbox_legend = [
+            __('Image alt attribute')  => 'alt',
+            __('Link title attribute') => 'title',
+            __('Image description')    => 'description',
+            __('No legend')            => 'none',
+        ];
+
+        $as = unserialize(My::settings()->colorbox_advanced);
 
         // Advanced tab
         echo
@@ -317,6 +328,55 @@ class Manage extends Process
             ->action(My::manageUrl())
             ->method('post')
             ->fields([
+                (new Fieldset())
+                ->legend((new Legend(__('Personnal files'))))
+                ->fields([
+                    (new Para())
+                        ->class('classic')
+                        ->items([
+                            (new Text(null, ' ' . __('Store personnal CSS and image files in:'))),
+                            (new Radio(['colorbox_user_files', 'colorbox_user_files-1'], My::settings()->colorbox_user_files))
+                                ->value(true)
+                                ->label(new Label(__('public folder'), Label::IL_FT)),
+                            (new Radio(['colorbox_user_files', 'colorbox_user_files-2'], !My::settings()->colorbox_user_files))
+                                ->value(false)
+                                ->label(new Label(__('theme folder'), Label::IL_FT)),
+                        ]),
+                    
+                ]),
+                (new Fieldset())
+                ->legend((new Legend(__('Selectors'))))
+                ->fields([
+                    (new Para())
+                        ->class('classic')
+                        ->items([
+                            (new Input('colorbox_selectors'))
+                                ->size(80)
+                                ->maxlength(255)
+                                ->value(My::settings()->colorbox_selectors)
+                                ->label((new Label(__('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):'), Label::OUTSIDE_TEXT_BEFORE))),
+                        ]),
+                ]),
+                (new Fieldset())
+                ->legend((new Legend(__('Effects'))))
+                ->fields([
+                    
+                ]),
+                (new Fieldset())
+                ->legend((new Legend(__('Modal window'))))
+                ->fields([
+                    
+                ]),
+                (new Fieldset())
+                ->legend((new Legend(__('Dimensions'))))
+                ->fields([
+                    
+                ]),
+                (new Fieldset())
+                ->legend((new Legend(__('Javascript'))))
+                ->fields([
+                    
+                ]),
 
                 (new Hidden(['type'], 'advanced')),
                 (new Input('save'))
@@ -328,165 +388,141 @@ class Manage extends Process
         ])
         ->render();
 
-        /* $effects = [
-             __('Elastic')       => 'elastic',
-             __('Fade')          => 'fade',
-             __('No transition') => 'none',
-         ];
+        /* echo
+        
+                '<div class="fieldset"><h3>' . __('Selectors') . '</h3>' .
+                    '<p><label class="maximal" for="colorbox_selectors">' . __('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):') .
+                    '<br>' . form::field('colorbox_selectors', 80, 255, My::settings()->colorbox_selectors) .
+                    '</label></p>' .
+                    '<p class="info">' . __('Leave blank to default: (.post)') . '</p>' .
+                '</div>' .
+                '<div class="fieldset"><h3>' . __('Effects') . '</h3>' .
+                '<div class="two-boxes odd">' .
+                    '<p class="field"><label for="transition">' . __('Transition type') . '&nbsp;' .
+                    form::combo('transition', $effects, $as['transition']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="speed">' . __('Transition speed') . '&nbsp;' .
+                    form::field('speed', 30, 10, $as['speed']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="opacity">' . __('Opacity') . '&nbsp;' .
+                    form::field('opacity', 30, 10, $as['opacity']) .
+                    '</label></p>' .
+                    '<p><label for="open">' .
+                    form::checkbox('open', 1, $as['open']) .
+                    __('Auto open Colorbox') . '</label></p>' .
+                    '<p><label for="preloading">' .
+                    form::checkbox('preloading', 1, $as['preloading']) .
+                    __('Enable preloading for photo group') . '</label></p>' .
+                    '<p><label for="overlayClose">' .
+                    form::checkbox('overlayClose', 1, $as['overlayClose']) .
+                    __('Enable close by clicking on overlay') . '</label></p>' .
+                '</div><div class="two-boxes even">' .
+                    '<p><label for="slideshow">' .
+                    form::checkbox('slideshow', 1, $as['slideshow']) .
+                    __('Enable slideshow') . '</label></p>' .
+                    '<p><label for="slideshowAuto">' .
+                    form::checkbox('slideshowAuto', 1, $as['slideshowAuto']) .
+                    __('Auto start slideshow') . '</label></p>' .
+                    '<p class="field"><label for="slideshowSpeed">' . __('Slideshow speed') . '&nbsp;' .
+                    form::field('slideshowSpeed', 30, 10, $as['slideshowSpeed']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="slideshowStart">' . __('Slideshow start display text') . '&nbsp;' .
+                    form::field('slideshowStart', 30, 255, $as['slideshowStart']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="slideshowStop">' . __('Slideshow stop display text') . '&nbsp;' .
+                    form::field('slideshowStop', 30, 255, $as['slideshowStop']) .
+                    '</label></p>' .
+                '</div>' .
+                '</div>' .
+                '<div class="fieldset"><h3>' . __('Modal window') . '</h3>' .
+                '<div class="two-boxes odd">' .
+                    '<p class="field"><label for="colorbox_legend">' . __('Images legend') . '&nbsp;' .
+                    form::combo('colorbox_legend', $colorbox_legend, My::settings()->colorbox_legend) .
+                    '</label></p>' .
+                    '<p class="field"><label for="title">' . __('Default legend') . '&nbsp;' .
+                    form::field('title', 30, 255, $as['title']) .
+                    '</label></p>' .
+                    '<p><label for="loop">' .
+                    form::checkbox('loop', 1, $as['loop']) .
+                    __('Loop on slideshow images') . '</label></p>' .
+                    '<p><label for="iframe">' .
+                    form::checkbox('iframe', 1, $as['iframe']) .
+                    __('Display content in  an iframe') . '</label></p>' .
 
-         $colorbox_legend = [
-             __('Image alt attribute')  => 'alt',
-             __('Link title attribute') => 'title',
-             __('Image description')    => 'description',
-             __('No legend')            => 'none',
-         ];
-
-         $as = unserialize(My::settings()->colorbox_advanced);
-         echo
-         '<div class="multi-part" id="advanced" title="' . __('Advanced configuration') . '">' .
-             '<form action="' . My::manageUrl() . '" method="post"  id="advanced-form">' .
-                 '<div class="fieldset"><h3>' . __('Personnal files') . '</h3>' .
-                     '<p>' . __('Store personnal CSS and image files in:') . '</p>' .
-                     '<p><label for="colorbox_user_files-1">' .
-                     form::radio(['colorbox_user_files', 'colorbox_user_files-1'], true, My::settings()->colorbox_user_files) .
-                     __('public folder') . '</label></p>' .
-                     '<p><label for="colorbox_user_files-2">' .
-                     form::radio(['colorbox_user_files', 'colorbox_user_files-2'], false, !My::settings()->colorbox_user_files) .
-                     __('theme folder') . '</label></p>' .
-                 '</div>' .
-                 '<div class="fieldset"><h3>' . __('Selectors') . '</h3>' .
-                     '<p><label class="maximal" for="colorbox_selectors">' . __('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):') .
-                     '<br>' . form::field('colorbox_selectors', 80, 255, My::settings()->colorbox_selectors) .
-                     '</label></p>' .
-                     '<p class="info">' . __('Leave blank to default: (.post)') . '</p>' .
-                 '</div>' .
-                 '<div class="fieldset"><h3>' . __('Effects') . '</h3>' .
-                 '<div class="two-boxes odd">' .
-                     '<p class="field"><label for="transition">' . __('Transition type') . '&nbsp;' .
-                     form::combo('transition', $effects, $as['transition']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="speed">' . __('Transition speed') . '&nbsp;' .
-                     form::field('speed', 30, 10, $as['speed']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="opacity">' . __('Opacity') . '&nbsp;' .
-                     form::field('opacity', 30, 10, $as['opacity']) .
-                     '</label></p>' .
-                     '<p><label for="open">' .
-                     form::checkbox('open', 1, $as['open']) .
-                     __('Auto open Colorbox') . '</label></p>' .
-                     '<p><label for="preloading">' .
-                     form::checkbox('preloading', 1, $as['preloading']) .
-                     __('Enable preloading for photo group') . '</label></p>' .
-                     '<p><label for="overlayClose">' .
-                     form::checkbox('overlayClose', 1, $as['overlayClose']) .
-                     __('Enable close by clicking on overlay') . '</label></p>' .
-                 '</div><div class="two-boxes even">' .
-                     '<p><label for="slideshow">' .
-                     form::checkbox('slideshow', 1, $as['slideshow']) .
-                     __('Enable slideshow') . '</label></p>' .
-                     '<p><label for="slideshowAuto">' .
-                     form::checkbox('slideshowAuto', 1, $as['slideshowAuto']) .
-                     __('Auto start slideshow') . '</label></p>' .
-                     '<p class="field"><label for="slideshowSpeed">' . __('Slideshow speed') . '&nbsp;' .
-                     form::field('slideshowSpeed', 30, 10, $as['slideshowSpeed']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="slideshowStart">' . __('Slideshow start display text') . '&nbsp;' .
-                     form::field('slideshowStart', 30, 255, $as['slideshowStart']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="slideshowStop">' . __('Slideshow stop display text') . '&nbsp;' .
-                     form::field('slideshowStop', 30, 255, $as['slideshowStop']) .
-                     '</label></p>' .
-                 '</div>' .
-                 '</div>' .
-                 '<div class="fieldset"><h3>' . __('Modal window') . '</h3>' .
-                 '<div class="two-boxes odd">' .
-                     '<p class="field"><label for="colorbox_legend">' . __('Images legend') . '&nbsp;' .
-                     form::combo('colorbox_legend', $colorbox_legend, My::settings()->colorbox_legend) .
-                     '</label></p>' .
-                     '<p class="field"><label for="title">' . __('Default legend') . '&nbsp;' .
-                     form::field('title', 30, 255, $as['title']) .
-                     '</label></p>' .
-                     '<p><label for="loop">' .
-                     form::checkbox('loop', 1, $as['loop']) .
-                     __('Loop on slideshow images') . '</label></p>' .
-                     '<p><label for="iframe">' .
-                     form::checkbox('iframe', 1, $as['iframe']) .
-                     __('Display content in  an iframe') . '</label></p>' .
-
-                 '</div><div class="two-boxes even">' .
-                     '<p class="field"><label for="current">' . __('Current text') . '&nbsp;' .
-                     form::field('current', 30, 255, $as['current']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="previous">' . __('Previous text') . '&nbsp;' .
-                     form::field('previous', 30, 255, $as['previous']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="next">' . __('Next text') . '&nbsp;' .
-                     form::field('next', 30, 255, $as['next']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="close">' . __('Close text') . '&nbsp;' .
-                     form::field('close', 30, 255, $as['close']) .
-                     '</label></p>' .
-                 '</div>' .
-                 '</div>' .
-                 '<div class="fieldset"><h3>' . __('Dimensions') . '</h3>' .
-                 '<div class="two-boxes odd">' .
-                     '<p class="field"><label for="width">' . __('Fixed width') . '&nbsp;' .
-                     form::field('width', 30, 10, $as['width']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="height">' . __('Fixed height') . '&nbsp;' .
-                     form::field('height', 30, 10, $as['height']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="innerWidth">' . __('Fixed inner width') . '&nbsp;' .
-                     form::field('innerWidth', 30, 10, $as['innerWidth']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="innerHeight">' . __('Fixed inner height') . '&nbsp;' .
-                     form::field('innerHeight', 30, 10, $as['innerHeight']) .
-                     '</label></p>' .
-                     '<p><label for="scalePhotos">' .
-                     form::checkbox('scalePhotos', 1, $as['scalePhotos']) .
-                     __('Scale photos') . '</label></p>' .
-                     '<p><label class="classic" for="scrolling">' .
-                     form::checkbox('scrolling', 1, $as['scrolling']) .
-                     __('Show overflowing content') . '</label></p>' .
-                 '</div><div class="two-boxes even">' .
-                     '<p class="field"><label for="initialWidth">' . __('Initial width') . '&nbsp;' .
-                     form::field('initialWidth', 30, 10, $as['initialWidth']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="initialHeight">' . __('Initial height') . '&nbsp;' .
-                     form::field('initialHeight', 30, 10, $as['initialHeight']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="maxWidth">' . __('Max width') . '&nbsp;' .
-                     form::field('maxWidth', 30, 10, $as['maxWidth']) .
-                     '</label></p>' .
-                     '<p class="field"><label for="maxHeight">' . __('Max height') . '&nbsp;' .
-                     form::field('maxHeight', 30, 10, $as['maxHeight']) .
-                     '</label></p>' .
-                 '</div>' .
-                 '</div>' .
-                 '<div class="fieldset"><h3>' . __('Javascript') . '</h3>' .
-                 '<div class="two-boxes odd">' .
-                     '<p class="field"><label for="onOpen">' . __('onOpen callback') . '&nbsp;' .
-                     form::field('onOpen', 80, 255, $as['onOpen'], 'maximal') .
-                     '</label></p>' .
-                     '<p class="field"><label for="onLoad">' . __('onLoad callback') . '&nbsp;' .
-                     form::field('onLoad', 80, 255, $as['onLoad'], 'maximal') .
-                     '</label></p>' .
-                     '<p class="field"><label for="onComplete">' . __('onComplete callback') . '&nbsp;' .
-                     form::field('onComplete', 80, 255, $as['onComplete'], 'maximal') .
-                     '</label></p>' .
-                 '</div><div class="two-boxes even">' .
-                     '<p class="field"><label for="onCleanup">' . __('onCleanup callback') . '&nbsp;' .
-                     form::field('onCleanup', 80, 255, $as['onCleanup'], 'maximal') .
-                     '</label></p>' .
-                     '<p class="field"><label for="onClosed">' . __('onClosed callback') . '&nbsp;' .
-                     form::field('onClosed', 80, 255, $as['onClosed'], 'maximal') .
-                     '</label></p>' .
-                 '</div>' .
-                 '</div>' .
-                 '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
-                 '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
-             '</form>' .
-         '</div>';*/
+                '</div><div class="two-boxes even">' .
+                    '<p class="field"><label for="current">' . __('Current text') . '&nbsp;' .
+                    form::field('current', 30, 255, $as['current']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="previous">' . __('Previous text') . '&nbsp;' .
+                    form::field('previous', 30, 255, $as['previous']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="next">' . __('Next text') . '&nbsp;' .
+                    form::field('next', 30, 255, $as['next']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="close">' . __('Close text') . '&nbsp;' .
+                    form::field('close', 30, 255, $as['close']) .
+                    '</label></p>' .
+                '</div>' .
+                '</div>' .
+                '<div class="fieldset"><h3>' . __('Dimensions') . '</h3>' .
+                '<div class="two-boxes odd">' .
+                    '<p class="field"><label for="width">' . __('Fixed width') . '&nbsp;' .
+                    form::field('width', 30, 10, $as['width']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="height">' . __('Fixed height') . '&nbsp;' .
+                    form::field('height', 30, 10, $as['height']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="innerWidth">' . __('Fixed inner width') . '&nbsp;' .
+                    form::field('innerWidth', 30, 10, $as['innerWidth']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="innerHeight">' . __('Fixed inner height') . '&nbsp;' .
+                    form::field('innerHeight', 30, 10, $as['innerHeight']) .
+                    '</label></p>' .
+                    '<p><label for="scalePhotos">' .
+                    form::checkbox('scalePhotos', 1, $as['scalePhotos']) .
+                    __('Scale photos') . '</label></p>' .
+                    '<p><label class="classic" for="scrolling">' .
+                    form::checkbox('scrolling', 1, $as['scrolling']) .
+                    __('Show overflowing content') . '</label></p>' .
+                '</div><div class="two-boxes even">' .
+                    '<p class="field"><label for="initialWidth">' . __('Initial width') . '&nbsp;' .
+                    form::field('initialWidth', 30, 10, $as['initialWidth']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="initialHeight">' . __('Initial height') . '&nbsp;' .
+                    form::field('initialHeight', 30, 10, $as['initialHeight']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="maxWidth">' . __('Max width') . '&nbsp;' .
+                    form::field('maxWidth', 30, 10, $as['maxWidth']) .
+                    '</label></p>' .
+                    '<p class="field"><label for="maxHeight">' . __('Max height') . '&nbsp;' .
+                    form::field('maxHeight', 30, 10, $as['maxHeight']) .
+                    '</label></p>' .
+                '</div>' .
+                '</div>' .
+                '<div class="fieldset"><h3>' . __('Javascript') . '</h3>' .
+                '<div class="two-boxes odd">' .
+                    '<p class="field"><label for="onOpen">' . __('onOpen callback') . '&nbsp;' .
+                    form::field('onOpen', 80, 255, $as['onOpen'], 'maximal') .
+                    '</label></p>' .
+                    '<p class="field"><label for="onLoad">' . __('onLoad callback') . '&nbsp;' .
+                    form::field('onLoad', 80, 255, $as['onLoad'], 'maximal') .
+                    '</label></p>' .
+                    '<p class="field"><label for="onComplete">' . __('onComplete callback') . '&nbsp;' .
+                    form::field('onComplete', 80, 255, $as['onComplete'], 'maximal') .
+                    '</label></p>' .
+                '</div><div class="two-boxes even">' .
+                    '<p class="field"><label for="onCleanup">' . __('onCleanup callback') . '&nbsp;' .
+                    form::field('onCleanup', 80, 255, $as['onCleanup'], 'maximal') .
+                    '</label></p>' .
+                    '<p class="field"><label for="onClosed">' . __('onClosed callback') . '&nbsp;' .
+                    form::field('onClosed', 80, 255, $as['onClosed'], 'maximal') .
+                    '</label></p>' .
+                '</div>' .
+                '</div>' .
+                '<p>' . form::hidden(['type'], 'advanced') . '</p>' .
+                '<p class="clear"><input type="submit" name="save" value="' . __('Save configuration') . '">' . App::nonce()->getFormNonce() . '</p>' .
+            '</form>' .
+        '</div>';*/
 
         Page::helpBlock('colorbox');
         Page::closeModule();
