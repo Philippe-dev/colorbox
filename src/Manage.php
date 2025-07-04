@@ -30,6 +30,7 @@ use Dotclear\Helper\Html\Form\Legend;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Radio;
+use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
@@ -342,7 +343,7 @@ class Manage extends Process
                                 ->value(false)
                                 ->label(new Label(__('theme folder'), Label::IL_FT)),
                         ]),
-                    
+
                 ]),
                 (new Fieldset())
                 ->legend((new Legend(__('Selectors'))))
@@ -357,28 +358,123 @@ class Manage extends Process
                                 ->label((new Label(__('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):'), Label::OUTSIDE_TEXT_BEFORE))),
                             (new Note())
                                 ->class(['form-note', 'info', 'maximal'])
-                                ->text(__('Leave blank to default: (.post)')),  
+                                ->text(__('Leave blank to default: (.post)')),
                         ]),
                 ]),
                 (new Fieldset())
                 ->legend((new Legend(__('Effects'))))
                 ->fields([
-                    
+                    (new Div())
+                        ->class(['two-boxes', 'odd'])
+                        ->items([
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Select('transition'))
+                                ->items($effects)
+                                ->default($as['transition'])
+                                ->label(new Label(__('Transition type'), Label::OUTSIDE_LABEL_BEFORE)),
+                            ]),
+                            (new Para())
+                                ->class('classic')
+                                ->items([
+                                    (new Input('speed'))
+                                        ->size(10)
+                                        ->type('number')
+                                        ->maxlength(10)
+                                        ->value($as['speed'])
+                                        ->label((new Label(__('Transition speed'), Label::OUTSIDE_TEXT_BEFORE))),
+                                ]),
+                            (new Para())
+                                ->class('classic')
+                                ->items([
+                                    (new Input('opacity'))
+                                        ->size(10)
+                                        ->type('number')
+                                        ->step('0.1')
+                                        ->maxlength(10)
+                                        ->value($as['opacity'])
+                                        ->label((new Label(__('Opacity'), Label::OUTSIDE_TEXT_BEFORE))),
+                                ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Checkbox('open', (bool) $as['open'])),
+                                (new Label(__('Auto open Colorbox'), Label::OUTSIDE_LABEL_AFTER))->for('open')->class('classic'),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Checkbox('preloading', (bool) $as['preloading'])),
+                                (new Label(__('Enable preloading for photo group'), Label::OUTSIDE_LABEL_AFTER))->for('preloading')->class('classic'),
+                            ]),
+                            (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Checkbox('overlayClose', (bool) $as['overlayClose'])),
+                                (new Label(__('Enable close by clicking on overlay'), Label::OUTSIDE_LABEL_AFTER))->for('overlayClose')->class('classic'),
+                            ]),
+                        ]),
+
+                    (new Div())
+                    ->class(['two-boxes', 'even'])
+                    ->items([
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Checkbox('slideshow', (bool) $as['slideshow'])),
+                                (new Label(__('Enable slideshow'), Label::OUTSIDE_LABEL_AFTER))->for('slideshow')->class('classic'),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Checkbox('slideshowAuto', (bool) $as['slideshowAuto'])),
+                                (new Label(__('Enable Auto start slideshow'), Label::OUTSIDE_LABEL_AFTER))->for('slideshowAuto')->class('classic'),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('slideshowSpeed'))
+                                    ->size(10)
+                                    ->type('number')
+                                    ->maxlength(10)
+                                    ->value($as['slideshowSpeed'])
+                                    ->label((new Label(__('Slideshow speed'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('slideshowStart'))
+                                    ->size(30)
+                                    ->maxlength(255)
+                                    ->value($as['slideshowStart'])
+                                    ->label((new Label(__('Slideshow start display text'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                        (new Para())
+                            ->class('classic')
+                            ->items([
+                                (new Input('slideshowStop'))
+                                    ->size(30)
+                                    ->maxlength(255)
+                                    ->value($as['slideshowStop'])
+                                    ->label((new Label(__('Slideshow stop display text'), Label::OUTSIDE_TEXT_BEFORE))),
+                            ]),
+                    ]),
                 ]),
                 (new Fieldset())
                 ->legend((new Legend(__('Modal window'))))
                 ->fields([
-                    
+
                 ]),
                 (new Fieldset())
                 ->legend((new Legend(__('Dimensions'))))
                 ->fields([
-                    
+
                 ]),
                 (new Fieldset())
                 ->legend((new Legend(__('Javascript'))))
                 ->fields([
-                    
+
                 ]),
 
                 (new Hidden(['type'], 'advanced')),
@@ -391,34 +487,8 @@ class Manage extends Process
         ])
         ->render();
 
-        /* echo
-        
-                '<div class="fieldset"><h3>' . __('Selectors') . '</h3>' .
-                    '<p><label class="maximal" for="colorbox_selectors">' . __('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):') .
-                    '<br>' . form::field('colorbox_selectors', 80, 255, My::settings()->colorbox_selectors) .
-                    '</label></p>' .
-                    '<p class="info">' . __('Leave blank to default: (.post)') . '</p>' .
-                '</div>' .
-                '<div class="fieldset"><h3>' . __('Effects') . '</h3>' .
-                '<div class="two-boxes odd">' .
-                    '<p class="field"><label for="transition">' . __('Transition type') . '&nbsp;' .
-                    form::combo('transition', $effects, $as['transition']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="speed">' . __('Transition speed') . '&nbsp;' .
-                    form::field('speed', 30, 10, $as['speed']) .
-                    '</label></p>' .
-                    '<p class="field"><label for="opacity">' . __('Opacity') . '&nbsp;' .
-                    form::field('opacity', 30, 10, $as['opacity']) .
-                    '</label></p>' .
-                    '<p><label for="open">' .
-                    form::checkbox('open', 1, $as['open']) .
-                    __('Auto open Colorbox') . '</label></p>' .
-                    '<p><label for="preloading">' .
-                    form::checkbox('preloading', 1, $as['preloading']) .
-                    __('Enable preloading for photo group') . '</label></p>' .
-                    '<p><label for="overlayClose">' .
-                    form::checkbox('overlayClose', 1, $as['overlayClose']) .
-                    __('Enable close by clicking on overlay') . '</label></p>' .
+        /*
+
                 '</div><div class="two-boxes even">' .
                     '<p><label for="slideshow">' .
                     form::checkbox('slideshow', 1, $as['slideshow']) .
