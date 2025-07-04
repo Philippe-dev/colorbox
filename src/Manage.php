@@ -334,7 +334,7 @@ class Manage extends Process
                     (new Para())
                         ->class('classic')
                         ->items([
-                            (new Text(null, ' ' . __('Store personnal CSS and image files in:'))),
+                            (new Label(__('Store personnal CSS and image files in:'), Label::OUTSIDE_TEXT_BEFORE)),
                             (new Radio(['colorbox_user_files', 'colorbox_user_files-1'], My::settings()->colorbox_user_files))
                                 ->value(true)
                                 ->label(new Label(__('public folder'), Label::IL_FT)),
@@ -355,6 +355,9 @@ class Manage extends Process
                                 ->maxlength(255)
                                 ->value(My::settings()->colorbox_selectors)
                                 ->label((new Label(__('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):'), Label::OUTSIDE_TEXT_BEFORE))),
+                            (new Note())
+                                ->class(['form-note', 'info', 'maximal'])
+                                ->text(__('Leave blank to default: (.post)')),  
                         ]),
                 ]),
                 (new Fieldset())
