@@ -245,7 +245,7 @@ class Manage extends Process
                                     ->items([
                                         (new Img($thumb_url))
                                             ->id('thumbnail')
-                                            ->title(__('Preview'))
+                                            ->title(__('Preview theme'))
                                             ->alt(__('Preview')),
                                     ]),
                             ]),
