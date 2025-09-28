@@ -15,8 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\colorbox;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Div;
@@ -154,12 +152,12 @@ class Manage
             return;
         }
 
-        Page::openModule(
+        App::backend()->page()->openModule(
             My::name(),
-            Page::jsPageTabs(App::backend()->default_tab) .
-            Page::jsConfirmClose('modal-form') .
-            Page::jsConfirmClose('zoom-form') .
-            Page::jsConfirmClose('advanced-form') .
+            App::backend()->page()->jsPageTabs(App::backend()->default_tab) .
+            App::backend()->page()->jsConfirmClose('modal-form') .
+            App::backend()->page()->jsConfirmClose('zoom-form') .
+            App::backend()->page()->jsConfirmClose('advanced-form') .
             '<script>' .
             '$(document).ready(function() {' .
                 '$("input[type=radio][name=colorbox_theme]").click(function() {' .
@@ -173,13 +171,13 @@ class Manage
             '</style>'
         );
 
-        echo Page::breadcrumb(
+        echo App::backend()->page()->breadcrumb(
             [
                 Html::escapeHTML(App::blog()->name) => '',
                 My::name()                          => '',
             ]
         ) .
-        Notices::getNotices();
+        App::backend()->notices()->getNotices();
 
         if (isset($_GET['upd'])) {
             $a_msg = [
@@ -191,7 +189,7 @@ class Manage
             $k = (int) $_GET['upd'] - 1;
 
             if (array_key_exists($k, $a_msg)) {
-                Notices::success($a_msg[$k]);
+                App::backend()->notices()->success($a_msg[$k]);
             }
         }
 
@@ -705,7 +703,7 @@ class Manage
         ])
         ->render();
 
-        Page::helpBlock('colorbox');
-        Page::closeModule();
+        App::backend()->page()->helpBlock('colorbox');
+        App::backend()->page()->closeModule();
     }
 }
