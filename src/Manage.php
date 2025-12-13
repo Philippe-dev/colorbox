@@ -29,7 +29,6 @@ use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Radio;
 use Dotclear\Helper\Html\Form\Select;
-use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
 use Exception;
@@ -37,7 +36,7 @@ use Exception;
 class Manage
 {
     use TraitProcess;
-    
+
     /**
      * Initializes the page.
      */

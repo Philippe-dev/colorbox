@@ -21,7 +21,7 @@ use Dotclear\Helper\Process\TraitProcess;
 class Backend
 {
     use TraitProcess;
-    
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::BACKEND));
