@@ -1,7 +1,7 @@
 # Colorbox
 
 ![Release 6.4](https://img.shields.io/badge/Release-6.4-b7d7ee)
-![MIT License](https://img.shields.io/badge/MIT_license-a5cc52)
+![MIT License](https://img.shields.io/badge/License-MIT-a5cc52)
 ![Dotclear 2.36](https://img.shields.io/badge/Dotclear-2.36-137bbb)
 
 ## Crédits
