@@ -17,7 +17,7 @@ $this->registerModule(
     '6.5',
     [
         'date'        => '2026-01-20T00:00:08+0100',
-        'requires'    => [['core', '2.36']],
+        'requires'    => [['core', '2.37']],
         'permissions' => 'My',
         'type'        => 'plugin',
         'support'     => 'https://github.com/Philippe-dev/colorbox',
