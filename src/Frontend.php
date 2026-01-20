@@ -85,7 +85,7 @@ class Frontend
         $url         = App::blog()->getQmarkURL() . 'pf=' . My::id();
 
         echo
-        My::jsLoad('jquery.colorbox-min.js') .
+        My::jsLoad('jquery.colorbox.min.js') .
         '<script>' . "\n" .
         "//<![CDATA[\n";
 
