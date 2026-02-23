@@ -96,10 +96,10 @@ class Frontend
             'var count = 0; ' .
             '$("' . $selectors . '").each(function() {' . "\n" .
                 'count++;' . "\n" .
-                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],' .
-                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"]\').addClass("colorbox_zoom");' . "\n" .
-                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],' .
-                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"]\').attr("rel", "colorbox-"+count);' . "\n";
+                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],a[href$=".webp"],' .
+                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"],a[href$=".WEBP"]\').addClass("colorbox_zoom");' . "\n" .
+                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],a[href$=".webp"],' .
+                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"],a[href$=".WEBP"]\').attr("rel", "colorbox-"+count);' . "\n";
 
         if (My::settings()->colorbox_zoom_icon_permanent) {
             echo
