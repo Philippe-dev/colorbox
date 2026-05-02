@@ -56,6 +56,8 @@ class Manage
             return false;
         }
 
+        $settings = My::settings();
+
         $default_tab = $_GET['tab'] ?? 'modal';
 
         $themes = [
@@ -75,17 +77,17 @@ class Manage
                 $type = $_POST['type'];
 
                 if ($type === 'modal') {
-                    My::settings()->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
+                    $settings->put('colorbox_enabled', !empty($_POST['colorbox_enabled']));
 
                     if (isset($_POST['colorbox_theme'])) {
-                        My::settings()->put('colorbox_theme', $_POST['colorbox_theme']);
+                        $settings->put('colorbox_theme', $_POST['colorbox_theme'], App::blogWorkspace()::NS_INT);
                     }
                     App::blog()->triggerBlog();
                     My::redirect(['upd' => 1]);
                 } elseif ($type === 'zoom') {
-                    My::settings()->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']));
-                    My::settings()->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']));
-                    My::settings()->put('colorbox_position', !empty($_POST['colorbox_position']));
+                    $settings->put('colorbox_zoom_icon', !empty($_POST['colorbox_zoom_icon']), App::blogWorkspace()::NS_BOOL);
+                    $settings->put('colorbox_zoom_icon_permanent', !empty($_POST['colorbox_zoom_icon_permanent']), App::blogWorkspace()::NS_BOOL);
+                    $settings->put('colorbox_position', !empty($_POST['colorbox_position']), App::blogWorkspace()::NS_BOOL);
 
                     App::blog()->triggerBlog();
                     My::redirect(['tab' => 'zoom', 'upd' => 2]);
@@ -126,10 +128,10 @@ class Manage
                         'onClosed'       => $_POST['onClosed'],
                     ];
 
-                    My::settings()->put('colorbox_advanced', serialize($opts));
-                    My::settings()->put('colorbox_selectors', $_POST['colorbox_selectors']);
-                    My::settings()->put('colorbox_user_files', $_POST['colorbox_user_files']);
-                    My::settings()->put('colorbox_legend', $_POST['colorbox_legend']);
+                    $settings->put('colorbox_advanced', serialize($opts), App::blogWorkspace()::NS_STRING);
+                    $settings->put('colorbox_selectors', $_POST['colorbox_selectors'], App::blogWorkspace()::NS_STRING);
+                    $settings->put('colorbox_user_files', !empty($_POST['colorbox_user_files']), App::blogWorkspace()::NS_BOOL);
+                    $settings->put('colorbox_legend', $_POST['colorbox_legend'], App::blogWorkspace()::NS_STRING);
 
                     App::blog()->triggerBlog();
                     My::redirect(['tab' => 'advanced', 'upd' => 3]);
@@ -150,6 +152,8 @@ class Manage
         if (!self::status()) {
             return;
         }
+
+        $settings = My::settings();
 
         App::backend()->page()->openModule(
             My::name(),
@@ -197,13 +201,13 @@ class Manage
         foreach (App::backend()->themes as $key => $value) {
             $theme_choice[] = (new Para())
             ->items([
-                (new Radio(['colorbox_theme', 'colorbox_theme-' . $key], My::settings()->colorbox_theme === $key))
+                (new Radio(['colorbox_theme', 'colorbox_theme-' . $key], $settings->colorbox_theme === $key))
                     ->value($key)
                     ->label(new Label($value, Label::IL_FT)),
             ]);
         }
 
-        $thumb_url = My::fileURL('/themes/' . My::settings()->colorbox_theme . '/images/thumbnail.jpg');
+        $thumb_url = My::fileURL('/themes/' . $settings->colorbox_theme . '/images/thumbnail.jpg');
 
         //Modal window tab
         echo
@@ -220,7 +224,7 @@ class Manage
                         ->legend((new Legend(__('Activation'))))
                         ->fields([
                             (new Para())->items([
-                                (new Checkbox('colorbox_enabled', (bool) My::settings()->colorbox_enabled)),
+                                (new Checkbox('colorbox_enabled', (bool) $settings->colorbox_enabled)),
                                 (new Label(__('Enable Colorbox on this blog'), Label::OUTSIDE_LABEL_AFTER))->for('colorbox_enabled')->class('classic'),
                             ]),
                         ]),
@@ -275,21 +279,21 @@ class Manage
                         ->legend((new Legend(__('Behaviour'))))
                         ->fields([
                             (new Para())->items([
-                                (new Checkbox('colorbox_zoom_icon', (bool) My::settings()->colorbox_zoom_icon)),
+                                (new Checkbox('colorbox_zoom_icon', (bool) $settings->colorbox_zoom_icon)),
                                 (new Label(__('Enable zoom icon on hovered thumbnails'), Label::OUTSIDE_LABEL_AFTER))->for('colorbox_zoom_icon')->class('classic'),
                             ]),
                             (new Para())->items([
-                                (new Checkbox('colorbox_zoom_icon_permanent', (bool) My::settings()->colorbox_zoom_icon_permanent)),
+                                (new Checkbox('colorbox_zoom_icon_permanent', (bool) $settings->colorbox_zoom_icon_permanent)),
                                 (new Label(__('Always show zoom icon on thumbnails'), Label::OUTSIDE_LABEL_AFTER))->for('colorbox_zoom_icon_permanent')->class('classic'),
                             ]),
                         ]),
                     (new Fieldset())
                         ->legend((new Legend(__('Icon position'))))
                         ->fields([
-                            (new Radio(['colorbox_position', 'colorbox_position-1'], My::settings()->colorbox_position))
+                            (new Radio(['colorbox_position', 'colorbox_position-1'], $settings->colorbox_position))
                                 ->value(true)
                                 ->label(new Label(__('on the left'), Label::IL_FT)),
-                            (new Radio(['colorbox_position', 'colorbox_position-2'], !My::settings()->colorbox_position))
+                            (new Radio(['colorbox_position', 'colorbox_position-2'], ! $settings->colorbox_position))
                                 ->value(false)
                                 ->label(new Label(__('on the right'), Label::IL_FT)),
                         ]),
@@ -315,7 +319,7 @@ class Manage
             __('No legend')            => 'none',
         ];
 
-        $as = unserialize(My::settings()->colorbox_advanced);
+        $as = unserialize($settings->colorbox_advanced);
 
         // Advanced tab
         echo
@@ -335,12 +339,12 @@ class Manage
                         ->class('classic')
                         ->items([
                             (new Label(__('Store personnal CSS and image files in:'), Label::OUTSIDE_TEXT_BEFORE)),
-                            (new Radio(['colorbox_user_files', 'colorbox_user_files-1'], My::settings()->colorbox_user_files))
+                            (new Radio(['colorbox_user_files', 'colorbox_user_files-1'], (bool)$settings->colorbox_user_files))
                                 ->value(true)
                                 ->label(new Label(__('public folder'), Label::IL_FT)),
-                            (new Radio(['colorbox_user_files', 'colorbox_user_files-2'], !My::settings()->colorbox_user_files))
+                            (new Radio(['colorbox_user_files', 'colorbox_user_files-2'], (bool) !$settings->colorbox_user_files))
                                 ->value(false)
-                                ->label(new Label(__('theme folder'), Label::IL_FT)),
+                                ->label(new Label(__('theme folder'), Label::IL_FT))
                         ]),
 
                 ]),
@@ -353,7 +357,7 @@ class Manage
                             (new Input('colorbox_selectors'))
                                 ->size(80)
                                 ->maxlength(255)
-                                ->value(My::settings()->colorbox_selectors)
+                                ->value($settings->colorbox_selectors)
                                 ->label((new Label(__('Apply Colorbox to the following supplementary selectors (ex: #sidebar,#pictures):'), Label::OUTSIDE_TEXT_BEFORE))),
                             (new Note())
                                 ->class(['form-note', 'info', 'maximal'])
@@ -467,7 +471,7 @@ class Manage
                             ->items([
                                 (new Select('colorbox_legend'))
                                 ->items($colorbox_legend)
-                                ->default(My::settings()->colorbox_legend)
+                                ->default($settings->colorbox_legend)
                                 ->label(new Label(__('Images legend'), Label::OUTSIDE_LABEL_BEFORE)),
                             ]),
                             (new Para())

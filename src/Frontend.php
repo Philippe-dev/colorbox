@@ -33,37 +33,39 @@ class Frontend
             return false;
         }
 
-        App::behavior()->addBehavior('publicHeadContent', [self::class, 'publicHeadContent']);
-        App::behavior()->addBehavior('publicFooterContent', [self::class, 'publicFooterContent']);
+        App::behavior()->addBehavior('publicHeadContent', self::publicHeadContent(...));
+        App::behavior()->addBehavior('publicFooterContent', self::publicFooterContent(...));
 
         return true;
     }
 
     public static function publicHeadContent()
     {
-        if (!My::settings()->colorbox_enabled) {
+        $settings = My::settings();
+
+        if (! $settings->colorbox_enabled) {
             return;
         }
 
         echo
         My::cssLoad('colorbox_common.css') .
-        My::cssLoad('/themes/' . My::settings()->colorbox_theme . '/colorbox_theme.css');
+        My::cssLoad('/themes/' . $settings->colorbox_theme . '/colorbox_theme.css');
 
-        if (My::settings()->colorbox_user_files) {
+        if ($settings->colorbox_user_files) {
             $public_path        = App::blog()->public_path;
             $public_url         = App::blog()->settings->system->public_url;
             $colorbox_user_path = $public_path . '/colorbox/themes/';
             $colorbox_user_url  = $public_url . '/colorbox/themes/';
 
-            if (file_exists($colorbox_user_path . My::settings()->colorbox_theme . '/colorbox_user.css')) {
+            if (file_exists($colorbox_user_path . $settings->colorbox_theme . '/colorbox_user.css')) {
                 echo
-                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . My::settings()->colorbox_theme . '/colorbox_user.css">' . "\n";
+                '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . $settings->colorbox_theme . '/colorbox_user.css">' . "\n";
             }
         } else {
             $theme_path         = Path::fullFromRoot(App::blog()->settings->system->themes_path . '/' . App::blog()->settings->system->theme, DC_ROOT);
             $theme_url          = App::blog()->settings->system->themes_url . '/' . App::blog()->settings->system->theme;
-            $colorbox_user_path = $theme_path . '/colorbox/themes/' . My::settings()->colorbox_theme . '/colorbox_user.css';
-            $colorbox_user_url  = $theme_url . '/colorbox/themes/' . My::settings()->colorbox_theme . '/colorbox_user.css';
+            $colorbox_user_path = $theme_path . '/colorbox/themes/' . $settings->colorbox_theme . '/colorbox_user.css';
+            $colorbox_user_url  = $theme_url . '/colorbox/themes/' . $settings->colorbox_theme . '/colorbox_user.css';
             if (file_exists($colorbox_user_path)) {
                 echo
                 '<link rel="stylesheet" type="text/css" href="' . $colorbox_user_url . '">' . "\n";
@@ -74,8 +76,9 @@ class Frontend
     public static function publicFooterContent($core)
     {
         // Settings
+        $settings = My::settings();
 
-        if (!My::settings()->colorbox_enabled) {
+        if (! $settings->colorbox_enabled) {
             return;
         }
 
@@ -89,7 +92,7 @@ class Frontend
         '<script>' . "\n" .
         "//<![CDATA[\n";
 
-        $selectors = '.post' . (My::settings()->colorbox_selectors !== '' ? ',' . My::settings()->colorbox_selectors : '');
+        $selectors = '.post' . ($settings->colorbox_selectors !== '' ? ',' . $settings->colorbox_selectors : '');
 
         echo
         '$(function () {' . "\n" .
@@ -101,7 +104,7 @@ class Frontend
                 '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],a[href$=".webp"],' .
                 'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"],a[href$=".WEBP"]\').attr("rel", "colorbox-"+count);' . "\n";
 
-        if (My::settings()->colorbox_zoom_icon_permanent) {
+        if ($settings->colorbox_zoom_icon_permanent) {
             echo
             '$(this).find("a.colorbox_zoom").each(function(){' . "\n" .
                 'var p = $(this).find("img");' . "\n" .
@@ -113,20 +116,20 @@ class Frontend
                     'var parentleft = offsetparent.left;' . "\n" .
                     'var top = offset.top-parenttop;' . "\n";
 
-            if (My::settings()->colorbox_position) {
+            if ($settings->colorbox_position) {
                 echo 'var left = offset.left-parentleft;' . "\n";
             } else {
                 echo 'var left = offset.left-parentleft+p.outerWidth()-' . $icon_width . ';' . "\n";
             }
 
-            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . My::fileURL('/themes/' . My::settings()->colorbox_theme) . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
+            echo '$(this).append("<span style=\"z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;top:' . '"+top+"' . 'px;left:' . '"+left+"' . 'px;background: url(' . My::fileURL('/themes/' . $settings->colorbox_theme) . '/images/zoom.png) top left no-repeat; position:absolute;\"></span>");' . "\n" .
                 '}' . "\n" .
             '});' . "\n";
         }
 
-        if (My::settings()->colorbox_zoom_icon && !My::settings()->colorbox_zoom_icon_permanent) {
+        if ($settings->colorbox_zoom_icon && ! $settings->colorbox_zoom_icon_permanent) {
             echo
-            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . My::fileURL('/themes/' . My::settings()->colorbox_theme) . '/images/zoom.png" alt="">\');' . "\n" .
+            '$(\'body\').prepend(\'<img id="colorbox_magnify" style="display:block;padding:0;margin:0;z-index:10;width:' . $icon_width . 'px;height:' . $icon_height . 'px;position:absolute;top:0;left:0;display:none;" src="' . My::fileURL('/themes/' . $settings->colorbox_theme) . '/images/zoom.png" alt="">\');' . "\n" .
             '$(\'img#colorbox_magnify\').on(\'click\', function ()' . "\n" .
                 '{ ' . "\n" .
                     '$("a.colorbox_zoom img.colorbox_hovered").click(); ' . "\n" .
@@ -142,7 +145,7 @@ class Frontend
                 'p.addClass(\'colorbox_hovered\');' . "\n" .
                 'var offset = p.offset();' . "\n";
 
-            if (!My::settings()->colorbox_position) {
+            if (! $settings->colorbox_position) {
                 echo '$(\'img#colorbox_magnify\').css({\'top\' : offset.top, \'left\' : offset.left+p.outerWidth()-' . $icon_width . '});' . "\n";
             } else {
                 echo '$(\'img#colorbox_magnify\').css({\'top\' : offset.top, \'left\' : offset.left});' . "\n";
@@ -156,15 +159,15 @@ class Frontend
             '});' . "\n";
         }
 
-        foreach (unserialize(My::settings()->colorbox_advanced) as $k => $v) {
+        foreach (unserialize($settings->colorbox_advanced) as $k => $v) {
             if ($v === '') {
-                if ($k == 'title' && My::settings()->colorbox_legend == 'alt') {
+                if ($k == 'title' && $settings->colorbox_legend == 'alt') {
                     $opts[] = $k . ': function(){return $(this).find(\'img\').attr(\'alt\');}';
-                } elseif ($k == 'title' && My::settings()->colorbox_legend == 'title') {
+                } elseif ($k == 'title' && $settings->colorbox_legend == 'title') {
                     $opts[] = $k . ': function(){return $(this).attr(\'title\');}';
-                } elseif ($k == 'title' && My::settings()->colorbox_legend == 'description') {
+                } elseif ($k == 'title' && $settings->colorbox_legend == 'description') {
                     $opts[] = $k . ': function(){if ($(this).parent().prop(\'tagName\') === \'FIGURE\'){return $(this).next(\'figcaption\').text();} else return $(this).find(\'img\').attr(\'alt\');}';
-                } elseif ($k == 'title' && My::settings()->colorbox_legend == 'none') {
+                } elseif ($k == 'title' && $settings->colorbox_legend == 'none') {
                     $opts[] = $k . ': \'\'';
                 } else {
                     $opts[] = $k . ': false';

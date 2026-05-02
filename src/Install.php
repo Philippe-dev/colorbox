@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\colorbox;
 
+use Dotclear\App;
 use Dotclear\Helper\Process\TraitProcess;
 
 class Install
@@ -30,6 +31,8 @@ class Install
         if (!self::status()) {
             return false;
         }
+
+        $settings = My::settings();
 
         $opts = [
             'transition'     => 'elastic',
@@ -67,15 +70,15 @@ class Install
             'onClosed'       => '',
         ];
 
-        My::settings()->put('colorbox_enabled', false, 'boolean', 'Enable Colorbox plugin', false, true);
-        My::settings()->put('colorbox_theme', '3', 'integer', 'Colorbox theme', false, true);
-        My::settings()->put('colorbox_zoom_icon', false, 'boolean', 'Enable Colorbox zoom icon', false, true);
-        My::settings()->put('colorbox_zoom_icon_permanent', false, 'boolean', 'Enable permanent Colorbox zoom icon', false, true);
-        My::settings()->put('colorbox_position', false, 'boolean', 'Colorbox zoom icon position', false, true);
-        My::settings()->put('colorbox_user_files', 'public', 'boolean', 'Colorbox user files', false, true);
-        My::settings()->put('colorbox_selectors', '', 'string', 'Colorbox selectors', false, true);
-        My::settings()->put('colorbox_legend', 'alt', 'string', 'Colorbox legend', false, true);
-        My::settings()->put('colorbox_advanced', serialize($opts), 'string', 'Colorbox advanced options', false, true);
+        $settings->put('colorbox_enabled', true, App::blogWorkspace()::NS_BOOL, 'Enable Colorbox plugin', false, true);
+        $settings->put('colorbox_theme', 3, App::blogWorkspace()::NS_INT, 'Colorbox theme', false, true);
+        $settings->put('colorbox_zoom_icon', false, App::blogWorkspace()::NS_BOOL, 'Enable Colorbox zoom icon', false, true);
+        $settings->put('colorbox_zoom_icon_permanent', false, App::blogWorkspace()::NS_BOOL, 'Enable permanent Colorbox zoom icon', false, true);
+        $settings->put('colorbox_position', false, App::blogWorkspace()::NS_BOOL, 'Colorbox zoom icon position', false, true);
+        $settings->put('colorbox_user_files', true, App::blogWorkspace()::NS_BOOL, 'Colorbox user files in public folder', false, true);
+        $settings->put('colorbox_selectors', '', App::blogWorkspace()::NS_STRING, 'Colorbox selectors', false, true);
+        $settings->put('colorbox_legend', 'alt', App::blogWorkspace()::NS_STRING, 'Colorbox legend', false, true);
+        $settings->put('colorbox_advanced', serialize($opts), App::blogWorkspace()::NS_STRING, 'Colorbox advanced options', false, true);
 
         return true;
     }
