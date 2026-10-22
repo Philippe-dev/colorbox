@@ -99,10 +99,10 @@ class Frontend
             'var count = 0; ' .
             '$("' . $selectors . '").each(function() {' . "\n" .
                 'count++;' . "\n" .
-                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],a[href$=".webp"],' .
-                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"],a[href$=".WEBP"]\').addClass("colorbox_zoom");' . "\n" .
-                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"],a[href$=".webp"],' .
-                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".PNG"],a[href$=".GIF"],a[href$=".WEBP"]\').attr("rel", "colorbox-"+count);' . "\n";
+                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".bmp"],a[href$=".png"],a[href$=".gif"],a[href$=".webp"],a[href$=".avif"],' .
+                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".BMP"],a[href$=".PNG"],a[href$=".GIF"],a[href$=".WEBP"],a[href$=".AVIF"]\').addClass("colorbox_zoom");' . "\n" .
+                '$(this).find(\'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".bmp"],a[href$=".png"],a[href$=".gif"],a[href$=".webp"],a[href$=".avif"],' .
+                'a[href$=".JPG"],a[href$=".JPEG"],a[href$=".BMP"],a[href$=".PNG"],a[href$=".GIF"],a[href$=".WEBP"],a[href$=".AVIF"]\').attr("rel", "colorbox-"+count);' . "\n";
 
         if ($settings->colorbox_zoom_icon_permanent) {
             echo

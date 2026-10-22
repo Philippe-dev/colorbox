@@ -17,9 +17,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'Colorbox',
         'A lightweight customizable lightbox',
         'Philippe aka amalgame and Tomtom',
-        '6.9',
+        '6.10',
         [
-            'date'        => '2026-08-15T00:00:08+0100',
+            'date'        => '2026-10-22T00:00:08+0100',
             'requires'    => [['core', '2.39']],
             'permissions' => 'My',
             'type'        => 'plugin',

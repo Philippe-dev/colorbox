@@ -340,7 +340,7 @@
             slideshowSpeed: 2500,
             slideshowStart: "start slideshow",
             slideshowStop: "stop slideshow",
-            photoRegex: /\.(gif|png|jp(e|g|eg)|bmp|ico|webp|jxr|svg)((#|\?).*)?$/i,
+            photoRegex: /\.(avif|gif|png|jp(e|g|eg)|bmp|ico|webp|jxr|svg)((#|\?).*)?$/i,
             retinaImage: !1,
             retinaUrl: !1,
             retinaSuffix: "@2x.$1",
